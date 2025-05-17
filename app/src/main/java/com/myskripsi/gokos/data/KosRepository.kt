@@ -31,4 +31,5 @@ class KosRepository(
             emit(Result.Error("Gagal mengambil data kost: ${e.message}"))
         }
     }
+
 }

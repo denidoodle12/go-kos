@@ -1,5 +1,6 @@
 package com.myskripsi.gokos.ui.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.myskripsi.gokos.data.Result
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.myskripsi.gokos.databinding.ActivityListKosBinding
+import com.myskripsi.gokos.ui.activity.detailKos.DetailKosActivity
 import com.myskripsi.gokos.ui.adapter.KosAdapter
 
 @Suppress("DEPRECATION")
@@ -50,7 +52,10 @@ class ListKosActivity : AppCompatActivity() {
     private fun showData() {
         kosAdapter = KosAdapter()
         kosAdapter.onItemClick = { selectedData ->
-            Toast.makeText(this, "Kos ${selectedData.nama_kost} Chosen", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, DetailKosActivity::class.java).apply {
+                putExtra(DetailKosActivity.EXTRA_DETAIL_KOS, selectedData)
+            }
+            startActivity(intent)
         }
 
         viewModel.kosState.observe(this) { result ->

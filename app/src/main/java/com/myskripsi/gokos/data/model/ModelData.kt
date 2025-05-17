@@ -1,15 +1,20 @@
 package com.myskripsi.gokos.data.model
 
-data class Campus (
+import kotlinx.parcelize.Parcelize
+import android.os.Parcelable
+
+@Parcelize
+data class Campus(
     val id: String = "",
     val campusName: String = "",
     val address: String = "",
     val logoUrl: String = "",
     val location: Location = Location(),
     val radius: Int = 0
-)
+) : Parcelable
 
-data class Kos (
+@Parcelize
+data class Kos(
     val id: String = "",
     val nama_kost: String = "",
     val alamat: String = "",
@@ -22,15 +27,17 @@ data class Kos (
     val fasilitas_kamar: List<String> = listOf(),
     val fasilitas_kamar_mandi: List<String> = listOf(),
     val listrik: String = ""
-)
+) : Parcelable
 
+@Parcelize
 data class Location(
     val latitude: Double = 0.0,
     val longitude: Double = 0.0
-)
+) : Parcelable
 
+@Parcelize
 data class Lokasi(
     val jarak: Double = 0.0,
     val latitude: Double = 0.0,
-    val longitude: Double = 0.0,
-)
+    val longitude: Double = 0.0
+) : Parcelable
