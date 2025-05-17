@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">GoKos</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="searchItem">Cari kos kosan</string>
+    <string name="codes_arrow_back_result_activity">back button</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_maps">Maps</string>
+    <string name="title_profile">Profile</string>
+</resources>

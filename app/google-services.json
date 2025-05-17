@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "908675920423",
+    "project_id": "skripsi-deni",
+    "storage_bucket": "skripsi-deni.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:908675920423:android:758105070e854a279e1402",
+        "android_client_info": {
+          "package_name": "com.myskripsi.gokos"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbx6G_k9veh4jXeFbz0Pab7ABnRfv9pUc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:908675920423:android:cef95f67f56ce47c9e1402",
+        "android_client_info": {
+          "package_name": "com.skripsime.projectskripsi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbx6G_k9veh4jXeFbz0Pab7ABnRfv9pUc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

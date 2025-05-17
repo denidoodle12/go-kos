@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="250dp"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginVertical="5dp"
+    android:layout_marginHorizontal="5dp"
+    app:cardCornerRadius="20dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageKos"
+            android:layout_width="0dp"
+            android:layout_height="140dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/backgrounds/scenic" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/bg_circle_primary"
+            android:fontFamily="@font/notosans_semibold"
+            android:padding="5dp"
+            android:text="0.5 KM"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/imageKos"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/categoryKos"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/bg_stroke"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="2dp"
+            android:text="Kos Campuran"
+            android:textSize="10sp"
+            android:fontFamily="@font/notosans_semibold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageKos" />
+
+
+        <TextView
+            android:id="@+id/nameKos"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="15dp"
+            android:text="Kost Pelangi Desa Drangong Serang, Banten."
+            android:textSize="12sp"
+            android:fontFamily="@font/notosans_semibold"
+            app:layout_constraintStart_toStartOf="@+id/categoryKos"
+            app:layout_constraintTop_toBottomOf="@+id/categoryKos"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/addressKos"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="15dp"
+            android:text="Jl. Raya Serang - Cilegon Km 5 Taman Drangong, Serang, Banten"
+            android:textSize="10sp"
+            android:fontFamily="@font/notosans_medium"
+            android:textColor="@color/gray"
+            app:layout_constraintStart_toStartOf="@+id/categoryKos"
+            app:layout_constraintTop_toBottomOf="@+id/nameKos"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/startFrom"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="Starts from"
+            android:textSize="10sp"
+            android:fontFamily="@font/notosans_regular"
+            app:layout_constraintStart_toStartOf="@+id/categoryKos"
+            app:layout_constraintTop_toBottomOf="@id/addressKos" />
+
+
+        <TextView
+            android:id="@+id/priceKos"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/notosans_bold"
+            android:text="Rp. 500.000 "
+            android:textColor="@color/red"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/categoryKos"
+            app:layout_constraintTop_toBottomOf="@id/startFrom" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="/ month"
+            android:textSize="10sp"
+            android:fontFamily="@font/notosans_regular"
+            app:layout_constraintBottom_toBottomOf="@+id/priceKos"
+            app:layout_constraintStart_toEndOf="@+id/priceKos"
+            app:layout_constraintTop_toTopOf="@+id/priceKos" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
