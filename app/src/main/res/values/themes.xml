@@ -1,6 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.GoKos" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:fontFamily">@font/notosans_regular</item>
+        <item name="fontFamily">@font/notosans_regular</item>
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
@@ -16,4 +18,5 @@
         <item name="android:layout_height">140dp</item>
         <item name="android:background">#fff</item>
     </style>
+
 </resources>

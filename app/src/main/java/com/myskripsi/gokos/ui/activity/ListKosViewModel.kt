@@ -8,7 +8,7 @@ import com.myskripsi.gokos.data.KosRepository
 import com.myskripsi.gokos.data.model.Kos
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import com.myskripsi.gokos.data.Result
+import com.myskripsi.gokos.utils.Result
 
 class ListKosViewModel(private val repository: KosRepository) : ViewModel() {
     private val _kosState = MutableLiveData<Result<List<Kos>>>()

@@ -8,4 +8,7 @@
     <string name="title_maps">Maps</string>
     <string name="title_profile">Profile</string>
     <string name="kos_image">This is kos image</string>
+    <string name="email_format_invalid">Format email tidak valid</string>
+    <string name="txt_password">*******</string>
+    <string name="password_too_short">Password terlalu pendek</string>
 </resources>

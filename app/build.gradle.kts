@@ -76,4 +76,11 @@ dependencies {
     // Image Processing
     implementation("com.github.bumptech.glide:glide:4.16.0")
 
+    // Google Location Services
+    implementation("com.google.android.gms:play-services-location:21.0.1")
+
+    // Onboarding
+    implementation("com.tbuonomo:dotsindicator:5.1.0")
+
+
 }
