@@ -64,7 +64,7 @@
             android:background="@drawable/border_transparent_with_stroke"
             android:drawableStart="@drawable/ic_email_24"
             android:drawablePadding="8dp"
-            android:hint="@string/txt_email"
+            android:hint="Email"
             android:inputType="textEmailAddress"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"

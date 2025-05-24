@@ -27,9 +27,6 @@
             android:name=".ui.activity.onboarding.StartActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.onboarding.FirstScreen"
-            android:exported="false" />
-        <activity
             android:name=".ui.activity.onboarding.OnboardingActivity"
             android:exported="false" />
         <activity

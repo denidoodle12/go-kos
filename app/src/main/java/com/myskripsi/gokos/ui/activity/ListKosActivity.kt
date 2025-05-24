@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.myskripsi.gokos.utils.Result
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.myskripsi.gokos.databinding.ActivityListKosBinding
-import com.myskripsi.gokos.ui.activity.detailKos.DetailKosActivity
 import com.myskripsi.gokos.ui.adapter.KosAdapter
+import com.myskripsi.gokos.ui.activity.detailKos.DetailKosActivity // Pastikan import benar
 
 @Suppress("DEPRECATION")
 class ListKosActivity : AppCompatActivity() {
@@ -26,58 +26,37 @@ class ListKosActivity : AppCompatActivity() {
 
         // Setup ActionBar
         supportActionBar?.apply {
-            title = "campusName"
+            // Judul akan di-set setelah data kampus dimuat
             setDisplayHomeAsUpEnabled(true)
         }
 
-        // Get ID Campus from intent
-        val campusId = intent.getStringExtra(EXTRA_CAMPUS_ID) ?: ""
+        val campusId = intent.getStringExtra(EXTRA_CAMPUS_ID)
 
-        // Fetch Data Kos Based ID Campus
-        if (campusId.isNotEmpty()) {
-            viewModel.getKosByCampusId(campusId)
-        } else {
-            Toast.makeText(this, "ID Campus not found", Toast.LENGTH_SHORT).show()
+        if (campusId.isNullOrEmpty()) {
+            Toast.makeText(this, "ID Kampus tidak ditemukan", Toast.LENGTH_SHORT).show()
             finish()
+            return
         }
 
-        showData()
+        // Panggil fungsi baru di ViewModel
+        viewModel.loadKosAndCampusDetails(campusId)
+
+        setupRecyclerView()
+        observeViewModel()
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
+        onBackPressedDispatcher.onBackPressed() // Cara baru untuk onBackPressed
         return true
     }
 
-    private fun showData() {
-        kosAdapter = KosAdapter()
+    private fun setupRecyclerView() {
+        kosAdapter = KosAdapter() // Pastikan KosAdapter Anda sudah ada
         kosAdapter.onItemClick = { selectedData ->
             val intent = Intent(this, DetailKosActivity::class.java).apply {
-                putExtra(DetailKosActivity.EXTRA_DETAIL_KOS, selectedData)
+                putExtra(DetailKosActivity.EXTRA_DETAIL_KOS, selectedData) // selectedData sekarang Parcelable
             }
             startActivity(intent)
-        }
-
-        viewModel.kosState.observe(this) { result ->
-            when (result) {
-                is Result.Loading -> {
-                    showLoading(true)
-                }
-                is Result.Success -> {
-                    showLoading(false)
-                    val kosList = result.data
-                    if (kosList.isEmpty()) {
-                        showEmpty(true)
-                    } else {
-                        showEmpty(false)
-                        kosAdapter.submitList(kosList)
-                    }
-                }
-                is Result.Error -> {
-                    showLoading(false)
-                    showError(result.message)
-                }
-            }
         }
 
         with(binding.rvKost) {
@@ -87,25 +66,57 @@ class ListKosActivity : AppCompatActivity() {
         }
     }
 
+    private fun observeViewModel() {
+        viewModel.campusName.observe(this) { name ->
+            supportActionBar?.title = name // Set judul ActionBar dengan nama kampus
+        }
+
+        viewModel.kosState.observe(this) { result ->
+            when (result) {
+                is Result.Loading -> {
+                    showLoading(true)
+                    showEmpty(false) // Sembunyikan pesan empty saat loading
+                    showError(null) // Sembunyikan pesan error saat loading
+                }
+                is Result.Success -> {
+                    showLoading(false)
+                    val kosList = result.data
+                    if (kosList.isEmpty()) {
+                        showEmpty(true)
+                        showError(null)
+                    } else {
+                        showEmpty(false)
+                        showError(null)
+                        kosAdapter.submitList(kosList) // Adapter akan menerima data dengan jarak
+                    }
+                }
+                is Result.Error -> {
+                    showLoading(false)
+                    showEmpty(false)
+                    showError(result.message)
+                }
+            }
+        }
+    }
+
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
         binding.rvKost.visibility = if (isLoading) View.GONE else View.VISIBLE
-        binding.tvError.visibility = View.GONE
     }
 
     private fun showEmpty(isEmpty: Boolean) {
         binding.tvError.visibility = if (isEmpty) View.VISIBLE else View.GONE
-        binding.tvError.text = "Tidak ada kost yang ditemukan"
+        if (isEmpty) binding.tvError.text = "Tidak ada kost yang ditemukan di sekitar kampus ini."
     }
 
-    private fun showError(message: String) {
-        binding.tvError.visibility = View.VISIBLE
-        binding.rvKost.visibility = View.GONE
+    private fun showError(message: String?) {
+        binding.tvError.visibility = if (message != null) View.VISIBLE else View.GONE
         binding.tvError.text = message
+        if (message != null) binding.rvKost.visibility = View.GONE // Sembunyikan RecyclerView jika ada error
     }
 
     companion object {
         const val EXTRA_CAMPUS_ID = "extra_campus_id"
-        const val EXTRA_CAMPUS_NAME = "extra_campus_name"
+        // EXTRA_CAMPUS_NAME tidak lagi diperlukan karena kita mengambilnya dari ViewModel
     }
 }

@@ -1,20 +1,20 @@
 package com.myskripsi.gokos.data.model
 
-import kotlinx.parcelize.Parcelize
 import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Campus(
+data class Campus (
     val id: String = "",
-    val campusName: String = "",
-    val address: String = "",
-    val logoUrl: String = "",
-    val location: Location = Location(),
+    val nama_kampus: String = "", // Sesuaikan dengan field di Firestore
+    val alamat: String = "",    // Sesuaikan dengan field di Firestore
+    val logo_url: String = "",  // Sesuaikan dengan field di Firestore
+    val lokasi: Lokasi = Lokasi(), // Sesuaikan dengan field di Firestore
     val radius: Int = 0
 ) : Parcelable
 
 @Parcelize
-data class Kos(
+data class Kos (
     val id: String = "",
     val nama_kost: String = "",
     val alamat: String = "",
@@ -23,21 +23,21 @@ data class Kos(
     val harga: Int = 0,
     val kampus_terdekat: String = "",
     val kategori: String = "",
-    val lokasi: Lokasi = Lokasi(),
+    val lokasi: Lokasi = Lokasi(), // Perhatikan, ini adalah Lokasi custom Anda
     val fasilitas_kamar: List<String> = listOf(),
     val fasilitas_kamar_mandi: List<String> = listOf(),
     val listrik: String = ""
 ) : Parcelable
 
 @Parcelize
-data class Location(
+data class Location( // Untuk koordinat umum, seperti pada Kampus
     val latitude: Double = 0.0,
     val longitude: Double = 0.0
 ) : Parcelable
 
 @Parcelize
-data class Lokasi(
-    val jarak: Double = 0.0,
+data class Lokasi( // Untuk data lokasi pada Kos, termasuk jarak
+    var jarak: Double = 0.0, // Ubah jadi var agar bisa di-update
     val latitude: Double = 0.0,
     val longitude: Double = 0.0
 ) : Parcelable
