@@ -3,10 +3,8 @@ package com.myskripsi.gokos.di
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import com.myskripsi.gokos.data.KosRepository
-import com.myskripsi.gokos.ui.activity.ListKosViewModel
+import com.myskripsi.gokos.ui.activity.listkos.ListKosViewModel
 import com.myskripsi.gokos.ui.fragment.home.HomeViewModel
-import com.myskripsi.gokos.utils.LocationHelper
-import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -24,9 +22,7 @@ val repositoryModule = module {
 }
 
 val utilsModule = module {
-    single {
-        LocationHelper(androidContext())
-    }
+
 }
 
 val viewModelModule = module {

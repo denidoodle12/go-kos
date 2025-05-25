@@ -6,10 +6,10 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Campus (
     val id: String = "",
-    val nama_kampus: String = "", // Sesuaikan dengan field di Firestore
-    val alamat: String = "",    // Sesuaikan dengan field di Firestore
-    val logo_url: String = "",  // Sesuaikan dengan field di Firestore
-    val lokasi: Lokasi = Lokasi(), // Sesuaikan dengan field di Firestore
+    val nama_kampus: String = "",
+    val alamat: String = "",
+    val logo_url: String = "",
+    val lokasi: Lokasi = Lokasi(),
     val radius: Int = 0
 ) : Parcelable
 
@@ -23,21 +23,15 @@ data class Kos (
     val harga: Int = 0,
     val kampus_terdekat: String = "",
     val kategori: String = "",
-    val lokasi: Lokasi = Lokasi(), // Perhatikan, ini adalah Lokasi custom Anda
+    val lokasi: Lokasi = Lokasi(),
     val fasilitas_kamar: List<String> = listOf(),
     val fasilitas_kamar_mandi: List<String> = listOf(),
     val listrik: String = ""
 ) : Parcelable
 
 @Parcelize
-data class Location( // Untuk koordinat umum, seperti pada Kampus
-    val latitude: Double = 0.0,
-    val longitude: Double = 0.0
-) : Parcelable
-
-@Parcelize
-data class Lokasi( // Untuk data lokasi pada Kos, termasuk jarak
-    var jarak: Double = 0.0, // Ubah jadi var agar bisa di-update
+data class Lokasi(
+    var jarak: Double = 0.0,
     val latitude: Double = 0.0,
     val longitude: Double = 0.0
 ) : Parcelable

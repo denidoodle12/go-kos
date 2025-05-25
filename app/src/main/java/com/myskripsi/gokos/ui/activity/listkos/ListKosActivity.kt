@@ -1,4 +1,4 @@
-package com.myskripsi.gokos.ui.activity
+package com.myskripsi.gokos.ui.activity.listkos
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

@@ -1,222 +1,149 @@
-package com.myskripsi.gokos.utils
+package com.myskripsi.gokos.utils // Atau package lain yang sesuai
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
-import android.location.Location
+import android.location.LocationManager
 import android.os.Looper
-import android.util.Log
-import androidx.core.app.ActivityCompat
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
+import androidx.core.location.LocationManagerCompat
+import androidx.fragment.app.Fragment
 import com.google.android.gms.location.*
-import kotlinx.coroutines.tasks.await
+import com.google.android.gms.tasks.Task
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlin.coroutines.resume
 
-class LocationHelper(private val context: Context) {
+class LocationHelper(
+    private val fragment: Fragment
+) {
+    private val fusedLocationClient: FusedLocationProviderClient =
+        LocationServices.getFusedLocationProviderClient(fragment.requireActivity()) // DIUBAH: Menggunakan fragment.requireActivity()
 
-    private val fusedLocationClient: FusedLocationProviderClient by lazy {
-        LocationServices.getFusedLocationProviderClient(context)
-    }
+    private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
+    private var onPermissionResultCallback: ((Map<String, Boolean>) -> Unit)? = null
 
-    // Menggunakan Priority class yang baru (tidak deprecated)
-    private val locationRequest: LocationRequest by lazy {
-        LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 10000)
-            .setWaitForAccurateLocation(false)
-            .setMinUpdateIntervalMillis(5000)
-            .setMaxUpdateDelayMillis(15000)
-            .build()
+    init {
+        // Inisialisasi launcher menggunakan Fragment, yang akan dipanggil di onCreate Fragment
+        permissionLauncher = fragment.registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) { permissions ->
+            onPermissionResultCallback?.invoke(permissions)
+        }
     }
 
     fun hasLocationPermission(): Boolean {
-        return ActivityCompat.checkSelfPermission(
-            context,
+        return ContextCompat.checkSelfPermission(
+            fragment.requireContext(), // DIUBAH: Menggunakan fragment.requireContext()
             Manifest.permission.ACCESS_FINE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(
-            context,
+        ) == PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(
+            fragment.requireContext(), // DIUBAH
             Manifest.permission.ACCESS_COARSE_LOCATION
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    suspend fun getCurrentLocationSuspend(): Location? {
-        if (!hasLocationPermission()) {
-            Log.e("LocationHelper", "Location permission not granted")
-            return null
-        }
-
-        return try {
-            // Explicitly check permissions again before accessing location services
-            if (ActivityCompat.checkSelfPermission(
-                    context,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                    context,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                Log.e("LocationHelper", "Location permission not granted")
-                return null
-            }
-
-            // Try to get last location first
-            val lastLocation = fusedLocationClient.lastLocation.await()
-
-            lastLocation ?: requestNewLocationSuspend()
-        } catch (e: SecurityException) {
-            Log.e("LocationHelper", "Security exception: ${e.message}")
-            null
-        } catch (e: Exception) {
-            Log.e("LocationHelper", "Error getting location: ${e.message}")
-            null
-        }
-    }
-
-    fun getCurrentLocation(callback: (Location?) -> Unit) {
-        if (!hasLocationPermission()) {
-            Log.e("LocationHelper", "Location permission not granted")
-            callback(null)
-            return
-        }
-
-        try {
-            // Explicitly check permissions again before accessing location services
-            if (ActivityCompat.checkSelfPermission(
-                    context,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                    context,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                Log.e("LocationHelper", "Location permission not granted")
-                callback(null)
-                return
-            }
-
-            fusedLocationClient.lastLocation
-                .addOnSuccessListener { location ->
-                    if (location != null) {
-                        callback(location)
-                    } else {
-                        // Last location not available, request new location
-                        requestNewLocation(callback)
-                    }
-                }
-                .addOnFailureListener { e ->
-                    Log.e("LocationHelper", "Error getting location: ${e.message}")
-                    callback(null)
-                }
-        } catch (e: SecurityException) {
-            Log.e("LocationHelper", "Security exception: ${e.message}")
-            callback(null)
-        } catch (e: Exception) {
-            Log.e("LocationHelper", "Exception in getCurrentLocation: ${e.message}")
-            callback(null)
-        }
-    }
-
-    private suspend fun requestNewLocationSuspend(): Location? {
-        return try {
-            // Explicitly check permissions before accessing location services
-            if (ActivityCompat.checkSelfPermission(
-                    context,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                    context,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                Log.e("LocationHelper", "Location permission not granted")
-                return null
-            }
-
-            val result = fusedLocationClient.getCurrentLocation(
-                Priority.PRIORITY_HIGH_ACCURACY,
-                null
-            ).await()
-            result
-        } catch (e: SecurityException) {
-            Log.e("LocationHelper", "Security exception: ${e.message}")
-            null
-        } catch (e: Exception) {
-            Log.e("LocationHelper", "Error getting current location: ${e.message}")
-            null
-        }
-    }
-
-    private fun requestNewLocation(callback: (Location?) -> Unit) {
-        if (!hasLocationPermission()) {
-            Log.e("LocationHelper", "Location permission not granted")
-            callback(null)
-            return
-        }
-
-        try {
-            // Explicitly check permissions before accessing location services
-            if (ActivityCompat.checkSelfPermission(
-                    context,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                    context,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                Log.e("LocationHelper", "Location permission not granted")
-                callback(null)
-                return
-            }
-
-            // Using newer getCurrentLocation API (not deprecated)
-            fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null)
-                .addOnSuccessListener { location ->
-                    callback(location)
-                }
-                .addOnFailureListener { e ->
-                    Log.e("LocationHelper", "Error getting current location: ${e.message}")
-                    callback(null)
-                }
-        } catch (e: SecurityException) {
-            Log.e("LocationHelper", "Security exception: ${e.message}")
-            callback(null)
-        } catch (e: Exception) {
-            Log.e("LocationHelper", "Exception in requestNewLocation: ${e.message}")
-            callback(null)
-        }
-    }
-
-    // For periodic location updates
-    fun requestLocationUpdates(callback: (Location) -> Unit) {
-        if (!hasLocationPermission()) {
-            Log.e("LocationHelper", "Location permission not granted")
-            return
-        }
-
-        val locationCallback = object : LocationCallback() {
-            override fun onLocationResult(result: LocationResult) {
-                result.lastLocation?.let { callback(it) }
-            }
-        }
-
-        try {
-            // Explicitly check permissions before accessing location services
-            if (ActivityCompat.checkSelfPermission(
-                    context,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                    context,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                Log.e("LocationHelper", "Location permission not granted")
-                return
-            }
-
-            fusedLocationClient.requestLocationUpdates(
-                locationRequest,
-                locationCallback,
-                Looper.getMainLooper()
+    fun requestLocationPermissions(callback: (Map<String, Boolean>) -> Unit) {
+        onPermissionResultCallback = callback
+        permissionLauncher.launch(
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
             )
+        )
+    }
+
+    @SuppressLint("MissingPermission")
+    suspend fun getCurrentLocation(): LocationResult {
+        if (!hasLocationPermission()) {
+            return LocationResult.PermissionDenied
+        }
+
+        val locationManager = fragment.requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager // DIUBAH
+        if (!LocationManagerCompat.isLocationEnabled(locationManager)) {
+            return LocationResult.LocationDisabled
+        }
+
+        return try {
+            val lastLocation = fusedLocationClient.lastLocation.await()
+            if (lastLocation != null) {
+                LocationResult.Success(lastLocation)
+            } else {
+                requestSingleLocationUpdate()
+            }
         } catch (e: SecurityException) {
-            Log.e("LocationHelper", "Security exception: ${e.message}")
+            LocationResult.PermissionDenied
         } catch (e: Exception) {
-            Log.e("LocationHelper", "Exception in requestLocationUpdates: ${e.message}")
+            LocationResult.Error("Gagal mendapatkan lokasi terakhir: ${e.message}")
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private suspend fun requestSingleLocationUpdate(): LocationResult = suspendCancellableCoroutine { continuation ->
+        if (!hasLocationPermission()) {
+            if (continuation.isActive) continuation.resume(LocationResult.PermissionDenied)
+            return@suspendCancellableCoroutine
+        }
+
+        val locationManager = fragment.requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager // DIUBAH
+        if (!LocationManagerCompat.isLocationEnabled(locationManager)) {
+            if (continuation.isActive) continuation.resume(LocationResult.LocationDisabled)
+            return@suspendCancellableCoroutine
+        }
+
+        val locationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 5000L)
+            .setMaxUpdates(1)
+            .build()
+
+        var locationCallback: LocationCallback? = null
+        locationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResultCallback: com.google.android.gms.location.LocationResult) {
+                fusedLocationClient.removeLocationUpdates(this)
+                locationResultCallback.lastLocation?.let {
+                    if (continuation.isActive) continuation.resume(LocationResult.Success(it))
+                } ?: run {
+                    if (continuation.isActive) continuation.resume(LocationResult.Error("Tidak ada lokasi ditemukan dalam hasil update."))
+                }
+            }
+
+            override fun onLocationAvailability(availability: LocationAvailability) {
+                if (!availability.isLocationAvailable) {
+                    fusedLocationClient.removeLocationUpdates(this)
+                    if (continuation.isActive) continuation.resume(LocationResult.Error("Layanan lokasi tidak tersedia saat meminta update."))
+                }
+            }
+        }
+
+        try {
+            fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper())
+        } catch (e: SecurityException) {
+            fusedLocationClient.removeLocationUpdates(locationCallback)
+            if (continuation.isActive) continuation.resume(LocationResult.PermissionDenied)
+        }
+
+        continuation.invokeOnCancellation {
+            fusedLocationClient.removeLocationUpdates(locationCallback)
+        }
+    }
+}
+
+// Extension function Task<T>.await() tetap sama
+suspend fun <T> Task<T>.await(): T? {
+    if (isComplete) {
+        return if (isSuccessful) result else {
+            null
+        }
+    }
+    return suspendCancellableCoroutine { cont ->
+        addOnSuccessListener { result ->
+            if (cont.isActive) cont.resume(result)
+        }
+        addOnFailureListener {
+            if (cont.isActive) cont.resume(null)
+        }
+        addOnCanceledListener {
+            if (cont.isActive) cont.cancel()
         }
     }
 }
