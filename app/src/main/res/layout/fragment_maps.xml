@@ -9,7 +9,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
+        android:background="@color/white"
         android:elevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,7 +20,6 @@
             android:layout_height="wrap_content"
             android:padding="10dp">
 
-            <!-- Container Horizontal -->
             <LinearLayout
                 android:id="@+id/logo_title_container"
                 android:layout_width="wrap_content"
@@ -42,17 +41,20 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Maps"
-                    android:textColor="#4285F4"
+                    android:text="@string/appBarGo"
+                    android:textColor="@color/primary"
                     android:textSize="22sp"
+                    android:fontFamily="@font/notosans_bold"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="-kos."
-                    android:textColor="#212121"
-                    android:textSize="22sp" />
+                    android:text="@string/appBarKos"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"
+                    android:fontFamily="@font/notosans_bold"
+                    android:textStyle="bold" />
 
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

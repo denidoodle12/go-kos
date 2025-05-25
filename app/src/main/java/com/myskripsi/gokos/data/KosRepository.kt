@@ -47,6 +47,20 @@ class KosRepository(
         }
     }
 
+    fun getAllKos(): Flow<Result<List<Kos>>> = flow {
+        emit(Result.Loading)
+        try {
+            val snapshot = db.collection("kost").get().await()
+            val kosList = snapshot.documents.mapNotNull { document ->
+                val kos = document.toObject(Kos::class.java)
+                kos?.copy(id = document.id)
+            }
+            emit(Result.Success(kosList))
+        } catch (e: Exception) {
+            emit(Result.Error("Gagal mengambil semua data kost: ${e.message}"))
+        }
+    }
+
 //    fun getNearbyKos(userLat: Double, userLng: Double): Flow<Result<List<Kos>>> = flow {
 //        emit(Result.Loading)
 //        try {

@@ -10,7 +10,7 @@
         android:id="@+id/appBarHome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
+        android:background="@color/white"
         android:elevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,17 +43,20 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Go"
-                    android:textColor="#4285F4"
+                    android:text="@string/appBarGo"
+                    android:textColor="@color/primary"
                     android:textSize="22sp"
+                    android:fontFamily="@font/notosans_bold"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="-kos."
-                    android:textColor="#212121"
-                    android:textSize="22sp" />
+                    android:text="@string/appBarKos"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"
+                    android:fontFamily="@font/notosans_bold"
+                    android:textStyle="bold" />
 
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -94,8 +97,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/notosans_bold"
-                    android:text="Hi, Deni Hidayat"
+                    android:text="@string/hiUsername"
                     android:textSize="18sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -104,8 +108,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/notosans_medium"
-                    android:text="Mau cari kos kosan?"
+                    android:text="@string/txt_infoToSearch"
                     android:textSize="14sp"
+                    android:textColor="@color/gray"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/username" />
 
@@ -156,8 +161,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/notosans_bold"
-                    android:text="Kos Disekitarmu"
+                    android:text="@string/txt_headingOne"
                     android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cardViewBanner" />
 
@@ -166,8 +172,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/notosans_medium"
-                    android:text="Kami berikan rekomendasi kost terdekat dari lokasimu yang mungkin cocok untuk kamu"
+                    android:text="@string/txt_headingOneInfo"
                     android:textSize="12sp"
+                    android:textColor="@color/gray"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textHeading2" />
 
@@ -182,6 +189,19 @@
                     app:layout_constraintTop_toBottomOf="@+id/textview2"
                     tools:listitem="@layout/items_nearby_kost" />
 
+                <TextView
+                    android:id="@+id/tvNearbyKosStatus"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:textColor="@color/gray"
+                    android:visibility="gone" tools:text="Tidak ada kos terdekat dari lokasimu."
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rvNearbyKos" />
+
                 <Button
                     android:id="@+id/btnOtherKosNearby"
                     android:layout_width="match_parent"
@@ -190,13 +210,12 @@
                     android:background="@drawable/bg_stroke"
                     android:fontFamily="@font/notosans_medium"
                     android:gravity="center"
-                    android:text="Kos lainnya disekitar kamu"
+                    android:text="@string/btn_kosNearbyYou"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/rvNearbyKos" />
-
+                    app:layout_constraintTop_toBottomOf="@id/tvNearbyKosStatus" />
 
                 <TextView
                     android:id="@+id/textHeading3"
@@ -204,8 +223,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/notosans_bold"
-                    android:text="Kos Terdekat dari Kampusmu"
+                    android:text="@string/txt_headingTwo"
                     android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/btnOtherKosNearby" />
 
@@ -214,8 +234,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/notosans_medium"
-                    android:text="Kami berikan rekomendasi kost terdekat dari lokasimu yang mungkin cocok untuk kamu"
+                    android:text="@string/txt_headingTwoInfo"
                     android:textSize="12sp"
+                    android:textColor="@color/gray"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textHeading3" />
 
@@ -262,7 +283,7 @@
                                     android:layout_marginTop="8dp"
                                     android:fontFamily="@font/notosans_medium"
                                     android:gravity="center"
-                                    android:text="Universitas Serang Raya"
+                                    android:text="@string/txt_unsera"
                                     android:textSize="12sp" />
 
                             </LinearLayout>
@@ -298,7 +319,7 @@
                                     android:layout_marginTop="8dp"
                                     android:fontFamily="@font/notosans_medium"
                                     android:gravity="center"
-                                    android:text="Universitas Bina Bangsa"
+                                    android:text="@string/txt_uniba"
                                     android:textSize="12sp" />
 
                             </LinearLayout>
@@ -333,29 +354,21 @@
                                     android:layout_marginTop="8dp"
                                     android:fontFamily="@font/notosans_medium"
                                     android:gravity="center"
-                                    android:text="Universitas SMH Banten"
+                                    android:text="@string/txt_uinsmhbanten"
                                     android:textSize="12sp" />
 
                             </LinearLayout>
 
                         </androidx.cardview.widget.CardView>
 
-
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </LinearLayout>
-
-                <!--            <androidx.cardview.widget.CardView-->
-                <!--                android:id="@+id/cardView_unsera"-->
-                <!--                style="@style/CustomCardView"-->
-                <!--                app:layout_constraintStart_toStartOf="parent"-->
-                <!--                app:layout_constraintTop_toBottomOf="@id/textview3">-->
-
-                <!--            </androidx.cardview.widget.CardView>-->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
 
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -28,10 +28,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginBottom="10dp"
-            android:text="Kost Pelangi"
+            android:text="@string/txt_kosName"
             android:textSize="20sp"
             android:fontFamily="@font/notosans_bold"
             android:textColor="@color/white"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="@+id/imageKos"/>
 
@@ -44,9 +45,10 @@
             android:background="@drawable/bg_circle_primary"
             android:fontFamily="@font/notosans_semibold"
             android:padding="10dp"
-            android:text="0.5 KM"
+            android:text="@string/txt_distance"
             android:textColor="@color/white"
             android:textSize="12sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/imageKos"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -59,9 +61,10 @@
             android:background="@drawable/bg_stroke"
             android:paddingHorizontal="10dp"
             android:paddingVertical="2dp"
-            android:text="Kos Campuran"
+            android:text="@string/txt_categorykos"
             android:textSize="12sp"
             android:fontFamily="@font/notosans_semibold"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageKos"/>
 
@@ -73,7 +76,7 @@
             android:layout_marginEnd="15dp"
             android:fontFamily="@font/notosans_medium"
             android:maxLines="1"
-            android:text="Jl. Raya Serang - Cilegon Km 5 Taman Drangong, Serang, Banten"
+            android:text="@string/txt_addressName"
             android:textColor="@color/gray"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -86,7 +89,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="6dp"
             android:layout_marginHorizontal="15dp"
-            android:text="Kost ini merupakan hunian nyaman favorite mahasiswa. Terdapat fasilitas yang lengkap dan lingkungan yang..."
+            android:text="@string/txt_descriptionKos"
             android:textSize="12sp"
             android:maxLines="3"
             android:fontFamily="@font/notosans_regular"
@@ -100,9 +103,10 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:fontFamily="@font/notosans_bold"
-            android:text="Rp. 500.000 "
+            android:text="@string/txt_priceKos"
             android:textColor="@color/red"
             android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/categoryKos"
             app:layout_constraintTop_toBottomOf="@id/descriptionKos" />
@@ -110,7 +114,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="/ month"
+            android:text="@string/txt_perMonth"
             android:textSize="10sp"
             android:fontFamily="@font/notosans_regular"
             app:layout_constraintBottom_toBottomOf="@+id/priceKos"

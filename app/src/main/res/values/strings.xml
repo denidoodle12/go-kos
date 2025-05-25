@@ -2,6 +2,8 @@
     <string name="app_name">GoKos</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="searchItem">Cari kos kosan</string>
+
+    'Home Fragment Strings'
     <string name="codes_arrow_back_result_activity">back button</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_home">Home</string>
@@ -11,4 +13,38 @@
     <string name="email_format_invalid">Format email tidak valid</string>
     <string name="txt_password">*******</string>
     <string name="password_too_short">Password terlalu pendek</string>
+    <string name="appBarGo">Go</string>
+    <string name="appBarKos">-kos.</string>
+    <string name="hiUsername">Hi, Deni Hidayat</string>
+    <string name="txt_infoToSearch">Mau cari kos kosan?</string>
+    <string name="txt_headingOne">Kos Disekitarmu</string>
+    <string name="txt_headingOneInfo">Kami berikan rekomendasi kost terdekat dari lokasimu yang mungkin cocok untuk kamu</string>
+    <string name="btn_kosNearbyYou">Kos lainnya disekitar kamu</string>
+    <string name="txt_headingTwo">Kos Terdekat dari Kampusmu</string>
+    <string name="txt_headingTwoInfo">Kami berikan rekomendasi kost terdekat dari lokasimu yang mungkin cocok untuk kamu</string>
+    <string name="txt_unsera">Universitas Serang Raya</string>
+    <string name="txt_uniba">Universitas Bina Bangsa</string>
+    <string name="txt_uinsmhbanten">Universitas SMH Banten</string>
+
+    'Profile Fragment Strings'
+    <string name="txt_emailUser">gokosapp@gmail.com</string>
+    <string name="txt_account">Akun</string>
+    <string name="txt_accountInfo">Informasi tentang akun kamu</string>
+    <string name="txt_aboutapp">Tentang Aplikasi</string>
+    <string name="txt_aboutappInfo">Informasi tentang aplikasi Go-Kos</string>
+    <string name="txt_language">Bahasa</string>
+    <string name="txt_languageInfo">Ubah ke bahasa yang kamu inginkan</string>
+    <string name="btn_logout">LOGOUT</string>
+
+    'Card View Nearby Kos Strings'
+    <string name="txt_distance">0.5 KM</string>
+    <string name="txt_categorykos">Kos Campuran</string>
+    <string name="txt_kosName">Kost Pelangi Desa Drangong</string>
+    <string name="txt_addressName">Jl. Raya Serang - Cilegon Km 5 Taman Drangong, Serang, Banten</string>
+    <string name="txt_startFrom">Starts from</string>
+    <string name="txt_priceKos">Rp. 500.000</string>
+    <string name="txt_perMonth">/ month</string>
+    <string name="txt_descriptionKos">Kost ini merupakan hunian nyaman favorite mahasiswa. Terdapat fasilitas yang lengkap dan lingkungan yang...</string>
+
+
 </resources>

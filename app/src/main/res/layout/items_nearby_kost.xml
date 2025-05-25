@@ -29,11 +29,12 @@
             android:layout_marginStart="15dp"
             android:layout_marginBottom="15dp"
             android:background="@drawable/bg_circle_primary"
-            android:fontFamily="@font/notosans_semibold"
+            android:fontFamily="@font/notosans_bold"
             android:padding="5dp"
-            android:text="0.5 KM"
+            android:text="@string/txt_distance"
             android:textColor="@color/white"
             android:textSize="12sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/imageKos"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -46,12 +47,12 @@
             android:background="@drawable/bg_stroke"
             android:paddingHorizontal="10dp"
             android:paddingVertical="2dp"
-            android:text="Kos Campuran"
+            android:text="@string/txt_categorykos"
             android:textSize="10sp"
             android:fontFamily="@font/notosans_semibold"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageKos" />
-
 
         <TextView
             android:id="@+id/nameKos"
@@ -59,9 +60,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:layout_marginEnd="15dp"
-            android:text="Kost Pelangi Desa Drangong Serang, Banten."
+            android:text="@string/txt_kosName"
             android:textSize="12sp"
             android:fontFamily="@font/notosans_semibold"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/categoryKos"
             app:layout_constraintTop_toBottomOf="@+id/categoryKos"
             app:layout_constraintEnd_toEndOf="parent"/>
@@ -72,7 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:layout_marginEnd="15dp"
-            android:text="Jl. Raya Serang - Cilegon Km 5 Taman Drangong, Serang, Banten"
+            android:text="@string/txt_addressName"
             android:textSize="10sp"
             android:fontFamily="@font/notosans_medium"
             android:textColor="@color/gray"
@@ -85,12 +87,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:text="Starts from"
-            android:textSize="10sp"
+            android:text="@string/txt_startFrom"
+            android:textSize="8sp"
             android:fontFamily="@font/notosans_regular"
             app:layout_constraintStart_toStartOf="@+id/categoryKos"
             app:layout_constraintTop_toBottomOf="@id/addressKos" />
-
 
         <TextView
             android:id="@+id/priceKos"
@@ -98,9 +99,10 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:fontFamily="@font/notosans_bold"
-            android:text="Rp. 500.000 "
+            android:text="@string/txt_priceKos"
             android:textColor="@color/red"
             android:textSize="14sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/categoryKos"
             app:layout_constraintTop_toBottomOf="@id/startFrom" />
@@ -108,7 +110,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="/ month"
+            android:text="@string/txt_perMonth"
             android:textSize="10sp"
             android:fontFamily="@font/notosans_regular"
             app:layout_constraintBottom_toBottomOf="@+id/priceKos"
