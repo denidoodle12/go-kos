@@ -13,6 +13,7 @@ lifecycle-livedata-ktx = "2.8.7"
 lifecycle-viewmodel-ktx = "2.8.7"
 navigation-fragment-ktx = "2.8.9"
 navigation-ui-ktx = "2.8.9"
+play-services-maps = "19.2.0"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -27,6 +28,7 @@ lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-lived
 lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle-viewmodel-ktx" }
 navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigation-fragment-ktx" }
 navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigation-ui-ktx" }
+play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "play-services-maps" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

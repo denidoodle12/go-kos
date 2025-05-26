@@ -4,6 +4,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import com.myskripsi.gokos.data.KosRepository
 import com.myskripsi.gokos.ui.activity.listkos.ListKosViewModel
+import com.myskripsi.gokos.ui.activity.map.MappingMapViewModel
 import com.myskripsi.gokos.ui.fragment.home.HomeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -31,6 +32,9 @@ val viewModelModule = module {
     }
     viewModel {
         ListKosViewModel(get())
+    }
+    viewModel {
+        MappingMapViewModel(get())
     }
 }
 

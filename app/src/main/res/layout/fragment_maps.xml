@@ -119,10 +119,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:text="Universitas Serang Raya"
-                        android:textColor="#212121"
+                        android:textColor="@color/primary"
                         android:textSize="20sp"
                         android:fontFamily="@font/notosans_semibold"
-                        app:layout_constraintEnd_toStartOf="@+id/chevron_unsera"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/map_image_unsera" />
 
@@ -144,8 +143,8 @@
                         android:textColor="@color/gray"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="@id/location_icon_unsera"
-                        app:layout_constraintEnd_toStartOf="@+id/chevron_unsera"
                         app:layout_constraintStart_toEndOf="@id/location_icon_unsera"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@id/location_icon_unsera" />
 
                     <TextView
@@ -162,6 +161,262 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
+
+            <!-- University 2: Universitas Bina Bangsa -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_uniba"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/map_image_uniba"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/maps_uniba"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/logo_uniba"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="16dp"
+                        android:src="@drawable/logo_universitas_bina_bangsa"
+                        app:layout_constraintStart_toStartOf="@id/map_image_uniba"
+                        app:layout_constraintTop_toTopOf="@id/map_image_uniba" />
+
+                    <TextView
+                        android:id="@+id/title_uniba"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="Universitas Bina Bangsa"
+                        android:textColor="@color/primary"
+                        android:textSize="20sp"
+                        android:fontFamily="@font/notosans_semibold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/map_image_uniba" />
+
+                    <ImageView
+                        android:id="@+id/location_icon_uniba"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/maps_nofill"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/title_uniba" />
+
+                    <TextView
+                        android:id="@+id/address_uniba"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="JL Raya Serang - Jakarta, KM. 03 No. 1B, Panancangan, Kec. Cipocok Jaya, Kota Serang, Banten 42124"
+                        android:textColor="@color/gray"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@id/location_icon_uniba"
+                        app:layout_constraintStart_toEndOf="@id/location_icon_uniba"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/location_icon_uniba" />
+
+                    <TextView
+                        android:id="@+id/info_uniba"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="Klik untuk melihat detail sebaran kos-kosan di sekitar Kawasan Kampus Universitas Bina Bangsa."
+                        android:textColor="#616161"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/address_uniba" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- University 3: UIN SMH Banten -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_fkip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/map_image_uinsmhbanten"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/maps_unsera"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/logo_uinsmhbanten"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="16dp"
+                        android:src="@drawable/logo_uin_smh_banten"
+                        app:layout_constraintStart_toStartOf="@id/map_image_uinsmhbanten"
+                        app:layout_constraintTop_toTopOf="@id/map_image_uinsmhbanten" />
+
+                    <TextView
+                        android:id="@+id/title_uinsmhbanten"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="UIN SMH Banten"
+                        android:textColor="@color/primary"
+                        android:textSize="20sp"
+                        android:fontFamily="@font/notosans_semibold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/map_image_uinsmhbanten" />
+
+                    <ImageView
+                        android:id="@+id/location_icon_uinsmhbanten"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/maps_nofill"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/title_uinsmhbanten" />
+
+                    <TextView
+                        android:id="@+id/address_uinsmhbanten"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Jl. Syekh Moh. Nawawi Albantani, Kemanisan, Kec. Curug, Kota Serang, Banten"
+                        android:textColor="@color/gray"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@id/location_icon_uinsmhbanten"
+                        app:layout_constraintStart_toEndOf="@id/location_icon_uinsmhbanten"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/location_icon_uinsmhbanten" />
+
+                    <TextView
+                        android:id="@+id/info_uinsmhbanten"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="Klik untuk melihat detail sebaran kos-kosan di sekitar Kawasan Kampus UIN SMH Banten."
+                        android:textColor="#616161"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/address_uinsmhbanten" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- University 1: Universitas Serang Raya -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_fkip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/map_image_fkip"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/maps_fkipuntirta"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/logo_fkip"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="16dp"
+                        android:src="@drawable/logo_fkip"
+                        app:layout_constraintStart_toStartOf="@id/map_image_fkip"
+                        app:layout_constraintTop_toTopOf="@id/map_image_fkip" />
+
+                    <TextView
+                        android:id="@+id/title_fkip"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="FKIP Untirta"
+                        android:textColor="@color/primary"
+                        android:textSize="20sp"
+                        android:fontFamily="@font/notosans_semibold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/map_image_fkip" />
+
+                    <ImageView
+                        android:id="@+id/location_icon_fkip"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/maps_nofill"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/title_fkip" />
+
+                    <TextView
+                        android:id="@+id/address_fkip"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Jl. Ciwaru Raya, Cipare, Kec. Serang, Kota Serang, Banten 42117"
+                        android:textColor="@color/gray"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@id/location_icon_fkip"
+                        app:layout_constraintStart_toEndOf="@id/location_icon_fkip"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/location_icon_fkip" />
+
+                    <TextView
+                        android:id="@+id/info_fkip"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="Klik untuk melihat detail sebaran kos-kosan di sekitar Kawasan Kampus FKIP Untirta."
+                        android:textColor="#616161"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/address_fkip" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

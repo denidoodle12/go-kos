@@ -17,6 +17,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GoKos"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDWzz0E3lVOWZIiPUgvTbmlz4oVo2acqKE" />
+
+        <activity
+            android:name=".ui.activity.map.MappingMapActivity"
+            android:exported="false"
+            android:label="Peta Sebaran Kos" />
         <activity
             android:name=".ui.activity.auth.signup.SignupActivity"
             android:exported="false" />
