@@ -34,15 +34,16 @@
 
                 <ImageView
                     android:id="@+id/logo_image"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:layout_marginEnd="8dp"
+                    android:layout_gravity="center_vertical"
                     android:src="@drawable/iconapp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/appBarGo"
+                    android:text="@string/title_profile"
                     android:textColor="@color/primary"
                     android:textSize="22sp"
                     android:fontFamily="@font/notosans_bold"
@@ -51,7 +52,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/appBarKos"
+                    android:text="@string/title_user"
                     android:textColor="@color/black"
                     android:textSize="22sp"
                     android:fontFamily="@font/notosans_bold"
@@ -160,7 +161,7 @@
                     android:layout_marginStart="16dp"
                     android:text="@string/txt_account"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@+id/icAccount"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -220,7 +221,7 @@
                     android:layout_marginStart="16dp"
                     android:text="@string/txt_aboutapp"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@+id/icAbout"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -280,7 +281,7 @@
                     android:layout_marginStart="16dp"
                     android:text="@string/txt_language"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@+id/icLanguage"
                     app:layout_constraintTop_toTopOf="parent" />

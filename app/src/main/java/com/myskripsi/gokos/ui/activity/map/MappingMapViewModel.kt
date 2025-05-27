@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.myskripsi.gokos.data.KosRepository
 import com.myskripsi.gokos.data.model.Campus
 import com.myskripsi.gokos.data.model.Kos
+import com.myskripsi.gokos.utils.HaversineHelper
 import com.myskripsi.gokos.utils.Result
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
@@ -28,17 +29,27 @@ class MappingMapViewModel(private val repository: KosRepository) : ViewModel() {
             val campusFlow = repository.getCampusById(campusId)
             val kosListFlow = repository.getKosByCampusId(campusId)
 
-            // Menggabungkan kedua flow
             campusFlow.combine(kosListFlow) { campusResult, kosResult ->
-                // Proses hasil hanya jika keduanya sukses
                 if (campusResult is Result.Success && kosResult is Result.Success) {
                     Result.Success(MapData(campusResult.data, kosResult.data))
+                    val campus = campusResult.data
+                    val originalKosList = kosResult.data
+                    val kosListWithDistance = originalKosList.map { kos ->
+                        val distance = HaversineHelper.calculateDistance(
+                            campus.lokasi.latitude,
+                            campus.lokasi.longitude,
+                            kos.lokasi.latitude,
+                            kos.lokasi.longitude
+                        )
+                        kos.copy(lokasi = kos.lokasi.copy(jarak = distance))
+                        }
+                    Result.Success(MapData(campus, kosListWithDistance))
                 } else if (campusResult is Result.Error) {
-                    Result.Error(campusResult.message) // Prioritaskan error kampus jika ada
+                    Result.Error(campusResult.message)
                 } else if (kosResult is Result.Error) {
-                    Result.Error(kosResult.message) // Atau error kos
+                    Result.Error(kosResult.message)
                 } else {
-                    Result.Loading // Jika salah satu masih loading atau keduanya
+                    Result.Loading
                 }
             }
                 .onStart { _mapDataState.value = Result.Loading }

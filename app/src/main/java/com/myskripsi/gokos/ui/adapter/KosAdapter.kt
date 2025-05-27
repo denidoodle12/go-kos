@@ -33,37 +33,30 @@ class KosAdapter : ListAdapter<Kos, KosAdapter.ListViewHolder>(DIFF_CALLBACK){
     }
 
     inner class ListViewHolder(private val binding: ItemsKostBinding) : RecyclerView.ViewHolder(binding.root) {
-
-        // Fungsi untuk memformat jarak, bisa juga diletakkan di luar class jika dipakai di banyak tempat
         private fun formatDistance(distanceInKm: Double): String {
-            return if (distanceInKm < 0) { // Jika jarak belum dihitung (masih default dari model sebelum update)
-                "Menghitung..." // Atau "N/A", atau biarkan kosong
+            return if (distanceInKm < 0) {
+                "Counting..."
             } else if (distanceInKm < 1.0) {
                 val distanceInMeters = distanceInKm * 1000
-                // Format tanpa desimal untuk meter
                 "${DecimalFormat("#").format(distanceInMeters)} m"
             } else {
-                // Format dengan satu angka desimal untuk kilometer
                 "${DecimalFormat("#.#").format(distanceInKm)} km"
             }
         }
 
         fun bind(kos: Kos) {
             try {
-                // set data to view
                 binding.nameKos.text = kos.nama_kost
                 binding.categoryKos.text = kos.kategori
                 binding.addressKos.text = kos.alamat
                 binding.descriptionKos.text = kos.deskripsi
-                // binding.addressKos.text = kos.alamat // Alamat mungkin terlalu panjang untuk item list, opsional
-                // binding.descriptionKos.text = kos.deskripsi // Deskripsi juga biasanya di detail, opsional
+                // binding.addressKos.text = kos.alamat
+                // binding.descriptionKos.text = kos.deskripsi
 
                 // Menampilkan jarak yang sudah dihitung dan diformat dari ViewModel
                 // kos.lokasi.jarak akan diisi oleh ListKosViewModel
                 binding.distance.text = formatDistance(kos.lokasi.jarak)
 
-
-                // formatting price to currency IDR
                 val formatRupiah = NumberFormat.getCurrencyInstance(Locale("id","ID"))
                 binding.priceKos.text = formatRupiah.format(kos.harga.toDouble())
 
@@ -84,7 +77,6 @@ class KosAdapter : ListAdapter<Kos, KosAdapter.ListViewHolder>(DIFF_CALLBACK){
 
             } catch (e: Exception) {
                 e.printStackTrace()
-                // Pertimbangkan untuk menampilkan UI error default jika ada masalah saat binding
             }
         }
     }

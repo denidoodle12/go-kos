@@ -30,11 +30,11 @@ class HomeFragment : Fragment() {
 
     private val viewModel: HomeViewModel by viewModel()
     private lateinit var nearbyKosAdapter: KosAdapter
-    private lateinit var locationHelper: LocationHelper // Tetap lateinit
+    private lateinit var locationHelper: LocationHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // DIUBAH: Inisialisasi LocationHelper di onCreate, meneruskan 'this' (Fragment)
+        // Initiate LocationHelper in onCreate
         locationHelper = LocationHelper(this)
     }
 
