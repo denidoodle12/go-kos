@@ -3,7 +3,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="searchItem">Cari kos kosan</string>
 
-    'Home Fragment Strings'
+    'Home Fragment and List Kos Strings'
     <string name="codes_arrow_back_result_activity">back button</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_home">Home</string>
@@ -25,6 +25,10 @@
     <string name="txt_unsera">Universitas Serang Raya</string>
     <string name="txt_uniba">Universitas Bina Bangsa</string>
     <string name="txt_uinsmhbanten">Universitas SMH Banten</string>
+    <string name="txt_infoToSearch2">Kita punya rekomendasi kos-kosan untukmu!</string>
+    <string name="txt_list_kos">List Kosan</string>
+    <string name="txt_list_kos_info">Campus Name</string>
+    <string name="error_message">Error message</string>
 
     'Profile Fragment Strings'
     <string name="txt_emailUser">gokosapp@gmail.com</string>
@@ -42,10 +46,29 @@
     <string name="txt_kosName">Kost Pelangi Desa Drangong</string>
     <string name="txt_addressName">Jl. Raya Serang - Cilegon Km 5 Taman Drangong, Serang, Banten</string>
     <string name="txt_startFrom">Starts from</string>
-    <string name="txt_priceKos">Rp. 500.000</string>
+    <string name="txt_priceKos">Rp. 500.000 </string>
     <string name="txt_perMonth">/ month</string>
     <string name="txt_descriptionKos">Kost ini merupakan hunian nyaman favorite mahasiswa. Terdapat fasilitas yang lengkap dan lingkungan yang...</string>
     <string name="title_user">-User</string>
+
+    'Maps Fragment and Mapping Map Activity Strings'
+    <string name="txt_fkip_untirta">FKIP Untirta</string>
+    <string name="txt_toolbar_maps">Mapping Maps</string>
+    <string name="txt_address_unsera">Jl. Raya Serang - Cilegon Km 5 Taman Drangong, Serang, Banten</string>
+    <string name="txt_description_unsera">Klik untuk melihat detail sebaran kos-kosan di sekitar Kawasan Kampus Universitas Serang Raya.</string>
+    <string name="txt_address_uniba">JL Raya Serang - Jakarta, KM. 03 No. 1B, Panancangan, Kec. Cipocok Jaya, Kota Serang, Banten 42124</string>
+    <string name="txt_description_uniba">Klik untuk melihat detail sebaran kos-kosan di sekitar Kawasan Kampus Universitas Bina Bangsa.</string>
+    <string name="txt_address_uinsmhbanten">Jl. Syekh Moh. Nawawi Albantani, Kemanisan, Kec. Curug, Kota Serang, Banten</string>
+    <string name="txt_description_uinsmhbanten">Klik untuk melihat detail sebaran kos-kosan di sekitar Kawasan Kampus UIN SMH Banten.</string>
+    <string name="txt_address_fkip">Jl. Ciwaru Raya, Cipare, Kec. Serang, Kota Serang, Banten 42117</string>
+    <string name="txt_description_fkip">Klik untuk melihat detail sebaran kos-kosan di sekitar Kawasan Kampus FKIP Untirta.</string>
+    <string name="txt_mapping_map">Mapping Map</string>
+    <string name="txt_mapping_map_info">Menampilkan Visualisasi GIS</string>
+    <string name="txt_detail_distance">0,5 KM dari Universitas Serang Raya</string>
+    <string name="txt_header_descriptionKos">Deskripsi Kos</string>
+    <string name="txt_detail_descriptionKos">Kost ini merupakan hunian nyaman favorite mahasiswa. Terdapat fasilitas yang lengkap dan lingkungan yang nyaman sehingga sangat direkomendasikan untuk disinggahi selama menempuh pendidikan.</string>
+    <string name="txt_detail_kos">Detail Kosan</string>
+    <string name="txt_detail_kosan_info">Detail lainnya tentang kosan</string>
 
 
 </resources>

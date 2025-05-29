@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -16,50 +15,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:src="@drawable/gokos_blue"
+            android:text="@string/txt_toolbar_maps"
+            android:textSize="20sp"
+            android:fontFamily="@font/figtree_semibold"
+            android:textColor="@android:color/black"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/app_name" />
 
-            <LinearLayout
-                android:id="@+id/logo_title_container"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/logo_image"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/iconapp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/title_maps"
-                    android:textColor="@color/primary"
-                    android:textSize="22sp"
-                    android:fontFamily="@font/notosans_bold"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/appBarKos"
-                    android:textColor="@color/black"
-                    android:textSize="22sp"
-                    android:fontFamily="@font/notosans_bold"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
 
     <View
@@ -67,12 +35,11 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#F0F0F0"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
-
-    <!-- Main Content with ScrollView -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView"
         android:layout_width="0dp"
@@ -88,7 +55,6 @@
             android:orientation="vertical"
             android:padding="15dp">
 
-            <!-- University 1: Universitas Serang Raya -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_unsera"
                 android:layout_width="match_parent"
@@ -97,13 +63,12 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?android:attr/selectableItemBackground"
-                app:cardCornerRadius="12dp"
+                app:cardCornerRadius="20dp"
                 app:cardElevation="2dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp">
+                    android:layout_height="wrap_content">
 
                     <ImageView
                         android:id="@+id/map_image_unsera"
@@ -129,10 +94,11 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:text="Universitas Serang Raya"
+                        android:layout_marginStart="16dp"
+                        android:text="@string/txt_unsera"
                         android:textColor="@color/primary"
                         android:textSize="20sp"
-                        android:fontFamily="@font/notosans_semibold"
+                        android:fontFamily="@font/figtree_semibold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/map_image_unsera" />
 
@@ -140,9 +106,9 @@
                         android:id="@+id/location_icon_unsera"
                         android:layout_width="28dp"
                         android:layout_height="28dp"
-                        android:layout_marginTop="8dp"
-                        android:src="@drawable/maps_nofill"
-                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginTop="6dp"
+                        android:src="@drawable/charm_map"
+                        app:layout_constraintStart_toStartOf="@id/title_unsera"
                         app:layout_constraintTop_toBottomOf="@id/title_unsera" />
 
                     <TextView
@@ -150,9 +116,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:text="Jl. Raya Serang - Cilegon Km 5 Taman Drangong, Serang, Banten"
+                        android:text="@string/txt_address_unsera"
                         android:textColor="@color/gray"
                         android:textSize="12sp"
+                        android:fontFamily="@font/figtree_medium"
                         app:layout_constraintBottom_toBottomOf="@id/location_icon_unsera"
                         app:layout_constraintStart_toEndOf="@id/location_icon_unsera"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -160,20 +127,21 @@
 
                     <TextView
                         android:id="@+id/info_unsera"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="Klik untuk melihat detail sebaran kos-kosan di sekitar Kawasan Kampus Universitas Serang Raya."
-                        android:textColor="#616161"
-                        android:textSize="14sp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="16dp"
+                        android:text="@string/txt_description_unsera"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/figtree_light"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/title_unsera"
                         app:layout_constraintTop_toBottomOf="@id/address_unsera" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- University 2: Universitas Bina Bangsa -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_uniba"
                 android:layout_width="match_parent"
@@ -182,13 +150,12 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?android:attr/selectableItemBackground"
-                app:cardCornerRadius="12dp"
+                app:cardCornerRadius="20dp"
                 app:cardElevation="2dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp">
+                    android:layout_height="wrap_content">
 
                     <ImageView
                         android:id="@+id/map_image_uniba"
@@ -214,10 +181,11 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:text="Universitas Bina Bangsa"
+                        android:layout_marginStart="16dp"
+                        android:text="@string/txt_uniba"
                         android:textColor="@color/primary"
                         android:textSize="20sp"
-                        android:fontFamily="@font/notosans_semibold"
+                        android:fontFamily="@font/figtree_semibold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/map_image_uniba" />
 
@@ -225,9 +193,9 @@
                         android:id="@+id/location_icon_uniba"
                         android:layout_width="28dp"
                         android:layout_height="28dp"
-                        android:layout_marginTop="8dp"
-                        android:src="@drawable/maps_nofill"
-                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginTop="6dp"
+                        android:src="@drawable/charm_map"
+                        app:layout_constraintStart_toStartOf="@id/title_uniba"
                         app:layout_constraintTop_toBottomOf="@id/title_uniba" />
 
                     <TextView
@@ -235,9 +203,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:text="JL Raya Serang - Jakarta, KM. 03 No. 1B, Panancangan, Kec. Cipocok Jaya, Kota Serang, Banten 42124"
+                        android:text="@string/txt_address_uniba"
                         android:textColor="@color/gray"
                         android:textSize="12sp"
+                        android:fontFamily="@font/figtree_medium"
                         app:layout_constraintBottom_toBottomOf="@id/location_icon_uniba"
                         app:layout_constraintStart_toEndOf="@id/location_icon_uniba"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -245,20 +214,20 @@
 
                     <TextView
                         android:id="@+id/info_uniba"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="Klik untuk melihat detail sebaran kos-kosan di sekitar Kawasan Kampus Universitas Bina Bangsa."
-                        android:textColor="#616161"
-                        android:textSize="14sp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="16dp"
+                        android:text="@string/txt_description_uniba"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/title_uniba"
                         app:layout_constraintTop_toBottomOf="@id/address_uniba" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- University 3: UIN SMH Banten -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_uinsmhbanten"
                 android:layout_width="match_parent"
@@ -267,13 +236,12 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?android:attr/selectableItemBackground"
-                app:cardCornerRadius="12dp"
+                app:cardCornerRadius="20dp"
                 app:cardElevation="2dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp">
+                    android:layout_height="wrap_content">
 
                     <ImageView
                         android:id="@+id/map_image_uinsmhbanten"
@@ -299,10 +267,11 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:text="UIN SMH Banten"
+                        android:layout_marginStart="16dp"
+                        android:text="@string/txt_uinsmhbanten"
                         android:textColor="@color/primary"
                         android:textSize="20sp"
-                        android:fontFamily="@font/notosans_semibold"
+                        android:fontFamily="@font/figtree_semibold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/map_image_uinsmhbanten" />
 
@@ -310,9 +279,9 @@
                         android:id="@+id/location_icon_uinsmhbanten"
                         android:layout_width="28dp"
                         android:layout_height="28dp"
-                        android:layout_marginTop="8dp"
-                        android:src="@drawable/maps_nofill"
-                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginTop="6dp"
+                        android:src="@drawable/charm_map"
+                        app:layout_constraintStart_toStartOf="@id/title_uinsmhbanten"
                         app:layout_constraintTop_toBottomOf="@id/title_uinsmhbanten" />
 
                     <TextView
@@ -320,9 +289,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:text="Jl. Syekh Moh. Nawawi Albantani, Kemanisan, Kec. Curug, Kota Serang, Banten"
+                        android:text="@string/txt_address_uinsmhbanten"
                         android:textColor="@color/gray"
                         android:textSize="12sp"
+                        android:fontFamily="@font/figtree_medium"
                         app:layout_constraintBottom_toBottomOf="@id/location_icon_uinsmhbanten"
                         app:layout_constraintStart_toEndOf="@id/location_icon_uinsmhbanten"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -330,20 +300,21 @@
 
                     <TextView
                         android:id="@+id/info_uinsmhbanten"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="Klik untuk melihat detail sebaran kos-kosan di sekitar Kawasan Kampus UIN SMH Banten."
-                        android:textColor="#616161"
-                        android:textSize="14sp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="16dp"
+                        android:text="@string/txt_description_uinsmhbanten"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/figtree_light"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/title_uinsmhbanten"
                         app:layout_constraintTop_toBottomOf="@id/address_uinsmhbanten" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- University 1: Universitas Serang Raya -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_fkip"
                 android:layout_width="match_parent"
@@ -352,13 +323,12 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?android:attr/selectableItemBackground"
-                app:cardCornerRadius="12dp"
+                app:cardCornerRadius="20dp"
                 app:cardElevation="2dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp">
+                    android:layout_height="wrap_content">
 
                     <ImageView
                         android:id="@+id/map_image_fkip"
@@ -384,10 +354,11 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:text="FKIP Untirta"
+                        android:layout_marginStart="16dp"
+                        android:text="@string/txt_fkip_untirta"
                         android:textColor="@color/primary"
                         android:textSize="20sp"
-                        android:fontFamily="@font/notosans_semibold"
+                        android:fontFamily="@font/figtree_semibold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/map_image_fkip" />
 
@@ -395,9 +366,9 @@
                         android:id="@+id/location_icon_fkip"
                         android:layout_width="28dp"
                         android:layout_height="28dp"
-                        android:layout_marginTop="8dp"
-                        android:src="@drawable/maps_nofill"
-                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginTop="6dp"
+                        android:src="@drawable/charm_map"
+                        app:layout_constraintStart_toStartOf="@id/title_fkip"
                         app:layout_constraintTop_toBottomOf="@id/title_fkip" />
 
                     <TextView
@@ -405,9 +376,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:text="Jl. Ciwaru Raya, Cipare, Kec. Serang, Kota Serang, Banten 42117"
+                        android:text="@string/txt_address_fkip"
                         android:textColor="@color/gray"
                         android:textSize="12sp"
+                        android:fontFamily="@font/figtree_regular"
                         app:layout_constraintBottom_toBottomOf="@id/location_icon_fkip"
                         app:layout_constraintStart_toEndOf="@id/location_icon_fkip"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -415,14 +387,16 @@
 
                     <TextView
                         android:id="@+id/info_fkip"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="Klik untuk melihat detail sebaran kos-kosan di sekitar Kawasan Kampus FKIP Untirta."
-                        android:textColor="#616161"
-                        android:textSize="14sp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="16dp"
+                        android:text="@string/txt_description_fkip"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/figtree_light"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/title_fkip"
                         app:layout_constraintTop_toBottomOf="@id/address_fkip" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

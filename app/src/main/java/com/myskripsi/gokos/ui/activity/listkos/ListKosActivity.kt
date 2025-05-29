@@ -68,7 +68,7 @@ class ListKosActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
         viewModel.campusName.observe(this) { name ->
-            supportActionBar?.title = name // Set judul ActionBar dengan nama kampus
+            binding.campusName.text = name
         }
 
         viewModel.kosState.observe(this) { result ->

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="250dp"
-    android:layout_height="wrap_content"
+    android:layout_width="200dp"
+    android:layout_height="240dp"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginVertical="5dp"
-    android:layout_marginHorizontal="5dp"
+    android:layout_marginVertical="3dp"
+    android:layout_marginHorizontal="3dp"
     app:cardCornerRadius="20dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,7 +15,7 @@
         <ImageView
             android:id="@+id/imageKos"
             android:layout_width="0dp"
-            android:layout_height="140dp"
+            android:layout_height="100dp"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -29,14 +29,13 @@
             android:layout_marginStart="15dp"
             android:layout_marginBottom="15dp"
             android:background="@drawable/bg_circle_primary"
-            android:fontFamily="@font/notosans_bold"
+            android:fontFamily="@font/figtree_semibold"
             android:padding="5dp"
             android:text="@string/txt_distance"
             android:textColor="@color/white"
             android:textSize="12sp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/imageKos"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
             android:id="@+id/categoryKos"
@@ -46,11 +45,10 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/bg_stroke"
             android:paddingHorizontal="10dp"
-            android:paddingVertical="2dp"
+            android:paddingVertical="5dp"
             android:text="@string/txt_categorykos"
-            android:textSize="10sp"
-            android:fontFamily="@font/notosans_semibold"
-            android:textStyle="bold"
+            android:textSize="8sp"
+            android:fontFamily="@font/figtree_regular"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageKos" />
 
@@ -62,8 +60,7 @@
             android:layout_marginEnd="15dp"
             android:text="@string/txt_kosName"
             android:textSize="12sp"
-            android:fontFamily="@font/notosans_semibold"
-            android:textStyle="bold"
+            android:fontFamily="@font/figtree_semibold"
             app:layout_constraintStart_toStartOf="@+id/categoryKos"
             app:layout_constraintTop_toBottomOf="@+id/categoryKos"
             app:layout_constraintEnd_toEndOf="parent"/>
@@ -75,8 +72,8 @@
             android:layout_marginTop="6dp"
             android:layout_marginEnd="15dp"
             android:text="@string/txt_addressName"
-            android:textSize="10sp"
-            android:fontFamily="@font/notosans_medium"
+            android:textSize="8sp"
+            android:fontFamily="@font/figtree_medium"
             android:textColor="@color/gray"
             app:layout_constraintStart_toStartOf="@+id/categoryKos"
             app:layout_constraintTop_toBottomOf="@+id/nameKos"
@@ -89,7 +86,7 @@
             android:layout_marginTop="6dp"
             android:text="@string/txt_startFrom"
             android:textSize="8sp"
-            android:fontFamily="@font/notosans_regular"
+            android:fontFamily="@font/figtree_regular"
             app:layout_constraintStart_toStartOf="@+id/categoryKos"
             app:layout_constraintTop_toBottomOf="@id/addressKos" />
 
@@ -98,12 +95,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:fontFamily="@font/notosans_bold"
+            android:fontFamily="@font/figtree_bold"
             android:text="@string/txt_priceKos"
             android:textColor="@color/red"
             android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/categoryKos"
             app:layout_constraintTop_toBottomOf="@id/startFrom" />
 
@@ -111,7 +106,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/txt_perMonth"
-            android:textSize="10sp"
+            android:layout_marginStart="5dp"
+            android:textSize="8sp"
             android:fontFamily="@font/notosans_regular"
             app:layout_constraintBottom_toBottomOf="@+id/priceKos"
             app:layout_constraintStart_toEndOf="@+id/priceKos"

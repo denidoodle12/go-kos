@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.myskripsi.gokos.data.KosRepository
 import com.myskripsi.gokos.data.model.Kos
 import android.location.Location
+import com.myskripsi.gokos.ui.adapter.KosLayoutType
 import com.myskripsi.gokos.utils.HaversineHelper
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -48,7 +49,9 @@ class HomeViewModel(private val repository: KosRepository) : ViewModel() {
                                 kos.lokasi.latitude,
                                 kos.lokasi.longitude
                             )
-                            kos.copy(lokasi = kos.lokasi.copy(jarak = distance))
+                            kos.copy(
+                                lokasi = kos.lokasi.copy(jarak = distance),
+                                layoutType = KosLayoutType.NEARBY)
                         }
 
                         val sortedNearbyKos = kosWithDistance.sortedBy { it.lokasi.jarak }

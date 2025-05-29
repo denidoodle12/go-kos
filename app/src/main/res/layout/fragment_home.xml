@@ -17,50 +17,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:src="@drawable/gokos_blue"
+            android:layout_gravity="start|center_vertical"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/app_name" />
 
-            <LinearLayout
-                android:id="@+id/logo_title_container"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/logo_image"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/iconapp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/appBarGo"
-                    android:textColor="@color/primary"
-                    android:textSize="22sp"
-                    android:fontFamily="@font/notosans_bold"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/appBarKos"
-                    android:textColor="@color/black"
-                    android:textSize="22sp"
-                    android:fontFamily="@font/notosans_bold"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
 
     <View
@@ -68,6 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#F0F0F0"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
@@ -106,10 +71,9 @@
                     android:id="@+id/username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/notosans_bold"
+                    android:fontFamily="@font/figtree_semibold"
                     android:text="@string/hiUsername"
                     android:textSize="18sp"
-                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -117,52 +81,64 @@
                     android:id="@+id/textview1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/notosans_medium"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/figtree_regular"
                     android:text="@string/txt_infoToSearch"
                     android:textColor="@color/gray"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/username" />
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/materialCardView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:background="@drawable/searchview_circle"
-                    android:elevation="10dp"
-                    app:cardCornerRadius="10dp"
-                    app:cardUseCompatPadding="true"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textview1">
-
-                    <androidx.appcompat.widget.SearchView
-                        android:id="@+id/searchViewItem"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:theme="@style/CustomSearchView"
-                        app:iconifiedByDefault="false"
-                        app:queryHint="@string/searchItem" />
-
-                </com.google.android.material.card.MaterialCardView>
-
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardViewBanner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    app:cardBackgroundColor="@color/primary"
                     app:cardCornerRadius="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/materialCardView">
+                    app:layout_constraintTop_toBottomOf="@id/textview1">
 
-                    <ImageView
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="150dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/banner_promo" />
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="14dp">
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginBottom="8dp"
+                            android:text="@string/txt_infoToSearch2"
+                            android:textColor="@android:color/white"
+                            android:textSize="25sp"
+                            android:fontFamily="@font/figtree_medium"/>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/materialCardView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/searchview_circle"
+                            android:elevation="10dp"
+                            app:cardCornerRadius="20dp"
+                            app:cardUseCompatPadding="true"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textview1">
+
+                            <androidx.appcompat.widget.SearchView
+                                android:id="@+id/searchViewItem"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:theme="@style/CustomSearchView"
+                                app:iconifiedByDefault="false"
+                                app:queryHint="@string/searchItem" />
+
+                        </com.google.android.material.card.MaterialCardView>
+                    </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
                 <TextView
@@ -170,10 +146,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:fontFamily="@font/notosans_bold"
+                    android:fontFamily="@font/figtree_semibold"
                     android:text="@string/txt_headingOne"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
+                    android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cardViewBanner" />
 
@@ -181,10 +156,11 @@
                     android:id="@+id/textview2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/notosans_medium"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/figtree_regular"
                     android:text="@string/txt_headingOneInfo"
                     android:textColor="@color/gray"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textHeading2" />
 
@@ -192,7 +168,7 @@
                     android:id="@+id/rvNearbyKos"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="12dp"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintStart_toStartOf="parent"
@@ -217,13 +193,13 @@
                     android:id="@+id/btnOtherKosNearby"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="15dp"
                     android:background="@drawable/bg_stroke"
-                    android:fontFamily="@font/notosans_medium"
+                    android:fontFamily="@font/figtree_medium"
                     android:gravity="center"
                     android:text="@string/btn_kosNearbyYou"
-                    android:textColor="@color/black"
                     android:textSize="14sp"
+                    android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvNearbyKosStatus" />
@@ -233,10 +209,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:fontFamily="@font/notosans_bold"
+                    android:fontFamily="@font/figtree_semibold"
                     android:text="@string/txt_headingTwo"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
+                    android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/btnOtherKosNearby" />
 
@@ -244,10 +219,11 @@
                     android:id="@+id/textview3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/notosans_medium"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/figtree_regular"
                     android:text="@string/txt_headingTwoInfo"
                     android:textColor="@color/gray"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textHeading3" />
 
@@ -255,21 +231,24 @@
                     android:id="@+id/linearLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="15dp"
                     android:orientation="horizontal"
-                    android:padding="5dp"
+                    android:paddingHorizontal="8dp"
+                    android:background="@color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/textview3">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
+                        android:background="@color/white"
                         android:layout_height="wrap_content">
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/cardViewUnsera"
                             style="@style/CustomCardView"
                             android:elevation="10dp"
+                            app:layout_constraintEnd_toStartOf="@id/cardViewUniba"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
@@ -292,7 +271,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="8dp"
-                                    android:fontFamily="@font/notosans_medium"
+                                    android:fontFamily="@font/figtree_medium"
                                     android:gravity="center"
                                     android:text="@string/txt_unsera"
                                     android:textSize="12sp" />
@@ -328,7 +307,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="8dp"
-                                    android:fontFamily="@font/notosans_medium"
+                                    android:fontFamily="@font/figtree_medium"
                                     android:gravity="center"
                                     android:text="@string/txt_uniba"
                                     android:textSize="12sp" />
@@ -363,7 +342,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="8dp"
-                                    android:fontFamily="@font/notosans_medium"
+                                    android:fontFamily="@font/figtree_medium"
                                     android:gravity="center"
                                     android:text="@string/txt_uinsmhbanten"
                                     android:textSize="12sp" />

@@ -54,9 +54,9 @@ class MappingMapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.On
         campusId = intent.getStringExtra(EXTRA_CAMPUS_ID)
         campusName = intent.getStringExtra(EXTRA_CAMPUS_NAME)
 
-        setSupportActionBar(binding.toolbarMappingMap)
-        supportActionBar?.title = "Mapping Map ${campusName ?: "campus"}"
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+//        setSupportActionBar(binding.toolbar)
+//        supportActionBar?.title = "Mapping Map ${campusName ?: "campus"}"
+//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         if (campusId == null) {
             Toast.makeText(this, "Campus ID didn't valid.", Toast.LENGTH_LONG).show()

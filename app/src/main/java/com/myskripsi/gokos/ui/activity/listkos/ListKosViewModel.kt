@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.myskripsi.gokos.data.KosRepository
 import com.myskripsi.gokos.data.model.Kos
+import com.myskripsi.gokos.ui.adapter.KosLayoutType
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.zip
 import kotlinx.coroutines.launch
@@ -48,7 +49,8 @@ class ListKosViewModel(private val repository: KosRepository) : ViewModel() {
                                 kos.lokasi.longitude
                             )
                             // Menggunakan copy untuk membuat objek baru dengan jarak yang diperbarui
-                            kos.copy(lokasi = kos.lokasi.copy(jarak = distance))
+                            kos.copy(lokasi = kos.lokasi.copy(jarak = distance),
+                                layoutType = KosLayoutType.REGULAR)
                         }
                         // Urutkan berdasarkan jarak terdekat
                         _kosState.value = Result.Success(kosListWithDistance.sortedBy { it.lokasi.jarak })

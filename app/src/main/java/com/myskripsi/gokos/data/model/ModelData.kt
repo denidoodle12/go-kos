@@ -1,6 +1,7 @@
 package com.myskripsi.gokos.data.model
 
 import android.os.Parcelable
+import com.myskripsi.gokos.ui.adapter.KosLayoutType
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -26,7 +27,8 @@ data class Kos (
     val lokasi: Lokasi = Lokasi(),
     val fasilitas_kamar: List<String> = listOf(),
     val fasilitas_kamar_mandi: List<String> = listOf(),
-    val listrik: String = ""
+    val listrik: String = "",
+    val layoutType: KosLayoutType = KosLayoutType.REGULAR
 ) : Parcelable
 
 @Parcelize
