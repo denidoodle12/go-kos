@@ -24,7 +24,7 @@ class KosAdapter : ListAdapter<Kos, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
 
         fun formatDistance(distanceInKm: Double): String {
             return if (distanceInKm < 0) {
-                "Menghitung..."
+                "Calculating..."
             } else if (distanceInKm < 1.0) {
                 val distanceInMeters = distanceInKm * 1000
                 "${DecimalFormat("#").format(distanceInMeters)} m"
@@ -60,11 +60,11 @@ class KosAdapter : ListAdapter<Kos, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
         return when (viewType) {
             VIEW_TYPE_REGULAR_KOS -> {
                 val binding = ItemsKostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                RegularKostViewHolder(binding)
+                RegularKosViewHolder(binding)
             }
             VIEW_TYPE_NEARBY_KOS -> {
                 val binding = ItemsNearbyKostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                NearbyKostViewHolder(binding)
+                NearbyKosViewHolder(binding)
             }
             else -> throw IllegalArgumentException("Invalid view type")
         }
@@ -74,22 +74,22 @@ class KosAdapter : ListAdapter<Kos, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
         val kos = getItem(position)
         if (kos != null) {
             when (holder) {
-                is RegularKostViewHolder -> holder.bind(kos, onItemClick)
-                is NearbyKostViewHolder -> holder.bind(kos, onItemClick)
+                is RegularKosViewHolder -> holder.bind(kos, onItemClick)
+                is NearbyKosViewHolder -> holder.bind(kos, onItemClick)
             }
         }
     }
 
-    inner class RegularKostViewHolder(private val binding: ItemsKostBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class RegularKosViewHolder(private val binding: ItemsKostBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(kos: Kos, onItemClick: ((Kos) -> Unit)?) {
             try {
                 binding.nameKos.text = kos.nama_kost
                 binding.categoryKos.text = kos.kategori
                 binding.addressKos.text = kos.alamat
-                binding.descriptionKos.text = kos.deskripsi ?: "" // Handle jika deskripsi bisa null
+                binding.descriptionKos.text = kos.deskripsi
 
-                binding.distance.text = formatDistance(kos.lokasi.jarak) // Asumsi 'distance' adalah ID di ItemsKostBinding
-                binding.priceKos.text = CURRENCY_FORMATTER.format(kos.harga.toDouble() ?: 0.0)
+                binding.distance.text = formatDistance(kos.lokasi.jarak)
+                binding.priceKos.text = CURRENCY_FORMATTER.format(kos.harga.toDouble())
 
                 if (kos.foto_kost.isNotEmpty()) {
                     Glide.with(binding.imageKos.context)
@@ -111,21 +111,17 @@ class KosAdapter : ListAdapter<Kos, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
         }
     }
 
-    // ViewHolder untuk layout items_nearby_kost.xml
-    inner class NearbyKostViewHolder(private val binding: ItemsNearbyKostBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class NearbyKosViewHolder(private val binding: ItemsNearbyKostBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(kos: Kos, onItemClick: ((Kos) -> Unit)?) {
             try {
-                binding.nameKos.text = kos.nama_kost            // Asumsi ID: nameKos
-                binding.categoryKos.text = kos.kategori        // Asumsi ID: categoryKos
-                binding.addressKos.text = kos.alamat           // Asumsi ID: addressKos
+                binding.nameKos.text = kos.nama_kost
+                binding.categoryKos.text = kos.kategori
+                binding.addressKos.text = kos.alamat
 
-                // Untuk 'items_nearby_kost.xml' yang Anda berikan sebelumnya:
-                // - Jarak menggunakan ID 'textView'
-                // - Ada 'startFrom'
-                binding.textView.text = formatDistance(kos.lokasi.jarak) // ID: textView untuk jarak
-                binding.startFrom.text = itemView.context.getString(R.string.txt_startFrom) // Jika "Mulai Dari" statis
+                binding.textView.text = formatDistance(kos.lokasi.jarak)
+                binding.startFrom.text = itemView.context.getString(R.string.txt_startFrom)
 
-                binding.priceKos.text = CURRENCY_FORMATTER.format(kos.harga.toDouble() ?: 0.0) // Asumsi ID: priceKos
+                binding.priceKos.text = CURRENCY_FORMATTER.format(kos.harga.toDouble())
 
                 if (kos.foto_kost.isNotEmpty()) {
                     Glide.with(binding.imageKos.context)
@@ -133,7 +129,7 @@ class KosAdapter : ListAdapter<Kos, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
                         .placeholder(R.drawable.placeholder_image)
                         .error(R.drawable.placeholder_image)
                         .centerCrop()
-                        .into(binding.imageKos) // Asumsi ID: imageKos
+                        .into(binding.imageKos)
                 } else {
                     binding.imageKos.setImageResource(R.drawable.placeholder_image)
                 }

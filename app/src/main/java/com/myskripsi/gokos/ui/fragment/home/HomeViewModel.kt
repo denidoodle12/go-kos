@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.myskripsi.gokos.data.KosRepository
 import com.myskripsi.gokos.data.model.Kos
 import android.location.Location
+import com.myskripsi.gokos.data.model.Campus
 import com.myskripsi.gokos.ui.adapter.KosLayoutType
 import com.myskripsi.gokos.utils.HaversineHelper
 import kotlinx.coroutines.flow.collectLatest
@@ -17,6 +18,9 @@ class HomeViewModel(private val repository: KosRepository) : ViewModel() {
     private val _nearbyKosState = MutableLiveData<Result<List<Kos>>>()
     val nearbyKosState: LiveData<Result<List<Kos>>> = _nearbyKosState
 
+    private val _campusListState = MutableLiveData<Result<List<Campus>>>()
+    val campusListState: LiveData<Result<List<Campus>>> = _campusListState
+
     private val _userLocation = MutableLiveData<Location?>()
     val userLocation: LiveData<Location?> = _userLocation
 
@@ -25,8 +29,15 @@ class HomeViewModel(private val repository: KosRepository) : ViewModel() {
         if (location != null) {
             fetchNearbyKos(location.latitude, location.longitude)
         } else {
-            // Jika lokasi null, mungkin tampilkan pesan error atau state tertentu
-            _nearbyKosState.value = Result.Error("Lokasi pengguna tidak ditemukan untuk mencari kos terdekat.")
+            _nearbyKosState.value = Result.Error("User location not found to search for nearby kos!.")
+        }
+    }
+
+    fun fetchCampusList() {
+        viewModelScope.launch {
+            repository.getAllCampuses().collectLatest { result ->
+                _campusListState.value = result
+            }
         }
     }
 
@@ -38,7 +49,7 @@ class HomeViewModel(private val repository: KosRepository) : ViewModel() {
                     is Result.Success -> {
                         val allKosList = result.data
                         if (allKosList.isEmpty()) {
-                            _nearbyKosState.value = Result.Success(emptyList()) // Tidak ada kos sama sekali
+                            _nearbyKosState.value = Result.Success(emptyList())
                             return@collectLatest
                         }
 

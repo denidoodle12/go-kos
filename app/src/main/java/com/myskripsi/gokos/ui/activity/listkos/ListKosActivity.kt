@@ -10,7 +10,7 @@ import com.myskripsi.gokos.utils.Result
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.myskripsi.gokos.databinding.ActivityListKosBinding
 import com.myskripsi.gokos.ui.adapter.KosAdapter
-import com.myskripsi.gokos.ui.activity.detailKos.DetailKosActivity // Pastikan import benar
+import com.myskripsi.gokos.ui.activity.detailKos.DetailKosActivity
 
 @Suppress("DEPRECATION")
 class ListKosActivity : AppCompatActivity() {
@@ -24,21 +24,18 @@ class ListKosActivity : AppCompatActivity() {
         binding = ActivityListKosBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Setup ActionBar
         supportActionBar?.apply {
-            // Judul akan di-set setelah data kampus dimuat
             setDisplayHomeAsUpEnabled(true)
         }
 
         val campusId = intent.getStringExtra(EXTRA_CAMPUS_ID)
 
         if (campusId.isNullOrEmpty()) {
-            Toast.makeText(this, "ID Kampus tidak ditemukan", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Campus ID not found.", Toast.LENGTH_SHORT).show()
             finish()
             return
         }
 
-        // Panggil fungsi baru di ViewModel
         viewModel.loadKosAndCampusDetails(campusId)
 
         setupRecyclerView()
@@ -46,12 +43,12 @@ class ListKosActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        onBackPressedDispatcher.onBackPressed() // Cara baru untuk onBackPressed
+        onBackPressedDispatcher.onBackPressed()
         return true
     }
 
     private fun setupRecyclerView() {
-        kosAdapter = KosAdapter() // Pastikan KosAdapter Anda sudah ada
+        kosAdapter = KosAdapter()
         kosAdapter.onItemClick = { selectedData ->
             val intent = Intent(this, DetailKosActivity::class.java).apply {
                 putExtra(DetailKosActivity.EXTRA_DETAIL_KOS, selectedData) // selectedData sekarang Parcelable
@@ -75,8 +72,8 @@ class ListKosActivity : AppCompatActivity() {
             when (result) {
                 is Result.Loading -> {
                     showLoading(true)
-                    showEmpty(false) // Sembunyikan pesan empty saat loading
-                    showError(null) // Sembunyikan pesan error saat loading
+                    showEmpty(false)
+                    showError(null)
                 }
                 is Result.Success -> {
                     showLoading(false)
@@ -87,7 +84,7 @@ class ListKosActivity : AppCompatActivity() {
                     } else {
                         showEmpty(false)
                         showError(null)
-                        kosAdapter.submitList(kosList) // Adapter akan menerima data dengan jarak
+                        kosAdapter.submitList(kosList)
                     }
                 }
                 is Result.Error -> {
@@ -117,6 +114,6 @@ class ListKosActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_CAMPUS_ID = "extra_campus_id"
-        // EXTRA_CAMPUS_NAME tidak lagi diperlukan karena kita mengambilnya dari ViewModel
+        const val EXTRA_CAMPUS_NAME = "extra_campus_name"
     }
 }

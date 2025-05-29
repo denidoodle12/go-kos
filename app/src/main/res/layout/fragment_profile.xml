@@ -6,81 +6,16 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:elevation="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp">
-
-            <LinearLayout
-                android:id="@+id/logo_title_container"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/logo_image"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/iconapp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/title_profile"
-                    android:textColor="@color/primary"
-                    android:textSize="22sp"
-                    android:fontFamily="@font/notosans_bold"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/title_user"
-                    android:textColor="@color/black"
-                    android:textSize="22sp"
-                    android:fontFamily="@font/notosans_bold"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.appcompat.widget.Toolbar>
-
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#F0F0F0"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
     <androidx.cardview.widget.CardView
         android:id="@+id/profileImageContainer"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         app:cardCornerRadius="60dp"
         app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/profileImage"
@@ -100,8 +35,8 @@
         android:layout_marginTop="16dp"
         android:text="@string/app_name"
         android:textColor="@color/black"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        android:textSize="20sp"
+        android:fontFamily="@font/figtree_semibold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profileImageContainer" />
@@ -114,6 +49,7 @@
         android:text="@string/txt_emailUser"
         android:textColor="@color/gray"
         android:textSize="16sp"
+        android:fontFamily="@font/figtree_regular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvUsername" />
@@ -173,6 +109,7 @@
                     android:layout_marginEnd="24dp"
                     android:text="@string/txt_accountInfo"
                     android:textColor="@color/gray"
+                    android:fontFamily="@font/figtree_light"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/arrowAccount"
@@ -233,6 +170,7 @@
                     android:layout_marginEnd="24dp"
                     android:text="@string/txt_aboutappInfo"
                     android:textColor="@color/gray"
+                    android:fontFamily="@font/figtree_light"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/arrowAbout"
@@ -266,8 +204,8 @@
 
                 <ImageView
                     android:id="@+id/icLanguage"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
                     android:src="@drawable/ic_translate"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -293,6 +231,7 @@
                     android:layout_marginEnd="24dp"
                     android:text="@string/txt_languageInfo"
                     android:textColor="@color/gray"
+                    android:fontFamily="@font/figtree_light"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/arrowLanguage"
@@ -321,14 +260,12 @@
         android:layout_height="60dp"
         android:layout_marginTop="10dp"
         android:layout_marginHorizontal="20dp"
-        android:alpha="0"
         android:backgroundTint="@color/red"
         android:text="@string/btn_logout"
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/menuCard"
         app:layout_constraintStart_toStartOf="@+id/menuCard"
-        app:layout_constraintTop_toBottomOf="@+id/menuCard"
-        tools:alpha="100" />
+        app:layout_constraintTop_toBottomOf="@+id/menuCard"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

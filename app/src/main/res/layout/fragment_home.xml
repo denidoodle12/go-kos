@@ -227,133 +227,32 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textHeading3" />
 
-                <LinearLayout
-                    android:id="@+id/linearLayout"
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="8dp"
-                    android:background="@color/white"
+                    android:layout_marginTop="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/textview3">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvCampusSelection"
                         android:layout_width="match_parent"
-                        android:background="@color/white"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:visibility="visible"
+                        tools:listitem="@layout/items_campus_card"
+                        tools:itemCount="2"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        app:spanCount="2"/>
+                    <TextView
+                        android:id="@+id/tvCampusListError"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:visibility="gone"
+                        tools:text="Gagal memuat daftar kampus"/>
 
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/cardViewUnsera"
-                            style="@style/CustomCardView"
-                            android:elevation="10dp"
-                            app:layout_constraintEnd_toStartOf="@id/cardViewUniba"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:orientation="vertical"
-                                android:padding="8dp">
-
-                                <ImageView
-                                    android:layout_width="50dp"
-                                    android:layout_height="50dp"
-                                    android:layout_marginTop="15dp"
-                                    android:scaleType="fitCenter"
-                                    android:src="@drawable/logo_unsera" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="8dp"
-                                    android:fontFamily="@font/figtree_medium"
-                                    android:gravity="center"
-                                    android:text="@string/txt_unsera"
-                                    android:textSize="12sp" />
-
-                            </LinearLayout>
-
-                        </androidx.cardview.widget.CardView>
-
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/cardViewUniba"
-                            style="@style/CustomCardView"
-                            android:elevation="10dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/cardViewUIN"
-                            app:layout_constraintStart_toEndOf="@id/cardViewUnsera"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:orientation="vertical"
-                                android:padding="8dp">
-
-                                <ImageView
-                                    android:layout_width="50dp"
-                                    android:layout_height="50dp"
-                                    android:layout_marginTop="15dp"
-                                    android:scaleType="fitCenter"
-                                    android:src="@drawable/logo_universitas_bina_bangsa" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="8dp"
-                                    android:fontFamily="@font/figtree_medium"
-                                    android:gravity="center"
-                                    android:text="@string/txt_uniba"
-                                    android:textSize="12sp" />
-
-                            </LinearLayout>
-
-                        </androidx.cardview.widget.CardView>
-
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/cardViewUIN"
-                            style="@style/CustomCardView"
-                            android:elevation="10dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:orientation="vertical"
-                                android:padding="8dp">
-
-                                <ImageView
-                                    android:layout_width="50dp"
-                                    android:layout_height="50dp"
-                                    android:layout_marginTop="15dp"
-                                    android:scaleType="fitCenter"
-                                    android:src="@drawable/logo_uin_smh_banten" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="8dp"
-                                    android:fontFamily="@font/figtree_medium"
-                                    android:gravity="center"
-                                    android:text="@string/txt_uinsmhbanten"
-                                    android:textSize="12sp" />
-
-                            </LinearLayout>
-
-                        </androidx.cardview.widget.CardView>
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </LinearLayout>
+                </FrameLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

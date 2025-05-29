@@ -9,7 +9,6 @@ import com.myskripsi.gokos.ui.fragment.home.HomeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-// Module for Firebase services
 val firebaseModule = module {
     single {
         Firebase.firestore

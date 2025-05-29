@@ -22,7 +22,6 @@ import com.myskripsi.gokos.data.model.Campus
 import com.myskripsi.gokos.data.model.Kos
 import com.myskripsi.gokos.databinding.ActivityMappingMapBinding
 import com.myskripsi.gokos.databinding.LayoutMarkerKosPanelBinding
-import com.myskripsi.gokos.utils.LocationHelper
 import com.myskripsi.gokos.utils.Result
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.DecimalFormat
@@ -42,10 +41,9 @@ class MappingMapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.On
     private var currentCampusData: Campus? = null
     private var currentShownKos: Kos? = null
 
-    private val markerToKosMap = HashMap<String, Kos>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityMappingMapBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -53,10 +51,6 @@ class MappingMapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.On
 
         campusId = intent.getStringExtra(EXTRA_CAMPUS_ID)
         campusName = intent.getStringExtra(EXTRA_CAMPUS_NAME)
-
-//        setSupportActionBar(binding.toolbar)
-//        supportActionBar?.title = "Mapping Map ${campusName ?: "campus"}"
-//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         if (campusId == null) {
             Toast.makeText(this, "Campus ID didn't valid.", Toast.LENGTH_LONG).show()
@@ -86,7 +80,7 @@ class MappingMapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.On
         }
         panelBinding.fabPanelDirections.setOnClickListener {
             currentShownKos?.let { kos ->
-                initiateDirectionsToKos(kos) // Menggunakan fungsi yang disederhanakan
+                initiateDirectionsToKos(kos)
             }
         }
     }
@@ -96,28 +90,21 @@ class MappingMapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.On
         val destinationLng = kos.lokasi.longitude
         val kosNameLabel = kos.nama_kost
 
-        // URI untuk menampilkan titik di peta dengan label dan opsi navigasi dari Google Maps
-        // Format: "geo:0,0?q=latitude,longitude(Label)"
-        // Atau untuk langsung mencoba navigasi: "google.navigation:q=latitude,longitude"
         val gmmIntentUri = Uri.parse("geo:0,0?q=$destinationLat,$destinationLng($kosNameLabel)")
-        // Atau jika ingin langsung mencoba mode navigasi:
-        // val gmmIntentUri = Uri.parse("google.navigation:q=$destinationLat,$destinationLng")
-
 
         val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-        mapIntent.setPackage("com.google.android.apps.maps") // Agar langsung buka Google Maps jika terinstal
+        mapIntent.setPackage("com.google.android.apps.maps")
 
         if (mapIntent.resolveActivity(packageManager) != null) {
             startActivity(mapIntent)
         } else {
-            // Fallback jika Google Maps tidak terinstal, coba buka di browser
             try {
                 val webUri = Uri.parse("https://developers.google.com/maps/documentation/android-sdk/infowindows#custom_infowindows")
                 val webIntent = Intent(Intent.ACTION_VIEW, webUri)
                 startActivity(webIntent)
-                Toast.makeText(this, "Google Maps tidak terinstal. Mencoba membuka di browser.", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Google Maps is not installed. Try opening it in your browser.", Toast.LENGTH_LONG).show()
             } catch (e: Exception) {
-                Toast.makeText(this, "Tidak ada aplikasi peta atau browser yang dapat menangani ini.", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "No map application or browser can handle this.", Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -148,7 +135,6 @@ class MappingMapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.On
         if (!::mMap.isInitialized) return
 
         mMap.clear()
-        // markerToKosMap.clear() // Tidak pakai markerToKosMap lagi jika pakai marker.tag
 
         val campus = mapData.campus
         val kosList = mapData.kosList
@@ -166,7 +152,6 @@ class MappingMapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.On
             boundsBuilder.include(campusLatLng)
         }
 
-
         kosList.forEach { kos ->
             if (kos.lokasi.latitude != 0.0 && kos.lokasi.longitude != 0.0) {
                 val kosLatLng = LatLng(kos.lokasi.latitude, kos.lokasi.longitude)
@@ -175,55 +160,47 @@ class MappingMapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.On
                         .position(kosLatLng)
                         .title(kos.nama_kost)
                 )
-                marker?.tag = kos // Simpan objek Kos di tag marker
+                marker?.tag = kos
                 boundsBuilder.include(kosLatLng)
             }
         }
 
-        // Atur kamera
         try {
-            // Cek apakah ada titik valid di boundsBuilder
-            // Ini diperlukan karena jika hanya ada satu titik (atau tidak ada titik valid), build() akan error
             val bounds = boundsBuilder.build()
-            // Hanya pindah kamera jika ada setidaknya satu titik valid di bounds
-            if (bounds.northeast != bounds.southwest) { // Lebih dari satu titik atau satu titik valid
+
+            if (bounds.northeast != bounds.southwest) {
                 val padding = resources.displayMetrics.widthPixels / 6 // padding dalam pixels
                 mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding))
             } else if (campus.lokasi.latitude != 0.0 || campus.lokasi.longitude != 0.0) {
-                // Jika hanya ada kampus (atau hanya satu titik), zoom ke kampus/titik tersebut
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(campusLatLng, 15f))
             } else {
-                // Tidak ada data lokasi valid sama sekali
-                Toast.makeText(this, "Data lokasi tidak ditemukan untuk ditampilkan di peta.", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Location data not found to display on map.", Toast.LENGTH_LONG).show()
             }
         } catch (e: IllegalStateException) {
-            // Catch error jika bounds kosong (tidak ada marker valid)
             if (campus.lokasi.latitude != 0.0 || campus.lokasi.longitude != 0.0) {
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(campusLatLng, 15f))
             } else {
-                Toast.makeText(this, "Tidak ada data lokasi valid untuk ditampilkan.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "There is no valid location data to display.", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     override fun onMarkerClick(marker: Marker): Boolean {
-        hideKosDetailPanel() // Sembunyikan panel yang mungkin terbuka sebelumnya
+        hideKosDetailPanel()
 
         val kos = marker.tag as? Kos
         if (kos != null) {
             currentShownKos = kos
             showKosDetailPanel(kos)
-            // Pindahkan kamera agar marker tidak tertutup panel (opsional, bisa disesuaikan)
-            // Jarak vertikal untuk menggeser peta ke atas agar panel tidak menutupi marker
-            val offset = (binding.kosDetailPanel.root.height * 0.3).toInt() // Geser sekitar 30% tinggi panel
+            val offset = (binding.kosDetailPanel.root.height * 0.3).toInt()
             val point = mMap.projection.toScreenLocation(marker.position)
-            point.y -= offset // Kurangi y untuk menggeser ke atas (karena y_screen ke bawah)
+            point.y -= offset
             val newLatLng = mMap.projection.fromScreenLocation(point)
             mMap.animateCamera(CameraUpdateFactory.newLatLng(newLatLng), 300, null)
 
-            return true // Event sudah dihandle
+            return true
         }
-        return false // Biarkan default behavior jika bukan marker kos (misalnya marker kampus)
+        return false
     }
 
     private fun showKosDetailPanel(kos: Kos) {
@@ -258,7 +235,7 @@ class MappingMapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.On
         }
 
         currentCampusData?.let { campus ->
-            val distanceInKm = kos.lokasi.jarak // Jarak ini sudah dihitung di ViewModel
+            val distanceInKm = kos.lokasi.jarak
             panelBinding.tvPanelKosDistance.text = formatDistanceForPanel(distanceInKm, campus.nama_kampus)
         } ?: run {
             panelBinding.tvPanelKosDistance.text = "Info jarak tidak tersedia"
@@ -269,15 +246,15 @@ class MappingMapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.On
 
     private fun formatDistanceForPanel(distanceInKm: Double, campusName: String): String {
         val campusShortName = campusName.replace("Universitas ", "Univ. ")
-            .replace("Fakultas Keguruan dan Ilmu Pendidikan ", "FKIP ") // Lebih spesifik
+            .replace("Fakultas Keguruan dan Ilmu Pendidikan ", "FKIP ")
             .replace("Sekolah Tinggi ", "ST ")
             .replace("Institut ", "Inst. ")
 
-        return if (distanceInKm < 0) { // Seharusnya tidak terjadi jika sudah dihitung
-            "Jarak N/A"
-        } else if (distanceInKm == 0.0 && campusName.isNotBlank()){ // Jika jarak 0 dan ada nama kampus (mungkin lokasi sama persis)
+        return if (distanceInKm < 0) {
+            "Distance N/A"
+        } else if (distanceInKm == 0.0 && campusName.isNotBlank()){
             "📍 Tepat di $campusShortName"
-        } else if (distanceInKm < 0.01) { // Kurang dari 10 meter
+        } else if (distanceInKm < 0.01) {
             val distanceInMeters = distanceInKm * 1000
             "📍 ${DecimalFormat("#0").format(distanceInMeters)} m dari $campusShortName"
         } else if (distanceInKm < 1.0) {

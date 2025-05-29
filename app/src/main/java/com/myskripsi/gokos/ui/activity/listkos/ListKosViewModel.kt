@@ -20,7 +20,6 @@ class ListKosViewModel(private val repository: KosRepository) : ViewModel() {
     private val _campusName = MutableLiveData<String>()
     val campusName: LiveData<String> = _campusName
 
-    // Fungsi baru yang menggabungkan pengambilan data dan kalkulasi jarak
     fun loadKosAndCampusDetails(campusId: String) {
         viewModelScope.launch {
             _kosState.value = Result.Loading
@@ -28,10 +27,7 @@ class ListKosViewModel(private val repository: KosRepository) : ViewModel() {
             val campusFlow = repository.getCampusById(campusId)
             val kosListFlow = repository.getKosByCampusId(campusId)
 
-            // Menggabungkan kedua flow menggunakan zip
-            // zip akan menunggu kedua flow menghasilkan data sebelum melanjutkan
             campusFlow.zip(kosListFlow) { campusResult, kosResult ->
-                // Pair<Result<Campus>, Result<List<Kos>>>
                 Pair(campusResult, kosResult)
             }.collectLatest { (campusResult, kosResult) ->
                 when {
@@ -39,7 +35,7 @@ class ListKosViewModel(private val repository: KosRepository) : ViewModel() {
                         val campus = campusResult.data
                         val kosList = kosResult.data
 
-                        _campusName.value = campus.nama_kampus // Set nama kampus
+                        _campusName.value = campus.nama_kampus
 
                         val kosListWithDistance = kosList.map { kos ->
                             val distance = HaversineHelper.calculateDistance(
@@ -48,11 +44,9 @@ class ListKosViewModel(private val repository: KosRepository) : ViewModel() {
                                 kos.lokasi.latitude,
                                 kos.lokasi.longitude
                             )
-                            // Menggunakan copy untuk membuat objek baru dengan jarak yang diperbarui
                             kos.copy(lokasi = kos.lokasi.copy(jarak = distance),
                                 layoutType = KosLayoutType.REGULAR)
                         }
-                        // Urutkan berdasarkan jarak terdekat
                         _kosState.value = Result.Success(kosListWithDistance.sortedBy { it.lokasi.jarak })
                     }
                     campusResult is Result.Error -> {
@@ -61,7 +55,6 @@ class ListKosViewModel(private val repository: KosRepository) : ViewModel() {
                     kosResult is Result.Error -> {
                         _kosState.value = Result.Error(kosResult.message)
                     }
-                    // Jika salah satu atau keduanya masih loading
                     campusResult is Result.Loading || kosResult is Result.Loading -> {
                         _kosState.value = Result.Loading
                     }
@@ -69,7 +62,4 @@ class ListKosViewModel(private val repository: KosRepository) : ViewModel() {
             }
         }
     }
-
-    // Fungsi lama bisa dihapus atau tidak digunakan lagi
-    // fun getKosByCampusId(campusId: String) { ... }
 }

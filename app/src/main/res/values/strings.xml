@@ -33,11 +33,11 @@
     'Profile Fragment Strings'
     <string name="txt_emailUser">gokosapp@gmail.com</string>
     <string name="txt_account">Akun</string>
-    <string name="txt_accountInfo">Informasi tentang akun kamu</string>
+    <string name="txt_accountInfo">Informasi akun kamu</string>
     <string name="txt_aboutapp">Tentang Aplikasi</string>
-    <string name="txt_aboutappInfo">Informasi tentang aplikasi Go-Kos</string>
+    <string name="txt_aboutappInfo">Informasi aplikasi Go-Kos</string>
     <string name="txt_language">Bahasa</string>
-    <string name="txt_languageInfo">Ubah ke bahasa yang kamu inginkan</string>
+    <string name="txt_languageInfo">Ubah ke bahasa lain</string>
     <string name="btn_logout">LOGOUT</string>
 
     'Card View Nearby Kos Strings'

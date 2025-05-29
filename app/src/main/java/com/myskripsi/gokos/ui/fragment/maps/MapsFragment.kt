@@ -1,4 +1,4 @@
-package com.myskripsi.gokos.ui.fragment.maps // Sesuaikan package
+package com.myskripsi.gokos.ui.fragment.maps
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,12 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.myskripsi.gokos.databinding.FragmentMapsBinding
-import android.widget.Toast
-import com.myskripsi.gokos.ui.activity.listkos.ListKosActivity
 import com.myskripsi.gokos.ui.activity.map.MappingMapActivity
-
-// Import Activity tujuan (misalnya ActivityPetaSebaranKos)
-// import com.myskripsi.gokos.ui.activity.ActivityPetaSebaranKos
 
 class MapsFragment : Fragment() {
 
@@ -40,6 +35,14 @@ class MapsFragment : Fragment() {
 
         binding.cardUniba.setOnClickListener {
             navigateToMappingMap("kc9H58uqdcNcldwF2ce8", "Universitas Bina Bangsa")
+        }
+
+        binding.cardFkip.setOnClickListener {
+            navigateToMappingMap("HZKQ0kvV6NP0dLJQGdVV", "FKIP Unitirta")
+        }
+
+        binding.cardUinsmhbanten.setOnClickListener {
+            navigateToMappingMap("BnNlYEeXsxnCva26gIwu", "UIN SMH Banten")
         }
     }
 

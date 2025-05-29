@@ -63,4 +63,21 @@ class KosRepository(
         }
     }
 
+    fun getAllCampuses(): Flow<Result<List<Campus>>> = flow {
+        emit(Result.Loading)
+        try {
+            val snapshot = db.collection("kampus")
+                .get()
+                .await()
+
+            val campusList = snapshot.documents.mapNotNull { document ->
+                val campus = document.toObject(Campus::class.java)
+                campus?.copy(id = document.id)
+            }
+            emit(Result.Success(campusList))
+        } catch (e: Exception) {
+            emit(Result.Error("Failed to retrieve campus data: ${e.message}"))
+        }
+    }
+
 }
