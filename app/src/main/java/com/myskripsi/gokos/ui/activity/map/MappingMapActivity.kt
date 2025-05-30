@@ -47,6 +47,13 @@ class MappingMapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.On
         binding = ActivityMappingMapBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setSupportActionBar(binding.toolbar)
+
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowTitleEnabled(false)
+        }
+
         panelBinding = LayoutMarkerKosPanelBinding.bind(binding.kosDetailPanel.root)
 
         campusId = intent.getStringExtra(EXTRA_CAMPUS_ID)

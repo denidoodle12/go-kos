@@ -24,8 +24,11 @@ class ListKosActivity : AppCompatActivity() {
         binding = ActivityListKosBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setSupportActionBar(binding.toolbar)
+
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
+            setDisplayShowTitleEnabled(false)
         }
 
         val campusId = intent.getStringExtra(EXTRA_CAMPUS_ID)

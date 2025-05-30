@@ -1,4 +1,4 @@
-package com.myskripsi.gokos.ui.activity.detailKos
+package com.myskripsi.gokos.ui.activity.detailKos 
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,33 +8,93 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.type.LatLng
 import com.myskripsi.gokos.R
 import com.myskripsi.gokos.data.model.Kos
 import com.myskripsi.gokos.databinding.ActivityDetailKosBinding
 import com.myskripsi.gokos.databinding.ItemsFacilityBinding
 import java.text.DecimalFormat
+import java.text.NumberFormat
 import java.util.Locale
 
 @Suppress("DEPRECATION")
-class DetailKosActivity : AppCompatActivity() {
+class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var binding: ActivityDetailKosBinding
+    private var googleMap: GoogleMap? = null
+    private var currentKos: Kos? = null
+    private val CURRENCY_FORMATTER: NumberFormat = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailKosBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setSupportActionBar(binding.toolbar)
+
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
+            setDisplayShowTitleEnabled(false)
         }
 
+        var mapViewBundle: Bundle? = null
+        if (savedInstanceState !=null) {
+            mapViewBundle = savedInstanceState.getBundle(MAPVIEW_BUNDLE_KEY)
+        }
+        binding.mapViewKosLocation.onCreate(mapViewBundle)
 
         val dataKos = intent.getParcelableExtra<Kos>(EXTRA_DETAIL_KOS)
+
         if (dataKos != null) {
+            this.currentKos = dataKos
             showData(dataKos)
+            binding.mapViewKosLocation.getMapAsync(this)
+            Log.d("DetailKos", "DataKos: $dataKos, Jarak: ${dataKos.lokasi.jarak}")
         } else {
+            Log.e("DetailKos", "Data Kos tidak ditemukan di Intent.")
+            // Handle error, misalnya tampilkan pesan atau tutup activity
             finish()
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        var mapViewBundle = outState.getBundle(MAPVIEW_BUNDLE_KEY)
+        if (mapViewBundle == null) {
+            mapViewBundle = Bundle()
+            outState.putBundle(MAPVIEW_BUNDLE_KEY, mapViewBundle)
+        }
+        binding.mapViewKosLocation.onSaveInstanceState(mapViewBundle)
+    }
+
+    override fun onMapReady(map: GoogleMap) {
+        googleMap = map
+        googleMap?.uiSettings?.isZoomControlsEnabled = false
+        googleMap?.uiSettings?.setAllGesturesEnabled(false)
+
+        currentKos?.let { kos ->
+            if (kos.lokasi.latitude != 0.0 && kos.lokasi.longitude != 0.0) {
+                val kosLocation = com.google.android.gms.maps.model.LatLng(
+                    kos.lokasi.latitude,
+                    kos.lokasi.longitude
+                )
+                googleMap?.addMarker(
+                    MarkerOptions()
+                        .position(kosLocation)
+                        .title(kos.nama_kost)
+                )
+                googleMap?.moveCamera(
+                    CameraUpdateFactory.newLatLngZoom(kosLocation, 15f)
+                )
+                binding.mapViewKosLocation.visibility = View.VISIBLE
+            } else {
+                binding.mapViewKosLocation.visibility = View.GONE
+                Log.e("DetailKosActivity", "Latitude atau Longitude tidak valid untuk menampilkan peta.")
+            }
         }
     }
 
@@ -55,13 +115,11 @@ class DetailKosActivity : AppCompatActivity() {
     }
 
     private fun showData(dataKos: Kos) {
-        supportActionBar?.title = dataKos.nama_kost
-
         if (dataKos.foto_kost.isNotEmpty()) {
             Glide.with(this)
                 .load(dataKos.foto_kost[0])
-                .placeholder(R.drawable.placeholder_image)
-                .error(R.drawable.placeholder_image)
+                .placeholder(R.drawable.placeholder_image) // Tambahkan placeholder
+                .error(R.drawable.placeholder_image) // Tambahkan error image
                 .into(binding.ivKosMainImage)
         } else {
             binding.ivKosMainImage.setImageResource(R.drawable.placeholder_image)
@@ -77,6 +135,14 @@ class DetailKosActivity : AppCompatActivity() {
         binding.tvLatitude.text = "Lat: ${dataKos.lokasi.latitude}"
         binding.tvLongitude.text = "Lng: ${dataKos.lokasi.longitude}"
 
+        if (dataKos.lokasi.latitude == 0.0 && dataKos.lokasi.longitude == 0.0) {
+            binding.KosLocation.visibility = View.GONE
+        } else {
+            binding.KosLocation.visibility = View.VISIBLE
+        }
+
+        binding.tvPrice.text = CURRENCY_FORMATTER.format(dataKos.harga.toDouble())
+
         populateFacilities(
             binding.llFasilitasKamarContainer,
             dataKos.fasilitas_kamar,
@@ -84,9 +150,9 @@ class DetailKosActivity : AppCompatActivity() {
         )
 
         populateFacilities(
-            binding.llFasilitasKamarMandiContainer,
+            binding.llFasilitasKamarMandiContainer, // ID dari XML yang diperbarui
             dataKos.fasilitas_kamar_mandi,
-            binding.tvFasilitasKamarMandiTitle
+            binding.tvFasilitasKamarMandiTitle // ID dari XML yang diperbarui
         )
     }
 
@@ -150,8 +216,39 @@ class DetailKosActivity : AppCompatActivity() {
         }
     }
 
+    // --- Lifecycle methods untuk MapView ---
+    override fun onResume() {
+        super.onResume()
+        binding.mapViewKosLocation.onResume()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        binding.mapViewKosLocation.onStart()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        binding.mapViewKosLocation.onStop()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.mapViewKosLocation.onPause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.mapViewKosLocation.onDestroy()
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        binding.mapViewKosLocation.onLowMemory()
+    }
 
     companion object {
         const val EXTRA_DETAIL_KOS = "extra_detail_kos"
+        const val MAPVIEW_BUNDLE_KEY = "MapViewBundleKey"
     }
 }
