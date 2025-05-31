@@ -25,42 +25,35 @@
             android:id="@+id/imageViewLogin"
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:alpha="0"
             android:src="@drawable/vektor_login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:alpha="100"/>
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:alpha="0"
             android:fontFamily="@font/notosans_bold"
             android:text="Selamat Datang"
             android:textColor="@color/primary"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:alpha="100"/>
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
             android:id="@+id/messageTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:alpha="0"
             android:fontFamily="@font/notosans_semibold"
             android:text="Silahkan login terlebih dahulu untuk melanjutkan"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:alpha="100"/>
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <com.myskripsi.gokos.ui.customview.CustomEmailEditText
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:alpha="0"
             android:background="@drawable/border_transparent_with_stroke"
             android:drawableStart="@drawable/ic_email_24"
             android:drawablePadding="8dp"
@@ -70,14 +63,12 @@
             android:paddingEnd="16dp"
             android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:alpha="100"/>
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <com.myskripsi.gokos.ui.customview.CustomPasswordEditText
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:alpha="0"
             android:background="@drawable/border_transparent_with_stroke"
             android:drawableStart="@drawable/ic_password_24"
             android:drawableEnd="@drawable/ic_eye_24"
@@ -88,15 +79,13 @@
             android:paddingEnd="16dp"
             android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:alpha="100"/>
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <Button
             android:id="@+id/btnLogin"
             style="@style/Widget.Material3.Button"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:alpha="0"
             android:backgroundTint="@color/primary"
             android:text="LOGIN"
             android:textColor="@color/white"
@@ -104,22 +93,19 @@
             android:textStyle="bold"
             android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:alpha="100"/>
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <LinearLayout
             android:id="@+id/layout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:alpha="0"
             android:gravity="center"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnLogin"
-            tools:alpha="100">
+            app:layout_constraintTop_toBottomOf="@+id/btnLogin">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -146,13 +132,11 @@
             android:id="@+id/layout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:alpha="0"
             android:gravity="center"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout1"
-            tools:alpha="100">
+            app:layout_constraintTop_toBottomOf="@+id/layout1">
 
             <View
                 android:layout_width="150dp"
@@ -184,15 +168,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:alpha="0"
             android:background="@drawable/border_button"
             android:backgroundTint="@color/gray"
             android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout2"
-            tools:alpha="100">
+            app:layout_constraintTop_toBottomOf="@+id/layout2">
 
             <ImageView
                 android:layout_width="28dp"

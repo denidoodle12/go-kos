@@ -60,6 +60,10 @@ dependencies {
     // Firebase
     implementation(libs.firebase.firestore)
     implementation(libs.play.services.maps)
+    implementation(libs.firebase.auth)
+    implementation(libs.credentials)
+    implementation(libs.credentials.play.services.auth)
+    implementation(libs.googleid)
 
     // Testing
     testImplementation(libs.junit)
@@ -82,6 +86,15 @@ dependencies {
 
     // Onboarding
     implementation("com.tbuonomo:dotsindicator:5.1.0")
+
+    // Auth
+    implementation(libs.firebase.auth.ktx)
+    implementation(libs.credentials)
+    implementation(libs.credentials.play.services.auth)
+    implementation(libs.googleid)
+
+    // Data Store
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
 
 
 }
