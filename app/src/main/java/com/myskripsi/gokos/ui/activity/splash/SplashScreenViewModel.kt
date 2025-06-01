@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.myskripsi.gokos.data.AuthRepository
-import com.myskripsi.gokos.data.KosRepository
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 

@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.myskripsi.gokos.R
 import com.myskripsi.gokos.databinding.FragmentHomeBinding
 import com.myskripsi.gokos.ui.activity.listkos.ListKosActivity
 import com.myskripsi.gokos.ui.activity.detailKos.DetailKosActivity
@@ -52,26 +53,13 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupCampusRecyclerView()
         setupNearbyKosRecyclerView()
+        setupCampusRecyclerView()
         observeViewModel()
-
-        binding.progressIndicator.visibility = View.GONE
-        binding.tvNearbyKosStatus.visibility = View.GONE
-        binding.rvNearbyKos.visibility = View.GONE
-        binding.rvCampusSelection.visibility = View.GONE
-        binding.tvCampusListError.visibility = View.GONE
 
         initiateLocationProcess()
         viewModel.fetchCampusList()
-    }
-
-    private fun navigateToCampusListScreen(campusId: String, campusName: String) {
-        val intent = Intent(requireContext(), ListKosActivity::class.java).apply {
-            putExtra(ListKosActivity.EXTRA_CAMPUS_ID, campusId)
-            putExtra(ListKosActivity.EXTRA_CAMPUS_NAME, campusName)
-        }
-        startActivity(intent)
+        viewModel.loadUserProfile()
     }
 
     private fun setupNearbyKosRecyclerView() {
@@ -85,14 +73,17 @@ class HomeFragment : Fragment() {
         binding.rvNearbyKos.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = nearbyKosAdapter
-
         }
     }
 
     private fun setupCampusRecyclerView() {
         campusAdapter = CampusAdapter()
         campusAdapter.onItemClick = { campus ->
-            navigateToCampusListScreen(campus.id, campus.nama_kampus)
+            val intent = Intent(requireContext(), ListKosActivity::class.java).apply {
+                putExtra(ListKosActivity.EXTRA_CAMPUS_ID, campus.id)
+                putExtra(ListKosActivity.EXTRA_CAMPUS_NAME, campus.nama_kampus)
+            }
+            startActivity(intent)
         }
         binding.rvCampusSelection.apply {
             layoutManager = GridLayoutManager(requireContext(), 2)
@@ -114,7 +105,7 @@ class HomeFragment : Fragment() {
                         binding.progressIndicator.visibility = View.GONE
                     }
                     if (result.data.isEmpty()) {
-                        binding.tvNearbyKosStatus.text = "Cannot find kos nearby you!"
+                        binding.tvNearbyKosStatus.text = getString(R.string.txt_cannot_find_kos_nearby_you)
                         binding.tvNearbyKosStatus.visibility = View.VISIBLE
                         binding.rvNearbyKos.visibility = View.GONE
                     } else {
@@ -146,7 +137,7 @@ class HomeFragment : Fragment() {
                         binding.progressIndicator.visibility = View.GONE
                     }
                     if (result.data.isEmpty()) {
-                        binding.tvCampusListError.text = "Daftar kampus tidak tersedia."
+                        binding.tvCampusListError.text = getString(R.string.txt_campus_list_not_available)
                         binding.tvCampusListError.visibility = View.VISIBLE
                         binding.rvCampusSelection.visibility = View.GONE
                     } else {
@@ -172,8 +163,16 @@ class HomeFragment : Fragment() {
                 binding.progressIndicator.visibility == View.GONE &&
                 binding.rvNearbyKos.visibility == View.GONE) {
 
-                binding.tvNearbyKosStatus.text = "Gagal mendapatkan lokasi Anda untuk mencari kos terdekat."
+                binding.tvNearbyKosStatus.text = getString(R.string.txt_unable_to_get_your_location_to_find_the_nearby_kos)
                 binding.tvNearbyKosStatus.visibility = View.VISIBLE
+            }
+        }
+
+        viewModel.userDisplayName.observe(viewLifecycleOwner) { displayName ->
+            if (!displayName.isNullOrBlank()) {
+                binding.username.text = getString(R.string.hiUsername, displayName)
+            } else {
+                binding.username.text = getString(R.string.hiUsername, "User")
             }
         }
     }
@@ -216,7 +215,7 @@ class HomeFragment : Fragment() {
                 }
                 is LocationResult.LocationDisabled -> {
                     binding.progressIndicator.visibility = View.GONE
-                    binding.tvNearbyKosStatus.text = "Layanan lokasi (GPS) tidak aktif. Mohon aktifkan."
+                    binding.tvNearbyKosStatus.text = getString(R.string.txt_location_services_gps_are_disabled_please_enable_them)
                     binding.tvNearbyKosStatus.visibility = View.VISIBLE
                     viewModel.updateUserLocation(null)
                 }
@@ -260,7 +259,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun handlePermissionDeniedUI(showSettingsOption: Boolean) {
-        binding.tvNearbyKosStatus.text = "Izin lokasi ditolak. Fitur kos terdekat tidak dapat digunakan."
+        binding.tvNearbyKosStatus.text = getString(R.string.txt_location_permission_denied_nearby_features_cannot_be_used)
         binding.tvNearbyKosStatus.visibility = View.VISIBLE
         binding.progressIndicator.visibility = View.GONE //
         binding.rvNearbyKos.visibility = View.GONE
@@ -273,15 +272,15 @@ class HomeFragment : Fragment() {
 
     private fun showSettingsDialog() {
         AlertDialog.Builder(requireContext())
-            .setTitle("Izin Diperlukan")
-            .setMessage("Aplikasi ini memerlukan izin lokasi. Aktifkan di Pengaturan Aplikasi.")
-            .setPositiveButton("Pengaturan") { _, _ ->
+            .setTitle("Permission Needed!")
+            .setMessage("This app requires location permission. Enable it in App Settings.")
+            .setPositiveButton("Settings") { _, _ ->
                 val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
                 val uri = Uri.fromParts("package", requireActivity().packageName, null)
                 intent.data = uri
                 startActivity(intent)
             }
-            .setNegativeButton("Batal") { dialog, _ ->
+            .setNegativeButton("Cancel") { dialog, _ ->
                 dialog.dismiss()
             }
             .create()
@@ -298,7 +297,8 @@ class HomeFragment : Fragment() {
             }
         } else {
             if (viewModel.nearbyKosState.value !is Result.Success) {
-                binding.tvNearbyKosStatus.text = "Berikan izin lokasi untuk melihat kos terdekat."
+                binding.tvNearbyKosStatus.text =
+                    getString(R.string.txt_allow_location_access_to_see_kos_nearby_you)
                 binding.tvNearbyKosStatus.visibility = View.VISIBLE
                 binding.progressIndicator.visibility = View.GONE
                 binding.rvNearbyKos.visibility = View.GONE

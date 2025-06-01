@@ -14,9 +14,6 @@ class LoginViewModel(private val repository: AuthRepository): ViewModel() {
     private val _loginState = MutableLiveData<Result<FirebaseUser>>()
     val loginState: LiveData<Result<FirebaseUser>> = _loginState
 
-    private val _logoutState = MutableLiveData<Result<Unit>>()
-    val logoutState: LiveData<Result<Unit>> = _logoutState
-
     fun loginUser(email: String, pass: String) {
         viewModelScope.launch {
             repository.loginUser(email, pass).collectLatest { result ->
@@ -29,11 +26,4 @@ class LoginViewModel(private val repository: AuthRepository): ViewModel() {
         return repository.getCurrentUser()
     }
 
-    fun logoutUser() {
-        viewModelScope.launch {
-            repository.logoutUser().collectLatest { result ->
-                _logoutState.value = result
-            }
-        }
-    }
 }

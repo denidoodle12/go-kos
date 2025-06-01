@@ -15,7 +15,7 @@ class OnboardingAdapter(activity: AppCompatActivity) : FragmentStateAdapter(acti
             0 -> FirstScreen.newInstance()
             1 -> SecondScreen.newInstance()
             2 -> ThirdScreen.newInstance()
-            else -> throw IllegalStateException("Posisi fragment tidak valid untuk onboarding: $position")
+            else -> throw IllegalStateException("Fragment position not valid for onboarding: $position")
         }
     }
 }

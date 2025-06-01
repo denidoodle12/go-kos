@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.myskripsi.gokos.data.KosRepository
 import com.myskripsi.gokos.data.model.Kos
 import android.location.Location
+import com.myskripsi.gokos.data.AuthRepository
 import com.myskripsi.gokos.data.model.Campus
 import com.myskripsi.gokos.ui.adapter.KosLayoutType
 import com.myskripsi.gokos.utils.HaversineHelper
@@ -14,7 +15,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import com.myskripsi.gokos.utils.Result
 
-class HomeViewModel(private val repository: KosRepository) : ViewModel() {
+class HomeViewModel(private val repository: KosRepository, private val authRepository: AuthRepository) : ViewModel() {
     private val _nearbyKosState = MutableLiveData<Result<List<Kos>>>()
     val nearbyKosState: LiveData<Result<List<Kos>>> = _nearbyKosState
 
@@ -23,6 +24,23 @@ class HomeViewModel(private val repository: KosRepository) : ViewModel() {
 
     private val _userLocation = MutableLiveData<Location?>()
     val userLocation: LiveData<Location?> = _userLocation
+
+    private val _userDisplayName = MutableLiveData<String?>()
+    val userDisplayName: LiveData<String?> = _userDisplayName
+
+    private val _userEmail = MutableLiveData<String?>()
+    val userEmail: LiveData<String?> = _userEmail
+
+    fun loadUserProfile() {
+        val currentUser = authRepository.getCurrentUser()
+        if (currentUser != null) {
+            _userDisplayName.value = currentUser.displayName
+            _userEmail.value = currentUser.email
+        } else {
+            _userDisplayName.value = null
+            _userEmail.value = null
+        }
+    }
 
     fun updateUserLocation(location: Location?) {
         _userLocation.value = location

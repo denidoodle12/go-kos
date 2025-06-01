@@ -8,11 +8,13 @@ import com.myskripsi.gokos.data.KosRepository
 import com.myskripsi.gokos.data.SettingPreferences
 import com.myskripsi.gokos.data.dataStore
 import com.myskripsi.gokos.ui.activity.auth.login.LoginViewModel
+import com.myskripsi.gokos.ui.activity.auth.signup.SignupViewModel
 import com.myskripsi.gokos.ui.activity.listkos.ListKosViewModel
 import com.myskripsi.gokos.ui.activity.map.MappingMapViewModel
 import com.myskripsi.gokos.ui.activity.onboarding.OnboardingViewModel
 import com.myskripsi.gokos.ui.activity.splash.SplashScreenViewModel
 import com.myskripsi.gokos.ui.fragment.home.HomeViewModel
+import com.myskripsi.gokos.ui.fragment.profile.ProfileViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -50,7 +52,7 @@ val utilsModule = module {
 
 val viewModelModule = module {
     viewModel{
-        HomeViewModel(get())
+        HomeViewModel(get(), get())
     }
     viewModel {
         ListKosViewModel(get())
@@ -63,6 +65,12 @@ val viewModelModule = module {
     }
     viewModel {
         LoginViewModel(get())
+    }
+    viewModel {
+        ProfileViewModel(get())
+    }
+    viewModel {
+        SignupViewModel(get())
     }
     viewModel {
         OnboardingViewModel(get())

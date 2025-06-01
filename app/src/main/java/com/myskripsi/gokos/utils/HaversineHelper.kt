@@ -6,7 +6,7 @@ import kotlin.math.sin
 import kotlin.math.sqrt
 
 object HaversineHelper {
-    private const val EARTH_RADIUS = 6371.0 // Radius bumi dalam kilometer
+    private const val EARTH_RADIUS = 6371.0
 
     /**
      * Menghitung jarak antara dua titik menggunakan formula Haversine

@@ -2,7 +2,6 @@ package com.myskripsi.gokos.ui.activity.detailKos
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
@@ -12,7 +11,6 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.type.LatLng
 import com.myskripsi.gokos.R
 import com.myskripsi.gokos.data.model.Kos
 import com.myskripsi.gokos.databinding.ActivityDetailKosBinding
@@ -27,7 +25,6 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivityDetailKosBinding
     private var googleMap: GoogleMap? = null
     private var currentKos: Kos? = null
-    private val CURRENCY_FORMATTER: NumberFormat = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,11 +50,6 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback {
             this.currentKos = dataKos
             showData(dataKos)
             binding.mapViewKosLocation.getMapAsync(this)
-            Log.d("DetailKos", "DataKos: $dataKos, Jarak: ${dataKos.lokasi.jarak}")
-        } else {
-            Log.e("DetailKos", "Data Kos tidak ditemukan di Intent.")
-            // Handle error, misalnya tampilkan pesan atau tutup activity
-            finish()
         }
     }
 
@@ -93,7 +85,6 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback {
                 binding.mapViewKosLocation.visibility = View.VISIBLE
             } else {
                 binding.mapViewKosLocation.visibility = View.GONE
-                Log.e("DetailKosActivity", "Latitude atau Longitude tidak valid untuk menampilkan peta.")
             }
         }
     }
@@ -118,8 +109,8 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback {
         if (dataKos.foto_kost.isNotEmpty()) {
             Glide.with(this)
                 .load(dataKos.foto_kost[0])
-                .placeholder(R.drawable.placeholder_image) // Tambahkan placeholder
-                .error(R.drawable.placeholder_image) // Tambahkan error image
+                .placeholder(R.drawable.placeholder_image)
+                .error(R.drawable.placeholder_image)
                 .into(binding.ivKosMainImage)
         } else {
             binding.ivKosMainImage.setImageResource(R.drawable.placeholder_image)
@@ -132,8 +123,8 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback {
         binding.tvKosDescription.text = dataKos.deskripsi
         binding.tvListrik.text = dataKos.listrik
 
-        binding.tvLatitude.text = "Lat: ${dataKos.lokasi.latitude}"
-        binding.tvLongitude.text = "Lng: ${dataKos.lokasi.longitude}"
+        binding.tvLatitude.text = getString(R.string.latitude, dataKos.lokasi.latitude.toString())
+        binding.tvLongitude.text = getString(R.string.longitude, dataKos.lokasi.longitude.toString())
 
         if (dataKos.lokasi.latitude == 0.0 && dataKos.lokasi.longitude == 0.0) {
             binding.KosLocation.visibility = View.GONE
@@ -150,9 +141,9 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback {
         )
 
         populateFacilities(
-            binding.llFasilitasKamarMandiContainer, // ID dari XML yang diperbarui
+            binding.llFasilitasKamarMandiContainer,
             dataKos.fasilitas_kamar_mandi,
-            binding.tvFasilitasKamarMandiTitle // ID dari XML yang diperbarui
+            binding.tvFasilitasKamarMandiTitle
         )
     }
 
@@ -216,7 +207,6 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    // --- Lifecycle methods untuk MapView ---
     override fun onResume() {
         super.onResume()
         binding.mapViewKosLocation.onResume()
@@ -250,5 +240,6 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback {
     companion object {
         const val EXTRA_DETAIL_KOS = "extra_detail_kos"
         const val MAPVIEW_BUNDLE_KEY = "MapViewBundleKey"
+        val CURRENCY_FORMATTER: NumberFormat = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
     }
 }

@@ -27,9 +27,7 @@
             android:id="@+id/imageViewRegis"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:alpha="0"
-            android:src="@drawable/vektor_signup"
-            tools:alpha="100"/>
+            android:src="@drawable/vektor_signup"/>
 
         <!-- Description -->
 
@@ -37,55 +35,46 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:alpha="0"
             android:fontFamily="@font/notosans_bold"
             android:text="Daftar"
             android:textSize="30sp"
-            android:textColor="@color/primary"
-            tools:alpha="100"/>
+            android:textColor="@color/primary"/>
 
         <TextView
             android:id="@+id/messageTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:alpha="0"
             android:fontFamily="@font/notosans_semibold"
-            android:text="Lengkapi data berikut agar dapat login!"
-            tools:alpha="100"/>
+            android:text="Lengkapi data berikut agar dapat login!"/>
 
         <EditText
             android:id="@+id/fieldFullName"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:alpha="0"
             android:background="@drawable/border_transparent_with_stroke"
             android:drawableStart="@drawable/ic_person_24"
             android:drawablePadding="8dp"
             android:hint="Nama Lengkap"
             android:layout_marginTop="10dp"
             android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            tools:alpha="100"/>
+            android:paddingEnd="16dp"/>
 
         <com.myskripsi.gokos.ui.customview.CustomEmailEditText
             android:id="@+id/fieldEmail"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:alpha="0"
             android:background="@drawable/border_transparent_with_stroke"
             android:drawableStart="@drawable/ic_email_24"
             android:drawablePadding="8dp"
             android:hint="Alamat Email"
             android:layout_marginTop="10dp"
             android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            tools:alpha="100"/>
+            android:paddingEnd="16dp"/>
 
         <com.myskripsi.gokos.ui.customview.CustomPasswordEditText
             android:id="@+id/fieldPassword"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:alpha="0"
             android:background="@drawable/border_transparent_with_stroke"
             android:drawableStart="@drawable/ic_password_24"
             android:drawableEnd="@drawable/ic_eye_24"
@@ -94,8 +83,7 @@
             android:inputType="textPassword"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:layout_marginTop="10dp"
-            tools:alpha="100"/>
+            android:layout_marginTop="10dp"/>
 
         <!-- Account Exists Section -->
 
@@ -103,7 +91,6 @@
             android:id="@+id/confirmPassword"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:alpha="0"
             android:background="@drawable/border_transparent_with_stroke"
             android:drawableStart="@drawable/ic_password_24"
             android:drawableEnd="@drawable/ic_eye_24"
@@ -112,21 +99,18 @@
             android:inputType="textPassword"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:layout_marginTop="10dp"
-            tools:alpha="100"/>
+            android:layout_marginTop="10dp"/>
 
         <Button
             android:id="@+id/btnRegister"
             style="@style/Widget.Material3.Button"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:alpha="0"
             android:backgroundTint="@color/primary"
             android:text="DAFTAR"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:layout_marginTop="10dp"
-            tools:alpha="100"/>
+            android:layout_marginTop="10dp"/>
 
         <!-- Divider -->
 
@@ -134,10 +118,8 @@
             android:id="@+id/layout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:alpha="0"
             android:gravity="center"
             android:orientation="horizontal"
-            tools:alpha="100"
             android:layout_marginTop="5dp">
 
             <TextView
@@ -161,10 +143,8 @@
             android:id="@+id/layout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:alpha="0"
             android:gravity="center"
-            android:orientation="horizontal"
-            tools:alpha="100">
+            android:orientation="horizontal">
 
             <View
                 android:layout_width="150dp"
@@ -196,15 +176,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:alpha="0"
             android:background="@drawable/border_button"
             android:backgroundTint="@color/gray"
             android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout2"
-            tools:alpha="100">
+            app:layout_constraintTop_toBottomOf="@+id/layout2">
 
             <ImageView
                 android:layout_width="28dp"

@@ -3,9 +3,7 @@ package com.myskripsi.gokos.ui.activity.onboarding
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.myskripsi.gokos.R
 import com.myskripsi.gokos.databinding.ActivityOnboardingBinding
-import com.myskripsi.gokos.ui.activity.auth.login.LoginActivity
 import com.myskripsi.gokos.ui.adapter.OnboardingAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -35,7 +33,7 @@ class OnboardingActivity : AppCompatActivity() {
 
     fun userCompletesOnboarding() {
         viewModel.completeOnboarding()
-        val intent = Intent(this, LoginActivity::class.java).apply {
+        val intent = Intent(this, StartActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
         startActivity(intent)

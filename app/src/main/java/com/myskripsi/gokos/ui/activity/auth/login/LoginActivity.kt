@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.myskripsi.gokos.databinding.ActivityLoginBinding
 import com.myskripsi.gokos.ui.MainActivity
+import com.myskripsi.gokos.ui.activity.auth.signup.SignupActivity
 import com.myskripsi.gokos.utils.Result
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -25,11 +26,11 @@ class LoginActivity : AppCompatActivity() {
             return
         }
 
-        setupListeners()
-        observeViewModelStates()
+        setupAction()
+        observeViewModel()
     }
 
-    private fun setupListeners() {
+    private fun setupAction() {
         binding.btnLogin.setOnClickListener {
             val email = binding.email.text.toString().trim()
             val pass = binding.password.text.toString().trim()
@@ -40,9 +41,13 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "The column must not be empty!", Toast.LENGTH_SHORT).show()
             }
         }
+
+        binding.goRegister.setOnClickListener {
+            startActivity(Intent(this, SignupActivity::class.java))
+        }
     }
 
-    private fun observeViewModelStates() {
+    private fun observeViewModel() {
         viewModel.loginState.observe(this) { result ->
             when(result) {
                 is Result.Loading -> { binding.progressIndicator.visibility = View.VISIBLE }

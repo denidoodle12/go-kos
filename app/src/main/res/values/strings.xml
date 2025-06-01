@@ -15,7 +15,7 @@
     <string name="password_too_short">Password terlalu pendek</string>
     <string name="appBarGo">Go</string>
     <string name="appBarKos">-kos.</string>
-    <string name="hiUsername">Hi, Deni Hidayat</string>
+    <string name="hiUsername">Hi, %1$s!</string>
     <string name="txt_infoToSearch">Mau cari kos kosan?</string>
     <string name="txt_headingOne">Kos Disekitarmu</string>
     <string name="txt_headingOneInfo">Kami berikan rekomendasi kost terdekat dari lokasimu yang mungkin cocok untuk kamu</string>
@@ -69,6 +69,15 @@
     <string name="txt_detail_descriptionKos">Kost ini merupakan hunian nyaman favorite mahasiswa. Terdapat fasilitas yang lengkap dan lingkungan yang nyaman sehingga sangat direkomendasikan untuk disinggahi selama menempuh pendidikan.</string>
     <string name="txt_detail_kos">Detail Kosan</string>
     <string name="txt_detail_kosan_info">Detail lainnya tentang kosan</string>
+    <string name="txt_cannot_find_kos_nearby_you">Cannot find kos nearby you!</string>
+    <string name="txt_campus_list_not_available">Campus list not available.</string>
+    <string name="txt_unable_to_get_your_location_to_find_the_nearby_kos">Unable to get your location to find the nearby kos.</string>
+    <string name="txt_location_services_gps_are_disabled_please_enable_them">Location services (GPS) are disabled. Please enable them.</string>
+    <string name="txt_location_permission_denied_nearby_features_cannot_be_used">Location permission denied. Nearby features cannot be used.</string>
+    <string name="txt_allow_location_access_to_see_kos_nearby_you">Allow location access to see kos nearby you</string>
+    <string name="txt_there_are_no_kos_found_around_this_campus">There are no kos found around this campus.</string>
+    <string name="latitude">Latitude: %1$s</string>
+    <string name="longitude">Longitude: %1$s</string>
 
 
 </resources>
