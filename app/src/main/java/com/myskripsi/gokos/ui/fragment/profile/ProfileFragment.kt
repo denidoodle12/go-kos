@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog // Untuk dialog konfirmasi (opsional)
 import com.myskripsi.gokos.databinding.FragmentProfileBinding
 import com.myskripsi.gokos.ui.activity.auth.login.LoginActivity // Impor LoginActivity
+import com.myskripsi.gokos.ui.activity.editProfile.EditProfileActivity
 import com.myskripsi.gokos.utils.Result // Impor Result class Anda
 import org.koin.androidx.viewmodel.ext.android.viewModel // Impor untuk Koin ViewModel
 
@@ -41,6 +42,11 @@ class ProfileFragment : Fragment() {
         binding.btnLogout.setOnClickListener {
             // (Disarankan) Tampilkan dialog konfirmasi sebelum logout
             showLogoutConfirmationDialog()
+        }
+
+        binding.optionAccount.setOnClickListener {
+            val intent = Intent(requireActivity(), EditProfileActivity::class.java)
+            startActivity(intent)
         }
 
         observeLogoutState()

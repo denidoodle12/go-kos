@@ -22,6 +22,15 @@ class LoginViewModel(private val repository: AuthRepository): ViewModel() {
         }
     }
 
+    fun loginWithGoogleToken(idToken: String) {
+        _loginState.value = Result.Loading
+        viewModelScope.launch {
+            repository.loginWithGoogle(idToken).collectLatest { result ->
+                _loginState.value = result
+            }
+        }
+    }
+
     fun getCurrentUser(): FirebaseUser? {
         return repository.getCurrentUser()
     }

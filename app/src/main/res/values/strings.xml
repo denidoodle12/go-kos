@@ -3,6 +3,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="searchItem">Cari kos kosan</string>
 
+    <string name="default_web_client_id" translatable="false">908675920423-p382pndkp7ej6ojevb8ar20v7q5uis4g.apps.googleusercontent.com</string>
+
     'Home Fragment and List Kos Strings'
     <string name="codes_arrow_back_result_activity">back button</string>
     <string name="title_activity_main">MainActivity</string>
@@ -78,6 +80,8 @@
     <string name="txt_there_are_no_kos_found_around_this_campus">There are no kos found around this campus.</string>
     <string name="latitude">Latitude: %1$s</string>
     <string name="longitude">Longitude: %1$s</string>
+    <string name="txt_editProfile">Edit Profile</string>
+    <string name="txt_editProfile_info">Informasi tentang akun kamu</string>
 
 
 </resources>

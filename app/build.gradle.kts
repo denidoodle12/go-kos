@@ -93,8 +93,15 @@ dependencies {
     implementation(libs.credentials.play.services.auth)
     implementation(libs.googleid)
 
+    // Auth with Google
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
+
     // Data Store
     implementation("androidx.datastore:datastore-preferences:1.1.1")
+
+    // Supabase Storage
+    implementation("io.ktor:ktor-client-android:2.3.9")
+    implementation("io.github.jan-tennert.supabase:storage-kt:2.3.0")
 
 
 }

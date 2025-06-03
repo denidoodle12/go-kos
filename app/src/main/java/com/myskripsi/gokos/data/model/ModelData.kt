@@ -37,3 +37,17 @@ data class Lokasi(
     val latitude: Double = 0.0,
     val longitude: Double = 0.0
 ) : Parcelable
+
+@Parcelize
+data class UserProfile(
+    val uid: String = "",
+    var fullName: String = "",
+    val email: String = "",
+    var profileImageUrl: String? = null,
+    var gender: String? = null,
+    var dateOfBirth: String? = null,
+    var profession: String? = null,
+    var professionName: String? = null,
+    var maritalStatus: String? = null,
+    var emergencyContact: String? = null
+) : Parcelable
