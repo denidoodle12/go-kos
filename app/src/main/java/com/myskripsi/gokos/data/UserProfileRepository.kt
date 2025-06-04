@@ -61,47 +61,4 @@ class UserProfileRepository(
         }
     }
 
-//    suspend fun uploadProfileImage(userId: String, imageUri: Uri): Flow<Result<String>> = flow {
-//        emit(Result.Loading)
-//        try {
-//            val contentResolver = context.contentResolver
-//            val inputStream = contentResolver.openInputStream(imageUri)
-//            val fileBytes = inputStream?.readBytes() // Ini adalah ByteArray?
-//            inputStream?.close()
-//
-//            if (fileBytes == null) {
-//                emit(Result.Error("Gagal membaca file gambar."))
-//                Log.e("UserProfileRepo", "fileBytes is null, cannot upload.")
-//                return@flow
-//            }
-//
-//            val mimeType = contentResolver.getType(imageUri) ?: "application/octet-stream"
-//            val fileExtension = mimeType.substringAfterLast('/') ?: "jpg"
-//            val fileName = "profile_${System.currentTimeMillis()}.$fileExtension"
-//            val filePath = "$userId/$fileName" // Path di dalam bucket
-//
-//            Log.d("SupabaseUpload", "Bucket: $profileImageBucket, Path: $filePath, MIME: $mimeType")
-//
-//            val bucketApi: StorageBucketApi = supabaseClient.storage.from(profileImageBucket)
-//
-//            // Panggil upload dengan parameter yang lebih eksplisit
-//            val uploadedObjectKey: String = bucketApi.upload(
-//                path = filePath,
-//                body = fileBytes,
-//                upsert = true,
-//                contentType = mimeType,
-//                cacheControl = "max-age=3600" // Nilai default library
-//            )
-//            Log.d("SupabaseUpload", "Upload successful, object key: $uploadedObjectKey")
-//
-//            val publicUrl = bucketApi.publicUrl(path = filePath)
-//            Log.d("SupabaseUpload", "Public URL: $publicUrl")
-//
-//            emit(Result.Success(publicUrl))
-//
-//        } catch (e: Exception) {
-//            Log.e("UserProfileRepo", "Supabase upload error: ", e)
-//            emit(Result.Error(e.message ?: "Gagal mengupload gambar profil ke Supabase.", e))
-//        }
-//    }
 }

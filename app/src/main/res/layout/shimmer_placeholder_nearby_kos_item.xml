@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="200dp"
+    android:layout_height="260dp"
+    android:layout_marginVertical="3dp"
+    android:layout_marginHorizontal="3dp"
+    app:cardBackgroundColor="@color/shimmer_background_color"
+    app:cardCornerRadius="20dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/imageKosPlaceholder"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:background="@color/shimmer_placeholder_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/distancePlaceholder"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@color/shimmer_placeholder_color"
+            app:layout_constraintBottom_toBottomOf="@id/imageKosPlaceholder"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <View
+            android:id="@+id/categoryKosPlaceholder"
+            android:layout_width="80dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/shimmer_placeholder_color"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageKosPlaceholder" />
+
+        <View
+            android:id="@+id/nameKosPlaceholder"
+            android:layout_width="0dp"
+            android:layout_height="18dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="15dp"
+            android:background="@color/shimmer_placeholder_color"
+            app:layout_constraintStart_toStartOf="@+id/categoryKosPlaceholder"
+            app:layout_constraintTop_toBottomOf="@+id/categoryKosPlaceholder"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <View
+            android:id="@+id/addressKosPlaceholder"
+            android:layout_width="0dp"
+            android:layout_height="14dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/shimmer_placeholder_color"
+            app:layout_constraintStart_toStartOf="@+id/categoryKosPlaceholder"
+            app:layout_constraintTop_toBottomOf="@+id/nameKosPlaceholder"
+            app:layout_constraintEnd_toEndOf="@+id/nameKosPlaceholder" />
+        <View
+            android:id="@+id/addressKosPlaceholder2"
+            android:layout_width="0dp"
+            android:layout_height="14dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/shimmer_placeholder_color"
+            app:layout_constraintStart_toStartOf="@+id/categoryKosPlaceholder"
+            app:layout_constraintTop_toBottomOf="@+id/addressKosPlaceholder"
+            app:layout_constraintEnd_toEndOf="@+id/nameKosPlaceholder"
+            app:layout_constraintWidth_percent="0.6"/>
+
+
+        <View
+            android:id="@+id/priceKosPlaceholder"
+            android:layout_width="100dp"
+            android:layout_height="18dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/shimmer_placeholder_color"
+            app:layout_constraintStart_toStartOf="@+id/categoryKosPlaceholder"
+            app:layout_constraintTop_toBottomOf="@id/addressKosPlaceholder2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

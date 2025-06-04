@@ -16,7 +16,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="40dp"
@@ -24,7 +23,6 @@
             android:layout_gravity="start|center_vertical"
             android:adjustViewBounds="true"
             android:contentDescription="@string/app_name" />
-
     </androidx.appcompat.widget.Toolbar>
 
     <View
@@ -61,8 +59,7 @@
                     android:layout_height="wrap_content"
                     android:elevation="10dp"
                     android:indeterminate="true"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:visibility="gone" app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -99,7 +96,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/textview1">
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -136,10 +132,10 @@
                                 android:theme="@style/CustomSearchView"
                                 app:iconifiedByDefault="false"
                                 app:queryHint="@string/searchItem" />
-
                         </com.google.android.material.card.MaterialCardView>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
+
 
                 <TextView
                     android:id="@+id/textHeading2"
@@ -164,16 +160,38 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textHeading2" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvNearbyKos"
+                <FrameLayout
+                    android:id="@+id/nearbyKosContainer"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textview2"
-                    tools:listitem="@layout/items_nearby_kost" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textview2">
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/shimmerNearbyKosLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:shimmer_auto_start="false"
+                        android:visibility="gone"> <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <include layout="@layout/shimmer_placeholder_nearby_kos_item" />
+                        <include layout="@layout/shimmer_placeholder_nearby_kos_item" />
+                        <include layout="@layout/shimmer_placeholder_nearby_kos_item" />
+                    </LinearLayout>
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvNearbyKos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:visibility="gone" app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/items_nearby_kost" />
+                </FrameLayout>
 
                 <TextView
                     android:id="@+id/tvNearbyKosStatus"
@@ -186,7 +204,7 @@
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rvNearbyKos"
+                    app:layout_constraintTop_toBottomOf="@+id/nearbyKosContainer"
                     tools:text="Tidak ada kos terdekat dari lokasimu." />
 
                 <Button
@@ -228,6 +246,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textHeading3" />
 
                 <FrameLayout
+                    android:id="@+id/campusSelectionContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -235,15 +254,35 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/textview3">
 
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/shimmerCampusLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:shimmer_auto_start="false"
+                        android:visibility="gone"> <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                            <include layout="@layout/shimmer_placeholder_campus_item" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"/>
+                            <include layout="@layout/shimmer_placeholder_campus_item" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"/>
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                            <include layout="@layout/shimmer_placeholder_campus_item" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"/>
+                            <include layout="@layout/shimmer_placeholder_campus_item" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvCampusSelection"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="visible"
-                        tools:listitem="@layout/items_campus_card"
+                        android:visibility="gone" tools:listitem="@layout/items_campus_card"
                         tools:itemCount="2"
                         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                         app:spanCount="2"/>
+
                     <TextView
                         android:id="@+id/tvCampusListError"
                         android:layout_width="wrap_content"
@@ -251,13 +290,8 @@
                         android:layout_gravity="center"
                         android:visibility="gone"
                         tools:text="Gagal memuat daftar kampus"/>
-
                 </FrameLayout>
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </LinearLayout>
-
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

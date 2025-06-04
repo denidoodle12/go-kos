@@ -7,4 +7,6 @@
     <color name="lighter_gray">#DADADA</color>
     <color name="primary">#3C82F3</color>
     <color name="red">#FE7062</color>
+    <color name="shimmer_placeholder_color">#DDDDDD</color>
+    <color name="shimmer_background_color">#FFFFFF</color>
 </resources>
