@@ -155,13 +155,13 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setLoadingState(isLoading: Boolean) {
         if (isLoading) {
-            binding.progressIndicator.visibility = View.VISIBLE
+            binding.progressBar.visibility = View.VISIBLE
             binding.btnLogin.isEnabled = false
             binding.btnGoogleLogin?.isEnabled = false // Nonaktifkan tombol Google juga
             binding.email.isEnabled = false
             binding.password.isEnabled = false
         } else {
-            binding.progressIndicator.visibility = View.GONE
+            binding.progressBar.visibility = View.GONE
             binding.btnLogin.isEnabled = true
             binding.btnGoogleLogin?.isEnabled = true
             binding.email.isEnabled = true

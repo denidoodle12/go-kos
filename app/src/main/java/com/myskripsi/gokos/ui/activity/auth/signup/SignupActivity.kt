@@ -84,7 +84,7 @@ class SignupActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
         viewModel.signupState.observe(this) { result ->
-            val progressBar = binding.progressIndicator
+            val progressBar = binding.progressBar
 
             when (result) {
                 is Result.Loading -> {

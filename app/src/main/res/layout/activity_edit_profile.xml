@@ -6,17 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".ui.activity.editProfile.EditProfileActivity">
 
-    <com.google.android.material.progressindicator.CircularProgressIndicator
+    <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/progressIndicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="10dp"
-        android:indeterminate="true"
-        android:visibility="gone"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        android:visibility="gone"
+        app:lottie_rawRes="@raw/loadinganimation"/>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

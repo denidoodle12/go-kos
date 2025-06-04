@@ -103,5 +103,8 @@ dependencies {
     implementation("io.ktor:ktor-client-android:2.3.9")
     implementation("io.github.jan-tennert.supabase:storage-kt:2.3.0")
 
+    // Lottie Animation
+    implementation("com.airbnb.android:lottie:6.6.4")
+
 
 }
