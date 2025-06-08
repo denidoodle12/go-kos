@@ -263,13 +263,29 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
-                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
-                            <include layout="@layout/shimmer_placeholder_campus_item" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"/>
-                            <include layout="@layout/shimmer_placeholder_campus_item" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"/>
+                        <LinearLayout android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <include layout="@layout/shimmer_placeholder_campus_item"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"/>
+                            <include layout="@layout/shimmer_placeholder_campus_item"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"/>
                         </LinearLayout>
-                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
-                            <include layout="@layout/shimmer_placeholder_campus_item" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"/>
-                            <include layout="@layout/shimmer_placeholder_campus_item" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"/>
+                        <LinearLayout android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <include layout="@layout/shimmer_placeholder_campus_item"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"/>
+                            <include layout="@layout/shimmer_placeholder_campus_item"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"/>
                         </LinearLayout>
                     </LinearLayout>
                     </com.facebook.shimmer.ShimmerFrameLayout>
@@ -278,7 +294,8 @@
                         android:id="@+id/rvCampusSelection"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="gone" tools:listitem="@layout/items_campus_card"
+                        android:visibility="gone"
+                        tools:listitem="@layout/items_campus_card"
                         tools:itemCount="2"
                         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                         app:spanCount="2"/>
@@ -290,7 +307,146 @@
                         android:layout_gravity="center"
                         android:visibility="gone"
                         tools:text="Gagal memuat daftar kampus"/>
+
                 </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tvBudgetKosTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/figtree_semibold"
+                    android:text="@string/txt_cari_kos_sesuai_budgetmu"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/campusSelectionContainer" />
+
+                <TextView
+                    android:id="@+id/tvBudgetKosSubtitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/figtree_regular"
+                    android:text="@string/txt_yuk_cari_kos_murah"
+                    android:textColor="@color/gray"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvBudgetKosTitle" />
+
+                <LinearLayout
+                    android:id="@+id/llBudgetFilters"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@id/tvBudgetKosSubtitle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <com.google.android.material.button.MaterialButtonToggleGroup
+                            android:id="@+id/toggleBudgetFilterGroup"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginHorizontal="10dp"
+                            app:layout_constraintTop_toBottomOf="@id/tvBudgetKosSubtitle"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:singleSelection="true"
+                            app:selectionRequired="true"
+                            app:checkedButton="@+id/btnFilterBelow500k_toggle">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnFilterBelow500k_toggle"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/filter_below_500k"
+                            android:textAllCaps="false"
+                            android:textColor="@color/selector_filter_button_text_color"
+                            app:backgroundTint="@color/selector_filter_button_background_color"
+                            app:strokeColor="@color/primary" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnFilter500k700k_toggle"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/filter_500k_700k"
+                            android:textAllCaps="false"
+                            android:textColor="@color/selector_filter_button_text_color"
+                            app:backgroundTint="@color/selector_filter_button_background_color"
+                            app:strokeColor="@color/primary" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnFilterAbove700k_toggle"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/filter_above_700k"
+                            android:textAllCaps="false"
+                            android:textColor="@color/selector_filter_button_text_color"
+                            app:backgroundTint="@color/selector_filter_button_background_color"
+                            app:strokeColor="@color/primary" />
+
+                    </com.google.android.material.button.MaterialButtonToggleGroup>
+                </LinearLayout>
+
+                <FrameLayout
+                    android:id="@+id/budgetKosContainer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/llBudgetFilters">
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/shimmerBudgetKosLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:shimmer_auto_start="false"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <include layout="@layout/shimmer_placeholder_nearby_kos_item" />
+                            <include layout="@layout/shimmer_placeholder_nearby_kos_item" />
+                            <include layout="@layout/shimmer_placeholder_nearby_kos_item" />
+                        </LinearLayout>
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvBudgetKos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:visibility="gone"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/items_nearby_kost"
+                        tools:itemCount="2"/>
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tvBudgetKosStatus"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:textColor="@color/gray"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/budgetKosContainer"
+                    tools:text="Tidak ada kos ditemukan untuk budget tersebut." />
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>

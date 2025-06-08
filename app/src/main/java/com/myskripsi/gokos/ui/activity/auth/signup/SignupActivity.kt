@@ -6,12 +6,15 @@ import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.myskripsi.gokos.R
 import com.myskripsi.gokos.databinding.ActivitySignupBinding
 import com.myskripsi.gokos.ui.activity.auth.login.LoginActivity
+import com.myskripsi.gokos.ui.fragment.customalertdialog.CustomAlertDialogFragment
+import com.myskripsi.gokos.ui.fragment.customalertdialog.ConfirmationDialogFragment
 import com.myskripsi.gokos.utils.Result
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SignupActivity : AppCompatActivity() {
+class SignupActivity : AppCompatActivity(), ConfirmationDialogFragment.ConfirmationDialogListener {
 
     private lateinit var binding: ActivitySignupBinding
     private val viewModel: SignupViewModel by viewModel()
@@ -25,20 +28,32 @@ class SignupActivity : AppCompatActivity() {
         observeViewModel()
     }
 
+    // Fungsi ini adalah callback dari dialog, dipanggil saat user menekan "IYA"
+    override fun onConfirm() {
+        // Pindahkan logika pemanggilan ViewModel ke sini
+        val fullName = binding.fieldFullName.text.toString().trim()
+        val email = binding.fieldEmail.text.toString().trim()
+        val password = binding.fieldPassword.text.toString().trim()
+        val confirmPassword = binding.confirmPassword.text.toString().trim() // Ambil lagi untuk validasi ViewModel
+        viewModel.signupUser(fullName, email, password, confirmPassword)
+    }
+
     private fun setupAction() {
         binding.btnRegister.setOnClickListener {
+            // Validasi input di sisi UI terlebih dahulu
             val fullName = binding.fieldFullName.text.toString().trim()
             val email = binding.fieldEmail.text.toString().trim()
             val password = binding.fieldPassword.text.toString().trim()
             val confirmPassword = binding.confirmPassword.text.toString().trim()
 
+            // Reset error
             binding.fieldFullName.error = null
             binding.fieldEmail.error = null
             binding.fieldPassword.error = null
             binding.confirmPassword.error = null
 
             var isValid = true
-
+            // ... (logika validasi Anda tetap di sini) ...
             if (fullName.isBlank()) {
                 binding.fieldFullName.error = "Full name can't be empty"
                 isValid = false
@@ -55,6 +70,9 @@ class SignupActivity : AppCompatActivity() {
             if (password.isBlank()) {
                 binding.fieldPassword.error = "Password can't be empty"
                 isValid = false
+            } else if (password.length < 6) {
+                binding.fieldPassword.error = "The password must be at least 6 characters long."
+                isValid = false
             }
 
             if (confirmPassword.isBlank()) {
@@ -68,11 +86,15 @@ class SignupActivity : AppCompatActivity() {
             }
 
             if (isValid) {
-                viewModel.signupUser(fullName, email, password, confirmPassword)
+                // JANGAN langsung panggil ViewModel, tapi TAMPILKAN DIALOG KONFIRMASI
+                ConfirmationDialogFragment.newInstance(
+                    "Konfirmasi Pendaftaran",
+                    "Apakah Anda yakin ingin mendaftarkan akun anda?",
+                    "IYA",
+                    "TIDAK"
+                ).show(supportFragmentManager, "ConfirmSignupDialog")
             } else {
-                if (fullName.isBlank() || email.isBlank() || password.isBlank() || confirmPassword.isBlank()){
-                     Toast.makeText(this, "Please fill in all fields correctly.", Toast.LENGTH_SHORT).show()
-                }
+                Toast.makeText(this, "Please fill in all fields correctly.", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -94,19 +116,23 @@ class SignupActivity : AppCompatActivity() {
                 is Result.Success -> {
                     progressBar.visibility = View.GONE
                     binding.btnRegister.isEnabled = true
-                    Toast.makeText(this, "Registration successful! Please log in.", Toast.LENGTH_LONG).show()
 
-                    val intent = Intent(this, LoginActivity::class.java).apply {
-                        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        putExtra("email_from_signup", result.data.email)
-                    }
-                    startActivity(intent)
-                    finishAffinity()
+                    // JANGAN tampilkan dialog lagi, tapi PINDAH KE ACTIVITY SUKSES
+                    startActivity(Intent(this, RegisterSuccessActivity::class.java))
+                    finish() // Tutup SignupActivity agar tidak bisa kembali
                 }
                 is Result.Error -> {
                     progressBar.visibility = View.GONE
                     binding.btnRegister.isEnabled = true
-                    Toast.makeText(this, "Registration failed: ${result.message}", Toast.LENGTH_LONG).show()
+
+                    // Gunakan CustomAlertDialogFragment yang lama untuk menampilkan error
+                    val errorDialog = CustomAlertDialogFragment.newInstance(
+                        R.drawable.ic_falied_filled,
+                        "Registrasi Gagal!",
+                        result.message,
+                        "Tutup"
+                    )
+                    errorDialog.show(supportFragmentManager, "ErrorSignupDialog")
                 }
             }
         }

@@ -31,6 +31,12 @@
     <string name="txt_list_kos">List Kosan</string>
     <string name="txt_list_kos_info">Campus Name</string>
     <string name="error_message">Error message</string>
+    <string name="txt_cari_kos_sesuai_budgetmu">Cari Kos Sesuai Budgetmu</string>
+    <string name="txt_yuk_cari_kos_murah">Yuk cari kos murah meriah sesuai budgetmu! GoKos memberikan rekomendasi kos yang mungkin cocok untukmu</string>
+    <string name="filter_below_500k">&lt;500k</string>
+    <string name="filter_500k_700k">500-700k</string>
+    <string name="filter_above_700k">&gt;700k</string>
+    <string name="txt_no_kos_found_for_budget">Tidak ada kos ditemukan untuk budget ini.</string>
 
     'Profile Fragment Strings'
     <string name="txt_emailUser">gokosapp@gmail.com</string>
@@ -82,6 +88,8 @@
     <string name="longitude">Longitude: %1$s</string>
     <string name="txt_editProfile">Edit Profile</string>
     <string name="txt_editProfile_info">Informasi tentang akun kamu</string>
+    <string name="dialog_icon_description">Dialog Icon</string>
+    <string name="success_illustration">icon success illustration</string>
 
 
 </resources>

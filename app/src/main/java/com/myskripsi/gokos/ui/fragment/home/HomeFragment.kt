@@ -35,10 +35,12 @@ class HomeFragment : Fragment() {
     private val viewModel: HomeViewModel by viewModel()
     private lateinit var nearbyKosAdapter: KosAdapter
     private lateinit var campusAdapter: CampusAdapter
+    private lateinit var budgetKosAdapter: KosAdapter
     private lateinit var locationHelper: LocationHelper
 
     private lateinit var shimmerNearbyKosLayout: ShimmerFrameLayout
     private lateinit var shimmerCampusLayout: ShimmerFrameLayout
+    private lateinit var shimmerBudgetKosLayout: ShimmerFrameLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,9 +61,13 @@ class HomeFragment : Fragment() {
 
         shimmerNearbyKosLayout = binding.shimmerNearbyKosLayout
         shimmerCampusLayout = binding.shimmerCampusLayout
+        shimmerBudgetKosLayout = binding.shimmerBudgetKosLayout
 
         setupNearbyKosRecyclerView()
         setupCampusRecyclerView()
+        setupBudgetKosRecyclerView()
+        setupBudgetToggleGroupListener()
+
         observeViewModel()
 
         initiateLocationProcess() // Memulai proses cek izin dan ambil lokasi
@@ -95,6 +101,41 @@ class HomeFragment : Fragment() {
         binding.rvCampusSelection.apply {
             layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = campusAdapter
+        }
+    }
+
+    private fun setupBudgetKosRecyclerView() {
+        budgetKosAdapter = KosAdapter()
+        budgetKosAdapter.onItemClick = { selectedKos ->
+            val intent = Intent(requireContext(), DetailKosActivity::class.java).apply {
+                putExtra(DetailKosActivity.EXTRA_DETAIL_KOS, selectedKos)
+            }
+            startActivity(intent)
+        }
+        // PERBAIKAN DI SINI:
+        binding.rvBudgetKos.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = budgetKosAdapter
+        }
+    }
+
+    private fun setupBudgetToggleGroupListener() {
+        binding.toggleBudgetFilterGroup.addOnButtonCheckedListener { group, checkedId, isChecked ->
+            if (isChecked) {
+                val newFilter = when (checkedId) {
+                    R.id.btnFilterBelow500k_toggle -> PriceRangeFilter.BELOW_500K
+                    R.id.btnFilter500k700k_toggle -> PriceRangeFilter.BETWEEN_500K_700K
+                    R.id.btnFilterAbove700k_toggle -> PriceRangeFilter.ABOVE_700K
+                    else -> null // Seharusnya tidak terjadi jika selectionRequired=true
+                }
+                newFilter?.let {
+                    // Hanya panggil jika filter berubah dari state ViewModel saat ini,
+                    // untuk menghindari pemanggilan ganda jika check di-set secara programatik.
+                    if (viewModel.selectedPriceRange.value != it) {
+                        viewModel.filterKosByBudget(it)
+                    }
+                }
+            }
         }
     }
 
@@ -157,6 +198,52 @@ class HomeFragment : Fragment() {
                     binding.rvCampusSelection.visibility = View.GONE
                     binding.tvCampusListError.text = result.message
                     binding.tvCampusListError.visibility = View.VISIBLE
+                }
+            }
+        }
+
+        viewModel.budgetKosState.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is Result.Loading -> {
+                    shimmerBudgetKosLayout.startShimmer()
+                    shimmerBudgetKosLayout.visibility = View.VISIBLE
+                    binding.rvBudgetKos.visibility = View.GONE
+                    binding.tvBudgetKosStatus.visibility = View.GONE
+                }
+                is Result.Success -> {
+                    shimmerBudgetKosLayout.stopShimmer()
+                    shimmerBudgetKosLayout.visibility = View.GONE
+                    if (result.data.isEmpty()) {
+                        binding.tvBudgetKosStatus.text = getString(R.string.txt_no_kos_found_for_budget)
+                        binding.tvBudgetKosStatus.visibility = View.VISIBLE
+                        binding.rvBudgetKos.visibility = View.GONE
+                    } else {
+                        binding.tvBudgetKosStatus.visibility = View.GONE
+                        binding.rvBudgetKos.visibility = View.VISIBLE
+                        budgetKosAdapter.submitList(result.data)
+                    }
+                }
+                is Result.Error -> {
+                    shimmerBudgetKosLayout.stopShimmer()
+                    shimmerBudgetKosLayout.visibility = View.GONE
+                    binding.rvBudgetKos.visibility = View.GONE
+                    binding.tvBudgetKosStatus.text = result.message
+                    binding.tvBudgetKosStatus.visibility = View.VISIBLE
+                }
+            }
+        }
+
+        viewModel.selectedPriceRange.observe(viewLifecycleOwner) { filter ->
+            // Update UI toggle group jika state filter di ViewModel berubah
+            // Ini akan memastikan tombol yang benar terpilih secara visual.
+            if (filter != null) {
+                val newCheckedId = when (filter) {
+                    PriceRangeFilter.BELOW_500K -> R.id.btnFilterBelow500k_toggle
+                    PriceRangeFilter.BETWEEN_500K_700K -> R.id.btnFilter500k700k_toggle
+                    PriceRangeFilter.ABOVE_700K -> R.id.btnFilterAbove700k_toggle
+                }
+                if (binding.toggleBudgetFilterGroup.checkedButtonId != newCheckedId) {
+                    binding.toggleBudgetFilterGroup.check(newCheckedId)
                 }
             }
         }
@@ -345,11 +432,27 @@ class HomeFragment : Fragment() {
             binding.rvNearbyKos.visibility = View.GONE
             binding.tvNearbyKosStatus.text = getString(R.string.txt_allow_location_access_to_see_kos_nearby_you)
             binding.tvNearbyKosStatus.visibility = View.VISIBLE
+
+            if (viewModel.selectedPriceRange.value == null) { // Jika belum ada filter, set default
+                viewModel.filterKosByBudget(PriceRangeFilter.BELOW_500K)
+            } else { // Panggil ulang filter yg ada
+                viewModel.filterKosByBudget(viewModel.selectedPriceRange.value!!)
+            }
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        // Hentikan shimmer secara manual untuk menghindari memory leak jika fragment dihancurkan saat shimmer aktif
+        if (::shimmerNearbyKosLayout.isInitialized) {
+            shimmerNearbyKosLayout.stopShimmer()
+        }
+        if (::shimmerCampusLayout.isInitialized) {
+            shimmerCampusLayout.stopShimmer()
+        }
+        if (::shimmerBudgetKosLayout.isInitialized) {
+            shimmerBudgetKosLayout.stopShimmer()
+        }
         _binding = null
     }
 }

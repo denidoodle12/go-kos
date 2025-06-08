@@ -20,6 +20,7 @@ import com.myskripsi.gokos.R
 import com.myskripsi.gokos.databinding.ActivityLoginBinding
 import com.myskripsi.gokos.ui.MainActivity
 import com.myskripsi.gokos.ui.activity.auth.signup.SignupActivity
+import com.myskripsi.gokos.ui.fragment.customalertdialog.CustomAlertDialogFragment
 import com.myskripsi.gokos.utils.Result
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -124,30 +125,26 @@ class LoginActivity : AppCompatActivity() {
                 }
                 is Result.Success -> {
                     setLoadingState(false)
-                    // AlertDialog yang sudah Anda buat sebelumnya:
-                    AlertDialog.Builder(this).apply {
-                        setTitle("Login Berhasil!")
-                        setMessage("Login berhasil, selamat datang ${result.data.displayName ?: result.data.email}.")
-                        setPositiveButton("Lanjut") { _, _ ->
-                            navigateToMainActivity()
-                        }
-                        setCancelable(false) // Agar tidak bisa di-dismiss dengan back button
-                        create()
-                        show()
+                    val successDialog = CustomAlertDialogFragment.newInstance(
+                        R.drawable.ic_certificate_success_filled,
+                        "Berhasil!",
+                        "Login Berhasil! Selamat Datang di GoKos, ${result.data.displayName ?: result.data.email}",
+                        "Lanjut"
+                    )
+                    successDialog.setOnDialogActionListener {
+                        navigateToMainActivity()
                     }
+                    successDialog.show(supportFragmentManager, "SuccessLoginDialog")
                 }
                 is Result.Error -> {
                     setLoadingState(false)
-                    // AlertDialog yang sudah Anda buat sebelumnya:
-                    AlertDialog.Builder(this).apply {
-                        setTitle("Gagal Login!")
-                        setMessage(result.message ?: "Terjadi kesalahan saat proses login.")
-                        setPositiveButton("Kembali") { dialog, _ ->
-                            dialog.dismiss()
-                        }
-                        create()
-                        show()
-                    }
+                    val errorDialog = CustomAlertDialogFragment.newInstance(
+                        R.drawable.ic_falied_filled,
+                        "Gagal!",
+                        result.message ?: "Terjadi kesalahan saat proses login.",
+                        "Coba Lagi"
+                    )
+                    errorDialog.show(supportFragmentManager, "ErrorLoginDialog")
                 }
             }
         }
