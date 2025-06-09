@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.bumptech.glide.Glide
+import com.myskripsi.gokos.R
 import com.myskripsi.gokos.databinding.FragmentProfileBinding
 import com.myskripsi.gokos.ui.activity.auth.login.LoginActivity
 import com.myskripsi.gokos.ui.activity.editProfile.EditProfileActivity
@@ -40,32 +42,95 @@ class ProfileFragment : Fragment(), ConfirmationDialogFragment.ConfirmationDialo
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnLogout.setOnClickListener {
-            // Panggil dialog konfirmasi kustom
             showLogoutConfirmationDialog()
         }
 
-        binding.optionAccount.setOnClickListener {
-            val intent = Intent(requireActivity(), EditProfileActivity::class.java)
-            startActivity(intent)
+        profileViewModel.loadUserProfile()
+
+        setupMenu()
+        observeViewModel()
+    }
+
+    private fun setupMenu() {
+        binding.optionAccount.apply {
+            ivMenuIcon.setImageResource(R.drawable.ic_edit_account)
+            tvMenuTitle.text = "Ubah Profile"
+            tvMenuSubtitle.text = "Ubah data profile pada akun kamu"
+            root.setOnClickListener {
+                startActivity(Intent(requireActivity(), EditProfileActivity::class.java))
+            }
         }
 
-        observeLogoutState()
+        binding.optionDataPribadi.apply {
+            ivMenuIcon.setImageResource(R.drawable.ic_personal_data)
+            tvMenuTitle.text = "Data Pribadi"
+            tvMenuSubtitle.text = "Informasi data pribadi akun kamu"
+            root.setOnClickListener {
+                Toast.makeText(requireContext(), "Menu Data Pribadi diklik", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.optionLanguage.apply {
+            ivMenuIcon.setImageResource(R.drawable.ic_translate)
+            tvMenuTitle.text = "Bahasa"
+            tvMenuSubtitle.text = "Ubah ke bahasa yang kamu inginkan"
+            root.setOnClickListener {
+                Toast.makeText(requireContext(), "Menu Bahasa diklik", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.optionAboutApp.apply {
+            ivMenuIcon.setImageResource(R.drawable.ic_aboutapp)
+            tvMenuTitle.text = "Tentang Aplikasi"
+            tvMenuSubtitle.text = "Informasi tentang aplikasi Go-Kos"
+            root.setOnClickListener {
+                Toast.makeText(requireContext(), "Menu Tentang Aplikasi diklik", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.optionPrivacyPolicy.apply {
+            ivMenuIcon.setImageResource(R.drawable.ic_privacy)
+            tvMenuTitle.text = "Kebijakan Privasi"
+            tvMenuSubtitle.text = "Lihat kebijakan privasi Go-Kos"
+            root.setOnClickListener {
+                Toast.makeText(requireContext(), "Menu Kebijakan Privasi diklik", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.optionTerms.apply {
+            ivMenuIcon.setImageResource(R.drawable.ic_rule)
+            tvMenuTitle.text = "Syarat & Ketentuan"
+            tvMenuSubtitle.text = "Lihat syarat & ketentuan Go-Kos"
+            root.setOnClickListener {
+                // TODO: Arahkan ke halaman Syarat & Ketentuan
+                Toast.makeText(requireContext(), "Menu Syarat & Ketentuan diklik", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
-    private fun showLogoutConfirmationDialog() {
-        // Gunakan ConfirmationDialogFragment yang sudah kita buat
-        val dialog = ConfirmationDialogFragment.newInstance(
-            "Konfirmasi",
-            "Apakah Anda yakin ingin keluar dari akun ini?",
-            "IYA",
-            "TIDAK"
-        )
-        // Karena fragment ini sudah mengimplementasikan listener,
-        // dialog akan otomatis terhubung.
-        dialog.show(childFragmentManager, "ConfirmLogoutDialog")
-    }
+    private fun observeViewModel() {
+        profileViewModel.userProfile.observe(viewLifecycleOwner) { user ->
+            if (user != null) {
+                // Tampilkan nama pengguna. Jika nama kosong (misal dari registrasi email), tampilkan "Pengguna GoKos"
+                binding.tvUsername.text = if (user.displayName.isNullOrBlank()) "Pengguna GoKos" else user.displayName
 
-    private fun observeLogoutState() {
+                // Tampilkan email pengguna
+                binding.tvEmail.text = user.email
+
+                // Tampilkan foto profil
+                Glide.with(this)
+                    .load(user.photoUrl) // URL foto dari Firebase Auth
+                    .placeholder(R.drawable.placeholder_image) // Gambar default saat loading
+                    .error(R.drawable.placeholder_image) // Gambar default jika user tidak punya foto atau terjadi error
+                    .circleCrop() // (Opsional) jika ImageView Anda bukan ShapeableImageView
+                    .into(binding.profileImage)
+            } else {
+                // Handle jika tidak ada user yang login (seharusnya tidak terjadi di halaman ini)
+                binding.tvUsername.text = "Tamu"
+                binding.tvEmail.text = "Silakan login"
+            }
+        }
+
         profileViewModel.logoutState.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Result.Loading -> {
@@ -84,6 +149,19 @@ class ProfileFragment : Fragment(), ConfirmationDialogFragment.ConfirmationDialo
                 }
             }
         }
+    }
+
+    private fun showLogoutConfirmationDialog() {
+        // Gunakan ConfirmationDialogFragment yang sudah kita buat
+        val dialog = ConfirmationDialogFragment.newInstance(
+            "Konfirmasi",
+            "Apakah Anda yakin ingin keluar dari akun ini?",
+            "IYA",
+            "TIDAK"
+        )
+        // Karena fragment ini sudah mengimplementasikan listener,
+        // dialog akan otomatis terhubung.
+        dialog.show(childFragmentManager, "ConfirmLogoutDialog")
     }
 
     private fun navigateToLoginScreen() {
