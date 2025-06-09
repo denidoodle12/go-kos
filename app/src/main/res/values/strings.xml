@@ -90,6 +90,8 @@
     <string name="txt_editProfile_info">Informasi tentang akun kamu</string>
     <string name="dialog_icon_description">Dialog Icon</string>
     <string name="success_illustration">icon success illustration</string>
+    <string name="btn_budgetKos">Lihat Semua</string>
+    <string name="txt_OtherKosNearbyTitle">Kos Lainnya Dekat Sini</string>
 
 
 </resources>

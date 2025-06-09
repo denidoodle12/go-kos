@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="200dp"
+    android:layout_width="215dp"
     android:layout_height="260dp"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginVertical="3dp"
@@ -22,35 +22,82 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/backgrounds/scenic" />
 
+        <ImageView
+            android:id="@+id/ivFavorite"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/bg_circle_white"
+            android:contentDescription="Favorite Button"
+            android:padding="6dp"
+            android:src="@drawable/ic_favorite_nofilled"
+            app:layout_constraintEnd_toEndOf="@id/imageKos"
+            app:layout_constraintTop_toTopOf="@id/imageKos"
+            app:tint="@color/red" />
+
         <TextView
             android:id="@+id/textView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="12dp"
             android:background="@drawable/bg_circle_primary"
+            android:drawablePadding="4dp"
             android:fontFamily="@font/figtree_semibold"
-            android:padding="5dp"
-            android:text="@string/txt_distance"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="4dp"
+            android:paddingVertical="3dp"
             android:textColor="@color/white"
             android:textSize="12sp"
+            app:drawableStartCompat="@drawable/charm_map"
+            app:drawableTint="@color/white"
             app:layout_constraintBottom_toBottomOf="@id/imageKos"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="0,5 KM" />
 
-        <TextView
-            android:id="@+id/categoryKos"
+        <LinearLayout
+            android:id="@+id/tagsContainer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/bg_stroke"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="5dp"
-            android:text="@string/txt_categorykos"
-            android:textSize="10sp"
-            android:fontFamily="@font/figtree_regular"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="14dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageKos" />
+            app:layout_constraintTop_toBottomOf="@id/imageKos">
+
+            <TextView
+                android:id="@+id/tvCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_stroke"
+                android:fontFamily="@font/figtree_medium"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="4dp"
+                android:textColor="@color/black"
+                android:textSize="10sp"
+                tools:text="Kost Putra" />
+
+            <TextView
+                android:id="@+id/tvElectricity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_tag_electric"
+                android:drawablePadding="0dp"
+                android:fontFamily="@font/figtree_medium"
+                android:gravity="center"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="3dp"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:visibility="gone"
+                app:drawableStartCompat="@drawable/ic_symbols_electric_bolt_rounded"
+                tools:visibility="visible"
+                android:text="Termasuk Listrik"/>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/nameKos"
@@ -58,12 +105,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:layout_marginEnd="15dp"
+            android:fontFamily="@font/figtree_semibold"
+            android:maxLines="1"
             android:text="@string/txt_kosName"
             android:textSize="14sp"
-            android:fontFamily="@font/figtree_semibold"
-            app:layout_constraintStart_toStartOf="@+id/categoryKos"
-            app:layout_constraintTop_toBottomOf="@+id/categoryKos"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tagsContainer"
+            app:layout_constraintTop_toBottomOf="@+id/tagsContainer" />
 
         <TextView
             android:id="@+id/addressKos"
@@ -71,23 +119,29 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:layout_marginEnd="15dp"
-            android:text="@string/txt_addressName"
-            android:textSize="10sp"
+            android:drawablePadding="6dp"
+            android:ellipsize="end"
             android:fontFamily="@font/figtree_medium"
+            android:gravity="center_vertical"
+            android:maxLines="2"
+            android:text="@string/txt_addressName"
             android:textColor="@color/gray"
-            app:layout_constraintStart_toStartOf="@+id/categoryKos"
-            app:layout_constraintTop_toBottomOf="@+id/nameKos"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            android:textSize="10sp"
+            app:drawableStartCompat="@drawable/charm_map"
+            app:drawableTint="@color/gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tagsContainer"
+            app:layout_constraintTop_toBottomOf="@+id/nameKos" />
 
         <TextView
             android:id="@+id/startFrom"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
+            android:fontFamily="@font/figtree_regular"
             android:text="@string/txt_startFrom"
             android:textSize="10sp"
-            android:fontFamily="@font/figtree_regular"
-            app:layout_constraintStart_toStartOf="@+id/categoryKos"
+            app:layout_constraintStart_toStartOf="@+id/tagsContainer"
             app:layout_constraintTop_toBottomOf="@id/addressKos" />
 
         <TextView
@@ -99,16 +153,16 @@
             android:text="@string/txt_priceKos"
             android:textColor="@color/red"
             android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/categoryKos"
+            app:layout_constraintStart_toStartOf="@+id/tagsContainer"
             app:layout_constraintTop_toBottomOf="@id/startFrom" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/txt_perMonth"
             android:layout_marginStart="5dp"
-            android:textSize="10sp"
             android:fontFamily="@font/notosans_regular"
+            android:text="@string/txt_perMonth"
+            android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="@+id/priceKos"
             app:layout_constraintStart_toEndOf="@+id/priceKos"
             app:layout_constraintTop_toTopOf="@+id/priceKos" />

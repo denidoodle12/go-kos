@@ -1,6 +1,7 @@
 package com.myskripsi.gokos.ui.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -83,13 +84,22 @@ class KosAdapter : ListAdapter<Kos, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
     inner class RegularKosViewHolder(private val binding: ItemsKostBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(kos: Kos, onItemClick: ((Kos) -> Unit)?) {
             try {
-                binding.nameKos.text = kos.nama_kost
-                binding.categoryKos.text = kos.kategori
-                binding.addressKos.text = kos.alamat
-                binding.descriptionKos.text = kos.deskripsi
+                binding.tvKosName.text = kos.nama_kost
+                binding.tvCategory.text = kos.kategori
+                binding.tvAddress.text = kos.alamat
 
-                binding.distance.text = formatDistance(kos.lokasi.jarak)
-                binding.priceKos.text = CURRENCY_FORMATTER.format(kos.harga.toDouble())
+                binding.tvDistance.text = formatDistance(kos.lokasi.jarak)
+
+                val facilitiesText = kos.fasilitas_kamar.joinToString("•")
+                binding.tvFacilities.text = facilitiesText
+
+                binding.tvPrice.text = CURRENCY_FORMATTER.format(kos.harga.toDouble())
+
+                if (kos.listrik.trim().contains("Termasuk", ignoreCase = true)) {
+                    binding.tvElectricity.visibility = View.VISIBLE
+                } else {
+                    binding.tvElectricity.visibility = View.GONE
+                }
 
                 if (kos.foto_kost.isNotEmpty()) {
                     Glide.with(binding.imageKos.context)
@@ -115,13 +125,19 @@ class KosAdapter : ListAdapter<Kos, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
         fun bind(kos: Kos, onItemClick: ((Kos) -> Unit)?) {
             try {
                 binding.nameKos.text = kos.nama_kost
-                binding.categoryKos.text = kos.kategori
+                binding.tvCategory.text = kos.kategori
                 binding.addressKos.text = kos.alamat
 
                 binding.textView.text = formatDistance(kos.lokasi.jarak)
                 binding.startFrom.text = itemView.context.getString(R.string.txt_startFrom)
 
                 binding.priceKos.text = CURRENCY_FORMATTER.format(kos.harga.toDouble())
+
+                if (kos.listrik.trim().contains("Termasuk", ignoreCase = true)) {
+                    binding.tvElectricity.visibility = View.VISIBLE
+                } else {
+                    binding.tvElectricity.visibility = View.GONE
+                }
 
                 if (kos.foto_kost.isNotEmpty()) {
                     Glide.with(binding.imageKos.context)

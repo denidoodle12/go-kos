@@ -1,12 +1,16 @@
-package com.myskripsi.gokos.ui.activity.detailKos 
+package com.myskripsi.gokos.ui.activity.detailKos
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -15,9 +19,12 @@ import com.myskripsi.gokos.R
 import com.myskripsi.gokos.data.model.Kos
 import com.myskripsi.gokos.databinding.ActivityDetailKosBinding
 import com.myskripsi.gokos.databinding.ItemsFacilityBinding
+import com.myskripsi.gokos.ui.adapter.KosAdapter
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.Locale
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import com.myskripsi.gokos.utils.Result
 
 @Suppress("DEPRECATION")
 class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -25,6 +32,10 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivityDetailKosBinding
     private var googleMap: GoogleMap? = null
     private var currentKos: Kos? = null
+
+    private val viewModel: DetailKosViewModel by viewModel()
+    private lateinit var otherKosAdapter: KosAdapter
+    private lateinit var shimmerOtherKosNearby: ShimmerFrameLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +49,11 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback {
             setDisplayShowTitleEnabled(false)
         }
 
+        shimmerOtherKosNearby = binding.shimmerOtherKosNearby
+
+        setupOtherKosRecyclerView()
+        observeViewModel()
+
         var mapViewBundle: Bundle? = null
         if (savedInstanceState !=null) {
             mapViewBundle = savedInstanceState.getBundle(MAPVIEW_BUNDLE_KEY)
@@ -50,6 +66,58 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback {
             this.currentKos = dataKos
             showData(dataKos)
             binding.mapViewKosLocation.getMapAsync(this)
+
+            viewModel.fetchOtherNearbyKos(dataKos)
+        }
+    }
+
+    private fun setupOtherKosRecyclerView() {
+        otherKosAdapter = KosAdapter()
+        binding.rvOtherKosNearby.apply {
+            layoutManager = LinearLayoutManager(this@DetailKosActivity, LinearLayoutManager.HORIZONTAL, false)
+            adapter = otherKosAdapter
+        }
+
+        otherKosAdapter.onItemClick = { selectedKos ->
+            val intent = Intent(this, DetailKosActivity::class.java).apply {
+                putExtra(EXTRA_DETAIL_KOS, selectedKos)
+            }
+            startActivity(intent)
+        }
+    }
+
+    private fun observeViewModel() {
+        viewModel.otherNearbyKosState.observe(this) { result ->
+            when (result) {
+                is Result.Loading -> {
+                    shimmerOtherKosNearby.startShimmer()
+                    shimmerOtherKosNearby.visibility = View.VISIBLE
+                    binding.rvOtherKosNearby.visibility = View.GONE
+                }
+                is Result.Success -> {
+                    shimmerOtherKosNearby.stopShimmer()
+                    shimmerOtherKosNearby.visibility = View.GONE
+
+                    if (result.data.isEmpty()) {
+                        // Jika tidak ada data, sembunyikan section ini
+                        binding.tvOtherKosNearbyTitle.visibility = View.GONE
+                        binding.rvOtherKosNearby.visibility = View.GONE
+                    } else {
+                        binding.tvOtherKosNearbyTitle.visibility = View.VISIBLE
+                        binding.rvOtherKosNearby.visibility = View.VISIBLE
+                        otherKosAdapter.submitList(result.data)
+                    }
+                }
+                is Result.Error -> {
+                    shimmerOtherKosNearby.stopShimmer()
+                    shimmerOtherKosNearby.visibility = View.GONE
+
+                    // Sembunyikan section jika terjadi error, atau tampilkan pesan
+                    binding.tvOtherKosNearbyTitle.visibility = View.GONE
+                    binding.rvOtherKosNearby.visibility = View.GONE
+                    Toast.makeText(this, result.message, Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
@@ -121,7 +189,12 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback {
         binding.tvKosName.text = dataKos.nama_kost
         binding.tvKosAddress.text = dataKos.alamat
         binding.tvKosDescription.text = dataKos.deskripsi
-        binding.tvListrik.text = dataKos.listrik
+
+        if (dataKos.listrik.trim().contains("Termasuk", ignoreCase = true)) {
+            binding.tvListrik.visibility = View.VISIBLE
+        } else {
+            binding.tvListrik.visibility = View.GONE
+        }
 
         binding.tvLatitude.text = getString(R.string.latitude, dataKos.lokasi.latitude.toString())
         binding.tvLongitude.text = getString(R.string.longitude, dataKos.lokasi.longitude.toString())
@@ -224,6 +297,7 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onPause() {
         super.onPause()
+        shimmerOtherKosNearby.stopShimmer()
         binding.mapViewKosLocation.onPause()
     }
 

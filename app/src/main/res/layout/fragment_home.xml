@@ -46,8 +46,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="15dp">
+            android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -68,6 +67,8 @@
                     android:id="@+id/username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
                     android:fontFamily="@font/figtree_semibold"
                     android:text="@string/hiUsername"
                     android:textSize="18sp"
@@ -83,7 +84,7 @@
                     android:text="@string/txt_infoToSearch"
                     android:textColor="@color/gray"
                     android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/username"
                     app:layout_constraintTop_toBottomOf="@+id/username" />
 
                 <androidx.cardview.widget.CardView
@@ -91,6 +92,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:layout_marginHorizontal="15dp"
                     app:cardBackgroundColor="@color/primary"
                     app:cardCornerRadius="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -118,6 +120,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:background="@drawable/searchview_circle"
+                            android:backgroundTint="@color/white"
                             android:elevation="10dp"
                             app:cardCornerRadius="20dp"
                             app:cardUseCompatPadding="true"
@@ -142,21 +145,24 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:layout_marginStart="15dp"
                     android:fontFamily="@font/figtree_semibold"
                     android:text="@string/txt_headingOne"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cardViewBanner" />
 
                 <TextView
                     android:id="@+id/textview2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:layout_marginHorizontal="15dp"
                     android:fontFamily="@font/figtree_regular"
                     android:text="@string/txt_headingOneInfo"
                     android:textColor="@color/gray"
                     android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textHeading2" />
 
@@ -165,6 +171,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
+                    android:layout_marginStart="15dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textview2">
@@ -209,9 +216,10 @@
 
                 <Button
                     android:id="@+id/btnOtherKosNearby"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="60dp"
                     android:layout_marginTop="15dp"
+                    android:layout_marginHorizontal="15dp"
                     android:background="@drawable/bg_stroke"
                     android:fontFamily="@font/figtree_medium"
                     android:gravity="center"
@@ -222,27 +230,40 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvNearbyKosStatus" />
 
-                <TextView
-                    android:id="@+id/textHeading3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:fontFamily="@font/figtree_semibold"
-                    android:text="@string/txt_headingTwo"
-                    android:textSize="18sp"
+                <View
+                    android:id="@+id/divider1"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="25dp"
+                    android:background="@color/veryLighter_gray"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/btnOtherKosNearby" />
 
                 <TextView
+                    android:id="@+id/textHeading3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="15dp"
+                    android:fontFamily="@font/figtree_semibold"
+                    android:text="@string/txt_headingTwo"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/divider1" />
+
+                <TextView
                     android:id="@+id/textview3"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:layout_marginHorizontal="15dp"
                     android:fontFamily="@font/figtree_regular"
                     android:text="@string/txt_headingTwoInfo"
                     android:textColor="@color/gray"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textHeading3" />
 
                 <FrameLayout
@@ -250,6 +271,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:layout_marginHorizontal="15dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/textview3">
@@ -310,22 +332,34 @@
 
                 </FrameLayout>
 
+                <View
+                    android:id="@+id/divider2"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/veryLighter_gray"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/campusSelectionContainer" />
+
                 <TextView
                     android:id="@+id/tvBudgetKosTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="15dp"
                     android:fontFamily="@font/figtree_semibold"
                     android:text="@string/txt_cari_kos_sesuai_budgetmu"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/campusSelectionContainer" />
+                    app:layout_constraintTop_toBottomOf="@+id/divider2" />
 
                 <TextView
                     android:id="@+id/tvBudgetKosSubtitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:layout_marginHorizontal="15dp"
                     android:fontFamily="@font/figtree_regular"
                     android:text="@string/txt_yuk_cari_kos_murah"
                     android:textColor="@color/gray"
@@ -348,7 +382,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
-                            android:layout_marginHorizontal="10dp"
+                            android:layout_marginHorizontal="15dp"
                             app:layout_constraintTop_toBottomOf="@id/tvBudgetKosSubtitle"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -400,6 +434,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
+                    android:layout_marginStart="15dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/llBudgetFilters">
@@ -431,6 +466,22 @@
                         tools:listitem="@layout/items_nearby_kost"
                         tools:itemCount="2"/>
                 </FrameLayout>
+
+                <Button
+                    android:id="@+id/btnBudgetKos"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginHorizontal="15dp"
+                    android:background="@drawable/bg_stroke"
+                    android:fontFamily="@font/figtree_medium"
+                    android:gravity="center"
+                    android:text="@string/btn_budgetKos"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/budgetKosContainer" />
 
                 <TextView
                     android:id="@+id/tvBudgetKosStatus"

@@ -5,8 +5,10 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#B2B2B2</color>
     <color name="lighter_gray">#DADADA</color>
+    <color name="veryLighter_gray">#F8F8F8</color>
     <color name="primary">#3C82F3</color>
     <color name="red">#FE7062</color>
+    <color name="lighter_green">#35D780</color>
     <color name="shimmer_placeholder_color">#DDDDDD</color>
     <color name="shimmer_background_color">#FFFFFF</color>
 </resources>

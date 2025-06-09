@@ -10,6 +10,7 @@ import com.myskripsi.gokos.data.UserProfileRepository
 import com.myskripsi.gokos.data.dataStore
 import com.myskripsi.gokos.ui.activity.auth.login.LoginViewModel
 import com.myskripsi.gokos.ui.activity.auth.signup.SignupViewModel
+import com.myskripsi.gokos.ui.activity.detailKos.DetailKosViewModel
 import com.myskripsi.gokos.ui.activity.editProfile.EditProfileViewModel
 import com.myskripsi.gokos.ui.activity.listkos.ListKosViewModel
 import com.myskripsi.gokos.ui.activity.map.MappingMapViewModel
@@ -77,6 +78,9 @@ val viewModelModule = module {
     }
     viewModel {
         ListKosViewModel(get())
+    }
+    viewModel {
+        DetailKosViewModel(get())
     }
     viewModel {
         MappingMapViewModel(get())
