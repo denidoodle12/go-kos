@@ -11,10 +11,11 @@ import com.myskripsi.gokos.data.dataStore
 import com.myskripsi.gokos.ui.activity.auth.login.LoginViewModel
 import com.myskripsi.gokos.ui.activity.auth.signup.SignupViewModel
 import com.myskripsi.gokos.ui.activity.detailKos.DetailKosViewModel
-import com.myskripsi.gokos.ui.activity.editProfile.EditProfileViewModel
+import com.myskripsi.gokos.ui.activity.profile.editProfile.EditProfileViewModel
 import com.myskripsi.gokos.ui.activity.listkos.ListKosViewModel
 import com.myskripsi.gokos.ui.activity.map.MappingMapViewModel
 import com.myskripsi.gokos.ui.activity.onboarding.OnboardingViewModel
+import com.myskripsi.gokos.ui.activity.profile.personalData.PersonalDataViewModel
 import com.myskripsi.gokos.ui.activity.splash.SplashScreenViewModel
 import com.myskripsi.gokos.ui.fragment.home.HomeViewModel
 import com.myskripsi.gokos.ui.fragment.profile.ProfileViewModel
@@ -96,6 +97,9 @@ val viewModelModule = module {
     }
     viewModel {
         EditProfileViewModel(get(), get())
+    }
+    viewModel {
+        PersonalDataViewModel(get(), get())
     }
     viewModel {
         SignupViewModel(get())

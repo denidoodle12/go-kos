@@ -11,7 +11,10 @@ import com.bumptech.glide.Glide
 import com.myskripsi.gokos.R
 import com.myskripsi.gokos.databinding.FragmentProfileBinding
 import com.myskripsi.gokos.ui.activity.auth.login.LoginActivity
-import com.myskripsi.gokos.ui.activity.editProfile.EditProfileActivity
+import com.myskripsi.gokos.ui.activity.profile.editProfile.EditProfileActivity
+import com.myskripsi.gokos.ui.activity.profile.PrivacyPolicyActivity
+import com.myskripsi.gokos.ui.activity.profile.TermsConditionActivity
+import com.myskripsi.gokos.ui.activity.profile.personalData.PersonalDataActivity
 import com.myskripsi.gokos.ui.fragment.customalertdialog.ConfirmationDialogFragment
 import com.myskripsi.gokos.utils.Result
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -19,6 +22,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 // Implementasikan listener dari dialog
 class ProfileFragment : Fragment(), ConfirmationDialogFragment.ConfirmationDialogListener {
     private var _binding: FragmentProfileBinding? = null
+
     private val binding get() = _binding!!
 
     private val profileViewModel: ProfileViewModel by viewModel()
@@ -66,7 +70,7 @@ class ProfileFragment : Fragment(), ConfirmationDialogFragment.ConfirmationDialo
             tvMenuTitle.text = "Data Pribadi"
             tvMenuSubtitle.text = "Informasi data pribadi akun kamu"
             root.setOnClickListener {
-                Toast.makeText(requireContext(), "Menu Data Pribadi diklik", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(requireActivity(), PersonalDataActivity::class.java))
             }
         }
 
@@ -93,7 +97,7 @@ class ProfileFragment : Fragment(), ConfirmationDialogFragment.ConfirmationDialo
             tvMenuTitle.text = "Kebijakan Privasi"
             tvMenuSubtitle.text = "Lihat kebijakan privasi Go-Kos"
             root.setOnClickListener {
-                Toast.makeText(requireContext(), "Menu Kebijakan Privasi diklik", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(requireActivity(), PrivacyPolicyActivity::class.java))
             }
         }
 
@@ -102,8 +106,7 @@ class ProfileFragment : Fragment(), ConfirmationDialogFragment.ConfirmationDialo
             tvMenuTitle.text = "Syarat & Ketentuan"
             tvMenuSubtitle.text = "Lihat syarat & ketentuan Go-Kos"
             root.setOnClickListener {
-                // TODO: Arahkan ke halaman Syarat & Ketentuan
-                Toast.makeText(requireContext(), "Menu Syarat & Ketentuan diklik", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(requireActivity(), TermsConditionActivity::class.java))
             }
         }
     }

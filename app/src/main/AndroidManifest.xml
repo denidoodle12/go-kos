@@ -18,10 +18,19 @@
         android:theme="@style/Theme.GoKos"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activity.profile.personalData.PersonalDataActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.profile.TermsConditionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.profile.PrivacyPolicyActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activity.auth.signup.RegisterSuccessActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.editProfile.EditProfileActivity"
+            android:name=".ui.activity.profile.editProfile.EditProfileActivity"
             android:exported="false" />
 
         <meta-data

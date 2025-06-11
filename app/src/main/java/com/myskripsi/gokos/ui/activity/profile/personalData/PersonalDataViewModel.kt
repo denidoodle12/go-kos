@@ -1,4 +1,5 @@
-package com.myskripsi.gokos.ui.activity.editProfile
+// PersonalDataViewModel.kt
+package com.myskripsi.gokos.ui.activity.profile.personalData
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,15 +12,13 @@ import com.myskripsi.gokos.utils.Result
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class EditProfileViewModel(private val repository: UserProfileRepository, private val firebaseAuth: FirebaseAuth) : ViewModel() {
+// ViewModel ini hampir sama persis dengan EditProfileViewModel Anda yang lama
+class PersonalDataViewModel(private val repository: UserProfileRepository, private val firebaseAuth: FirebaseAuth) : ViewModel() {
     private val _userProfileState = MutableLiveData<Result<UserProfile?>>()
     val userProfileState: LiveData<Result<UserProfile?>> = _userProfileState
 
     private val _saveProfileResult = MutableLiveData<Result<Unit>>()
     val saveProfileResult: LiveData<Result<Unit>> = _saveProfileResult
-
-    private val _uploadImageResult = MutableLiveData<Result<String>>()
-    val uploadImageResult: LiveData<Result<String>> = _uploadImageResult
 
     private var currentLoadedProfile: UserProfile? = null
 
@@ -29,19 +28,11 @@ class EditProfileViewModel(private val repository: UserProfileRepository, privat
             _userProfileState.value = Result.Loading
             viewModelScope.launch {
                 repository.getUserProfile(userId).collectLatest { result ->
-                    _userProfileState.value = result
                     if (result is Result.Success) {
-                        currentLoadedProfile = result.data ?: UserProfile(
-                            uid = userId,
-                            email = firebaseAuth.currentUser?.email ?: ""
-                        )
-                    } else if (result is Result.Error && currentLoadedProfile == null) {
-                        currentLoadedProfile = UserProfile(
-                            uid = userId,
-                            email = firebaseAuth.currentUser?.email ?: ""
-                        )
-                        _userProfileState.value = Result.Success(currentLoadedProfile)
+                        currentLoadedProfile = result.data
                     }
+                    // Tetap teruskan hasilnya ke UI
+                    _userProfileState.value = result
                 }
             }
         } else {
@@ -49,8 +40,7 @@ class EditProfileViewModel(private val repository: UserProfileRepository, privat
         }
     }
 
-    fun saveUserProfile(
-        fullName: String,
+    fun savePersonalData(
         gender: String?,
         dateOfBirth: String?,
         profession: String?,
@@ -59,29 +49,19 @@ class EditProfileViewModel(private val repository: UserProfileRepository, privat
         emergencyContact: String?
     ) {
         val userId = firebaseAuth.currentUser?.uid
-        if (userId == null) {
-            _saveProfileResult.value = Result.Error("Pengguna tidak valid untuk menyimpan profil.")
+        if (userId == null || currentLoadedProfile == null) {
+            _saveProfileResult.value = Result.Error("Tidak bisa menyimpan, data profil awal tidak ditemukan.")
             return
         }
 
-        val profileToSave = currentLoadedProfile?.copy(
-            fullName = fullName,
+        // Buat objek baru dengan menyalin data yang ada dan hanya mengubah data pribadi
+        val profileToSave = currentLoadedProfile!!.copy(
             gender = gender,
             dateOfBirth = dateOfBirth,
             profession = profession,
             professionName = professionName,
             maritalStatus = maritalStatus,
             emergencyContact = emergencyContact
-        ) ?: UserProfile(
-            uid = userId,
-            email = firebaseAuth.currentUser?.email ?: "",
-            fullName = fullName,
-            gender = gender,
-            dateOfBirth = dateOfBirth,
-            profession = profession,
-            professionName = professionName,
-            maritalStatus = maritalStatus,
-            emergencyContact = emergencyContact,
         )
 
         viewModelScope.launch {
@@ -90,5 +70,4 @@ class EditProfileViewModel(private val repository: UserProfileRepository, privat
             }
         }
     }
-
 }
