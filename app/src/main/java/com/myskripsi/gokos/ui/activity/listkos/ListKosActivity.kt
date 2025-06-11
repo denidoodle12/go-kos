@@ -1,16 +1,18 @@
-package com.myskripsi.gokos.ui.activity
+package com.myskripsi.gokos.ui.activity.listkos
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.myskripsi.gokos.data.Result
+import com.myskripsi.gokos.R
+import com.myskripsi.gokos.utils.Result
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.myskripsi.gokos.databinding.ActivityListKosBinding
 import com.myskripsi.gokos.ui.adapter.KosAdapter
+import com.myskripsi.gokos.ui.activity.detailKos.DetailKosActivity
 
-@Suppress("DEPRECATION")
 class ListKosActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityListKosBinding
@@ -22,57 +24,39 @@ class ListKosActivity : AppCompatActivity() {
         binding = ActivityListKosBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Setup ActionBar
+        setSupportActionBar(binding.toolbar)
+
         supportActionBar?.apply {
-            title = "campusName"
             setDisplayHomeAsUpEnabled(true)
+            setDisplayShowTitleEnabled(false)
         }
 
-        // Get ID Campus from intent
-        val campusId = intent.getStringExtra(EXTRA_CAMPUS_ID) ?: ""
+        val campusId = intent.getStringExtra(EXTRA_CAMPUS_ID)
 
-        // Fetch Data Kos Based ID Campus
-        if (campusId.isNotEmpty()) {
-            viewModel.getKosByCampusId(campusId)
-        } else {
-            Toast.makeText(this, "ID Campus not found", Toast.LENGTH_SHORT).show()
+        if (campusId.isNullOrEmpty()) {
+            Toast.makeText(this, "Campus ID not found.", Toast.LENGTH_SHORT).show()
             finish()
+            return
         }
 
-        showData()
+        viewModel.loadKosAndCampusDetails(campusId)
+
+        setupListKosRecyclerView()
+        observeViewModel()
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
+        onBackPressedDispatcher.onBackPressed()
         return true
     }
 
-    private fun showData() {
+    private fun setupListKosRecyclerView() {
         kosAdapter = KosAdapter()
         kosAdapter.onItemClick = { selectedData ->
-            Toast.makeText(this, "Kos ${selectedData.nama_kost} Chosen", Toast.LENGTH_SHORT).show()
-        }
-
-        viewModel.kosState.observe(this) { result ->
-            when (result) {
-                is Result.Loading -> {
-                    showLoading(true)
-                }
-                is Result.Success -> {
-                    showLoading(false)
-                    val kosList = result.data
-                    if (kosList.isEmpty()) {
-                        showEmpty(true)
-                    } else {
-                        showEmpty(false)
-                        kosAdapter.submitList(kosList)
-                    }
-                }
-                is Result.Error -> {
-                    showLoading(false)
-                    showError(result.message)
-                }
+            val intent = Intent(this, DetailKosActivity::class.java).apply {
+                putExtra(DetailKosActivity.EXTRA_DETAIL_KOS, selectedData)
             }
+            startActivity(intent)
         }
 
         with(binding.rvKost) {
@@ -82,21 +66,53 @@ class ListKosActivity : AppCompatActivity() {
         }
     }
 
+    private fun observeViewModel() {
+        viewModel.campusName.observe(this) { name ->
+            binding.campusName.text = name
+        }
+
+        viewModel.kosState.observe(this) { result ->
+            when (result) {
+                is Result.Loading -> {
+                    showLoading(true)
+                    showEmpty(false)
+                    showError(null)
+                }
+                is Result.Success -> {
+                    showLoading(false)
+                    val kosList = result.data
+                    if (kosList.isEmpty()) {
+                        showEmpty(true)
+                        showError(null)
+                    } else {
+                        showEmpty(false)
+                        showError(null)
+                        kosAdapter.submitList(kosList)
+                    }
+                }
+                is Result.Error -> {
+                    showLoading(false)
+                    showEmpty(false)
+                    showError(result.message)
+                }
+            }
+        }
+    }
+
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
         binding.rvKost.visibility = if (isLoading) View.GONE else View.VISIBLE
-        binding.tvError.visibility = View.GONE
     }
 
     private fun showEmpty(isEmpty: Boolean) {
         binding.tvError.visibility = if (isEmpty) View.VISIBLE else View.GONE
-        binding.tvError.text = "Tidak ada kost yang ditemukan"
+        if (isEmpty) binding.tvError.text = getString(R.string.txt_there_are_no_kos_found_around_this_campus)
     }
 
-    private fun showError(message: String) {
-        binding.tvError.visibility = View.VISIBLE
-        binding.rvKost.visibility = View.GONE
+    private fun showError(message: String?) {
+        binding.tvError.visibility = if (message != null) View.VISIBLE else View.GONE
         binding.tvError.text = message
+        if (message != null) binding.rvKost.visibility = View.GONE
     }
 
     companion object {

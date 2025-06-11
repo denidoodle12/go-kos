@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="gender_array">
+        <item>Laki-laki</item>
+        <item>Perempuan</item>
+        <item>Lainnya</item> <item>Tidak ingin menyebutkan</item> </string-array>
+
+    <string-array name="profession_array">
+        <item>Mahasiswa</item>
+        <item>Pekerja</item>
+        <item>Wiraswasta</item>
+        <item>Belum Bekerja</item>
+        <item>Lainnya</item>
+    </string-array>
+
+    <string-array name="marital_status_array">
+        <item>Belum Kawin</item>
+        <item>Kawin</item>
+        <item>Cerai</item> </string-array>
+</resources>

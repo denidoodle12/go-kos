@@ -4,40 +4,49 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ui.fragment.home.HomeFragment">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarHome"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <TextView
+        app:layout_constraintTop_toTopOf="parent">
+        <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            android:textSize="24sp"
-            android:fontFamily="@font/notosans_bold"
-            android:layout_gravity="center"
-            app:drawableStartCompat="@drawable/iconapp"/>
+            android:layout_height="40dp"
+            android:src="@drawable/gokosiconapp"
+            android:layout_gravity="start|center_vertical"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/app_name" />
+    </androidx.appcompat.widget.Toolbar>
 
-    </com.google.android.material.appbar.AppBarLayout>
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#F0F0F0"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/appBarHome"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/divider">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="15dp">
+            android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -49,8 +58,7 @@
                     android:layout_height="wrap_content"
                     android:elevation="10dp"
                     android:indeterminate="true"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:visibility="gone" app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -59,8 +67,10 @@
                     android:id="@+id/username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/notosans_bold"
-                    android:text="Hi, Deni Hidayat"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/figtree_semibold"
+                    android:text="@string/hiUsername"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -69,259 +79,426 @@
                     android:id="@+id/textview1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/notosans_medium"
-                    android:text="Mau cari kos kosan?"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/figtree_regular"
+                    android:text="@string/txt_infoToSearch"
+                    android:textColor="@color/gray"
                     android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/username"
                     app:layout_constraintTop_toBottomOf="@+id/username" />
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/materialCardView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:background="@drawable/searchview_circle"
-                    android:elevation="10dp"
-                    app:cardCornerRadius="10dp"
-                    app:cardUseCompatPadding="true"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textview1">
-
-                    <androidx.appcompat.widget.SearchView
-                        android:id="@+id/searchViewItem"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:theme="@style/CustomSearchView"
-                        app:iconifiedByDefault="false"
-                        app:queryHint="@string/searchItem" />
-
-                </com.google.android.material.card.MaterialCardView>
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardViewBanner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:layout_marginHorizontal="15dp"
+                    app:cardBackgroundColor="@color/primary"
                     app:cardCornerRadius="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/materialCardView">
-
-                    <ImageView
+                    app:layout_constraintTop_toBottomOf="@id/textview1">
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="150dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/banner_promo" />
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="14dp">
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginBottom="8dp"
+                            android:text="@string/txt_infoToSearch2"
+                            android:textColor="@android:color/white"
+                            android:textSize="25sp"
+                            android:fontFamily="@font/figtree_medium"/>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/materialCardView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/searchview_circle"
+                            android:backgroundTint="@color/white"
+                            android:elevation="10dp"
+                            app:cardCornerRadius="20dp"
+                            app:cardUseCompatPadding="true"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textview1">
+
+                            <androidx.appcompat.widget.SearchView
+                                android:id="@+id/searchViewItem"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:theme="@style/CustomSearchView"
+                                app:iconifiedByDefault="false"
+                                app:queryHint="@string/searchItem" />
+                        </com.google.android.material.card.MaterialCardView>
+                    </LinearLayout>
                 </androidx.cardview.widget.CardView>
+
 
                 <TextView
                     android:id="@+id/textHeading2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:fontFamily="@font/notosans_bold"
-                    android:text="Kos Disekitarmu"
+                    android:layout_marginStart="15dp"
+                    android:fontFamily="@font/figtree_semibold"
+                    android:text="@string/txt_headingOne"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cardViewBanner" />
 
                 <TextView
                     android:id="@+id/textview2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/notosans_medium"
-                    android:text="Kami berikan rekomendasi kost terdekat dari lokasimu yang mungkin cocok untuk kamu"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textHeading2" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvNearbyKos"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textview2"
-                    tools:listitem="@layout/items_nearby_kost" />
-
-                <Button
-                    android:id="@+id/btnOtherKosNearby"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/bg_stroke"
-                    android:fontFamily="@font/notosans_medium"
-                    android:gravity="center"
-                    android:text="Kos lainnya disekitar kamu"
-                    android:textColor="@color/black"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginHorizontal="15dp"
+                    android:fontFamily="@font/figtree_regular"
+                    android:text="@string/txt_headingOneInfo"
+                    android:textColor="@color/gray"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/rvNearbyKos" />
+                    app:layout_constraintTop_toBottomOf="@+id/textHeading2" />
 
+                <FrameLayout
+                    android:id="@+id/nearbyKosContainer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="15dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textview2">
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/shimmerNearbyKosLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:shimmer_auto_start="false"
+                        android:visibility="gone"> <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <include layout="@layout/shimmer_placeholder_nearby_kos_item" />
+                        <include layout="@layout/shimmer_placeholder_nearby_kos_item" />
+                        <include layout="@layout/shimmer_placeholder_nearby_kos_item" />
+                    </LinearLayout>
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvNearbyKos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:visibility="gone" app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/items_nearby_kost" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tvNearbyKosStatus"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:textColor="@color/gray"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/nearbyKosContainer"
+                    tools:text="Tidak ada kos terdekat dari lokasimu." />
+
+                <Button
+                    android:id="@+id/btnOtherKosNearby"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginHorizontal="15dp"
+                    android:background="@drawable/bg_stroke"
+                    android:fontFamily="@font/figtree_medium"
+                    android:gravity="center"
+                    android:text="@string/btn_kosNearbyYou"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvNearbyKosStatus" />
+
+                <View
+                    android:id="@+id/divider1"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="25dp"
+                    android:background="@color/veryLighter_gray"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btnOtherKosNearby" />
 
                 <TextView
                     android:id="@+id/textHeading3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:fontFamily="@font/notosans_bold"
-                    android:text="Kos Terdekat dari Kampusmu"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="15dp"
+                    android:fontFamily="@font/figtree_semibold"
+                    android:text="@string/txt_headingTwo"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btnOtherKosNearby" />
+                    app:layout_constraintTop_toBottomOf="@+id/divider1" />
 
                 <TextView
                     android:id="@+id/textview3"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/notosans_medium"
-                    android:text="Kami berikan rekomendasi kost terdekat dari lokasimu yang mungkin cocok untuk kamu"
-                    android:textSize="12sp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginHorizontal="15dp"
+                    android:fontFamily="@font/figtree_regular"
+                    android:text="@string/txt_headingTwoInfo"
+                    android:textColor="@color/gray"
+                    android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textHeading3" />
 
-                <LinearLayout
-                    android:id="@+id/linearLayout"
+                <FrameLayout
+                    android:id="@+id/campusSelectionContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:padding="5dp"
+                    android:layout_marginHorizontal="15dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/textview3">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/shimmerCampusLayout"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        app:shimmer_auto_start="false"
+                        android:visibility="gone"> <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <LinearLayout android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <include layout="@layout/shimmer_placeholder_campus_item"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"/>
+                            <include layout="@layout/shimmer_placeholder_campus_item"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"/>
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <include layout="@layout/shimmer_placeholder_campus_item"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"/>
+                            <include layout="@layout/shimmer_placeholder_campus_item"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                    </com.facebook.shimmer.ShimmerFrameLayout>
 
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/cardViewUnsera"
-                            style="@style/CustomCardView"
-                            android:elevation="10dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvCampusSelection"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        tools:listitem="@layout/items_campus_card"
+                        tools:itemCount="2"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        app:spanCount="2"/>
+
+                    <TextView
+                        android:id="@+id/tvCampusListError"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:visibility="gone"
+                        tools:text="Gagal memuat daftar kampus"/>
+
+                </FrameLayout>
+
+                <View
+                    android:id="@+id/divider2"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/veryLighter_gray"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/campusSelectionContainer" />
+
+                <TextView
+                    android:id="@+id/tvBudgetKosTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="15dp"
+                    android:fontFamily="@font/figtree_semibold"
+                    android:text="@string/txt_cari_kos_sesuai_budgetmu"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/divider2" />
+
+                <TextView
+                    android:id="@+id/tvBudgetKosSubtitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginHorizontal="15dp"
+                    android:fontFamily="@font/figtree_regular"
+                    android:text="@string/txt_yuk_cari_kos_murah"
+                    android:textColor="@color/gray"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvBudgetKosTitle" />
+
+                <LinearLayout
+                    android:id="@+id/llBudgetFilters"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@id/tvBudgetKosSubtitle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <com.google.android.material.button.MaterialButtonToggleGroup
+                            android:id="@+id/toggleBudgetFilterGroup"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginHorizontal="15dp"
+                            app:layout_constraintTop_toBottomOf="@id/tvBudgetKosSubtitle"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:orientation="vertical"
-                                android:padding="8dp">
-
-                                <ImageView
-                                    android:layout_width="50dp"
-                                    android:layout_height="50dp"
-                                    android:layout_marginTop="15dp"
-                                    android:scaleType="fitCenter"
-                                    android:src="@drawable/logo_unsera" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="8dp"
-                                    android:fontFamily="@font/notosans_medium"
-                                    android:gravity="center"
-                                    android:text="Universitas Serang Raya"
-                                    android:textSize="12sp" />
-
-                            </LinearLayout>
-
-                        </androidx.cardview.widget.CardView>
-
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/cardViewUniba"
-                            style="@style/CustomCardView"
-                            android:elevation="10dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/cardViewUIN"
-                            app:layout_constraintStart_toEndOf="@id/cardViewUnsera"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:orientation="vertical"
-                                android:padding="8dp">
-
-                                <ImageView
-                                    android:layout_width="50dp"
-                                    android:layout_height="50dp"
-                                    android:layout_marginTop="15dp"
-                                    android:scaleType="fitCenter"
-                                    android:src="@drawable/logo_universitas_bina_bangsa" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="8dp"
-                                    android:fontFamily="@font/notosans_medium"
-                                    android:gravity="center"
-                                    android:text="Universitas Bina Bangsa"
-                                    android:textSize="12sp" />
-
-                            </LinearLayout>
-
-                        </androidx.cardview.widget.CardView>
-
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/cardViewUIN"
-                            style="@style/CustomCardView"
-                            android:elevation="10dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
+                            app:singleSelection="true"
+                            app:selectionRequired="true"
+                            app:checkedButton="@+id/btnFilterBelow500k_toggle">
 
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:orientation="vertical"
-                                android:padding="8dp">
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnFilterBelow500k_toggle"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/filter_below_500k"
+                            android:textAllCaps="false"
+                            android:textColor="@color/selector_filter_button_text_color"
+                            app:backgroundTint="@color/selector_filter_button_background_color"
+                            app:strokeColor="@color/primary" />
 
-                                <ImageView
-                                    android:layout_width="50dp"
-                                    android:layout_height="50dp"
-                                    android:layout_marginTop="15dp"
-                                    android:scaleType="fitCenter"
-                                    android:src="@drawable/logo_uin_smh_banten" />
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnFilter500k700k_toggle"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/filter_500k_700k"
+                            android:textAllCaps="false"
+                            android:textColor="@color/selector_filter_button_text_color"
+                            app:backgroundTint="@color/selector_filter_button_background_color"
+                            app:strokeColor="@color/primary" />
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="8dp"
-                                    android:fontFamily="@font/notosans_medium"
-                                    android:gravity="center"
-                                    android:text="Universitas SMH Banten"
-                                    android:textSize="12sp" />
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnFilterAbove700k_toggle"
+                            style="?attr/materialButtonOutlinedStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/filter_above_700k"
+                            android:textAllCaps="false"
+                            android:textColor="@color/selector_filter_button_text_color"
+                            app:backgroundTint="@color/selector_filter_button_background_color"
+                            app:strokeColor="@color/primary" />
 
-                            </LinearLayout>
-
-                        </androidx.cardview.widget.CardView>
-
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
+                    </com.google.android.material.button.MaterialButtonToggleGroup>
                 </LinearLayout>
 
-                <!--            <androidx.cardview.widget.CardView-->
-                <!--                android:id="@+id/cardView_unsera"-->
-                <!--                style="@style/CustomCardView"-->
-                <!--                app:layout_constraintStart_toStartOf="parent"-->
-                <!--                app:layout_constraintTop_toBottomOf="@id/textview3">-->
+                <FrameLayout
+                    android:id="@+id/budgetKosContainer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="15dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/llBudgetFilters">
 
-                <!--            </androidx.cardview.widget.CardView>-->
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/shimmerBudgetKosLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:shimmer_auto_start="false"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <include layout="@layout/shimmer_placeholder_nearby_kos_item" />
+                            <include layout="@layout/shimmer_placeholder_nearby_kos_item" />
+                            <include layout="@layout/shimmer_placeholder_nearby_kos_item" />
+                        </LinearLayout>
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvBudgetKos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:visibility="gone"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/items_nearby_kost"
+                        tools:itemCount="2"/>
+                </FrameLayout>
+
+                <Button
+                    android:id="@+id/btnBudgetKos"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginHorizontal="15dp"
+                    android:background="@drawable/bg_stroke"
+                    android:fontFamily="@font/figtree_medium"
+                    android:gravity="center"
+                    android:text="@string/btn_budgetKos"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/budgetKosContainer" />
+
+                <TextView
+                    android:id="@+id/tvBudgetKosStatus"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:textColor="@color/gray"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/budgetKosContainer"
+                    tools:text="Tidak ada kos ditemukan untuk budget tersebut." />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </LinearLayout>
-
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

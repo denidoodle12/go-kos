@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
     id("com.google.gms.google-services")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -58,6 +59,11 @@ dependencies {
 
     // Firebase
     implementation(libs.firebase.firestore)
+    implementation(libs.play.services.maps)
+    implementation(libs.firebase.auth)
+    implementation(libs.credentials)
+    implementation(libs.credentials.play.services.auth)
+    implementation(libs.googleid)
 
     // Testing
     testImplementation(libs.junit)
@@ -74,5 +80,34 @@ dependencies {
 
     // Image Processing
     implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    // Google Location Services
+    implementation("com.google.android.gms:play-services-location:21.0.1")
+
+    // Onboarding
+    implementation("com.tbuonomo:dotsindicator:5.1.0")
+
+    // Auth
+    implementation(libs.firebase.auth.ktx)
+    implementation(libs.credentials)
+    implementation(libs.credentials.play.services.auth)
+    implementation(libs.googleid)
+
+    // Auth with Google
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
+
+    // Data Store
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
+
+    // Supabase Storage
+    implementation("io.ktor:ktor-client-android:2.3.9")
+    implementation("io.github.jan-tennert.supabase:storage-kt:2.3.0")
+
+    // Lottie Animation
+    implementation("com.airbnb.android:lottie:6.6.4")
+
+    // Shimmer Loading
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
+
 
 }

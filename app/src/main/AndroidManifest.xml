@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:name=".GoKosApplication"
@@ -16,10 +18,43 @@
         android:theme="@style/Theme.GoKos"
         tools:targetApi="31">
         <activity
-            android:name=".ui.activity.ListKosActivity"
+            android:name=".ui.activity.profile.personalData.PersonalDataActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.activity.profile.TermsConditionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.profile.PrivacyPolicyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.auth.signup.RegisterSuccessActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.profile.editProfile.EditProfileActivity"
+            android:exported="false" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDWzz0E3lVOWZIiPUgvTbmlz4oVo2acqKE" />
+
+        <activity
+            android:name=".ui.activity.map.MappingMapActivity"
+            android:exported="false"
+            android:label="Peta Sebaran Kos" />
+        <activity
+            android:name=".ui.activity.auth.signup.SignupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.auth.login.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.onboarding.StartActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.onboarding.OnboardingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.splash.SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,6 +62,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.activity.detailKos.DetailKosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.listkos.ListKosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.MainActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
