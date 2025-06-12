@@ -3,12 +3,23 @@
     <style name="Base.Theme.GoKos" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:fontFamily">@font/figtree_light</item>
         <!-- Customize your light theme here. -->
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
     <style name="Theme.GoKos" parent="Base.Theme.GoKos" />
     <style name="CustomSearchView" parent="Widget.AppCompat.SearchView">
         <item name="android:textSize">14sp</item>
         <item name="android:fontFamily">@font/figtree_light</item>
+    </style>
+
+    <!-- Custom Disable Active Indicator for Bottom Navigation Bar. -->
+    <style name="App.BottomNavigationView.ActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@android:color/transparent</item>
+    </style>
+
+    <style name="App.BottomNavigationView.NoIndicator" parent="Widget.Material3.BottomNavigationView">
+        <item name="itemActiveIndicatorStyle">@style/App.BottomNavigationView.ActiveIndicator</item>
     </style>
 
     <!-- Custom Style for CardView Soon Feature. -->

@@ -63,7 +63,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintBottom_toTopOf="@+id/btnSaveChanges"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:fillViewport="true">
@@ -277,21 +277,21 @@
                     android:inputType="phone"/>
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSaveChanges"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/red"
+                android:text="SIMPAN"
+                android:textColor="@color/white"
+                android:fontFamily="@font/figtree_semibold"
+                app:cornerRadius="16dp"
+                app:layout_constraintTop_toBottomOf="@id/tilEmergencyContact"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSaveChanges"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="SIMPAN"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:paddingVertical="16dp"
-        app:cornerRadius="0dp"
-        android:backgroundTint="@color/primary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

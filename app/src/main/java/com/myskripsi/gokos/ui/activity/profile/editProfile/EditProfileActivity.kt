@@ -28,8 +28,8 @@ class EditProfileActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         // TODO: Fungsionalitas upload & hapus foto akan ditambahkan nanti
-        binding.btnUploadPhoto.isEnabled = false
-        binding.btnDeletePhoto.isEnabled = false
+//        binding.btnUploadPhoto.isEnabled = false
+//        binding.btnDeletePhoto.isEnabled = false
 
         setupSaveButton()
 

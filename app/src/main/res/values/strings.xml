@@ -162,5 +162,21 @@
     <string name="txt_privacyPolicy_info">Informasi Kebijakan Privasi GoKos</string>
     <string name="txt_personalData">Data Pribadi</string>
     <string name="txt_personalData_info">Informasi data pribadi kamu</string>
+    <string name="txt_about_app">Tentang Aplikasi</string>
+    <string name="txt_desc_about_app">GoKos adalah aplikasi yang dirancang untuk membantu mahasiswa atau masyarakat umum dalam mencari rumah kos terdekat di kawasan kampus serang. Aplikasi ini dapat memberikan rekomendasi kosan terdekat di sekitaran kampus dan sekitar kamu dengan menampilkan jarak menggunakan metode haversine. Selain itu, GoKos menawarkan fitur visualisasi GIS untuk pemetaan kos-kosan, sehingga memudahkan pengguna ketika ingin mencari kos-kosan hanya dengan melihat peta sebaran kos-kosan saja. Dengan dukungan GoKos, mencari rumah kos menjadi lebih mudah dan praktis.</string>
+    <string name="txt_what_is_in_it">Ada Apa Saja?</string>
+    <string name="txt_desc_what_is_in_it">1. Informasi seputar kos-kosan.
+        \n2. Informasi seputar jarak, harga sewa dan fasilitas yang ditawarkan.
+        \n3. Menampilkan Visualisasi GIS untuk melihat peta sebaran kos-kosan.
+        \n4. Menampilkan kos-kosan sesuai preferensi budget kamu.
+        \n5. Menampilkan kos-kosan di sekitar kamu.
+        \n6. Menyimpan kos-kosan ke favorite.
+        \n7. Interface yang user-friendly.</string>
+    <string name="txt_main_feature">Fitur Utama</string>
+    <string name="txt_gis">Visualisasi GIS</string>
+    <string name="txt_desc_main_feature">Pada fitur utama aplikasi GoKos, menerapkan Visualisasi GIS untuk memberikan informasi peta digital sebaran kos-kosan di kampus tertentu. Sehingga memudahkan dalam mencari kos-kosan dengan mudah dan cepat</string>
+    <string name="txt_aboutApp">Tentang Aplikasi</string>
+    <string name="txt_aboutApp_info">Informasi tentang GoKos</string>
+    <string name="title_favorite">Favorite</string>
 
 </resources>

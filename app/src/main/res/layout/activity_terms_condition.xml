@@ -449,16 +449,6 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/figtree_regular"
-                android:textSize="14sp"
-                android:text="KEBIJAKAN PRIVASI"
-                android:visibility="visible"
-                tools:visibility="visible" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/figtree_regular"
                 android:textSize="14sp"
@@ -484,6 +474,7 @@
                 android:fontFamily="@font/figtree_regular"
                 android:textSize="14sp"
                 android:text="gokosapp@gmail.com"
+
                 android:visibility="visible"
                 tools:visibility="visible" />
 
