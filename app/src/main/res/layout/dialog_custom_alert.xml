@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:backgroundTint="@color/white"
     app:cardCornerRadius="28dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,7 +44,6 @@
             android:fontFamily="@font/figtree_regular"
             android:gravity="center"
             android:lineSpacingExtra="4dp"
-            android:textColor="@color/gray"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

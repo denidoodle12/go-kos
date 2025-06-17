@@ -90,8 +90,13 @@ class KosAdapter : ListAdapter<Kos, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
 
                 binding.tvDistance.text = formatDistance(kos.lokasi.jarak)
 
-                val facilitiesText = kos.fasilitas_kamar.joinToString("•")
-                binding.tvFacilities.text = facilitiesText
+                val allFacilities = kos.fasilitas_kamar + kos.fasilitas_kamar_mandi
+
+                if (allFacilities.isNotEmpty()) {
+                    binding.tvFacilities.visibility = View.VISIBLE
+                    val facilitiesText = allFacilities.joinToString("•")
+                    binding.tvFacilities.text = facilitiesText
+                }
 
                 binding.tvPrice.text = CURRENCY_FORMATTER.format(kos.harga.toDouble())
 
@@ -130,6 +135,14 @@ class KosAdapter : ListAdapter<Kos, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
 
                 binding.textView.text = formatDistance(kos.lokasi.jarak)
                 binding.startFrom.text = itemView.context.getString(R.string.txt_startFrom)
+
+                val allFacilities = kos.fasilitas_kamar + kos.fasilitas_kamar_mandi
+
+                if (allFacilities.isNotEmpty()) {
+                    binding.facilitiesKos.visibility = View.VISIBLE
+                    val facilitiesText = allFacilities.joinToString("•")
+                    binding.facilitiesKos.text = facilitiesText
+                }
 
                 binding.priceKos.text = CURRENCY_FORMATTER.format(kos.harga.toDouble())
 

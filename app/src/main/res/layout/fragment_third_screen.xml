@@ -26,7 +26,7 @@
         android:gravity="center"
         android:text="Dapatkan Kosan Sesuai Preferensi"
         android:textSize="40sp"
-        android:textStyle="bold"
+        android:textColor="@color/black"
         android:fontFamily="@font/notosans_bold"
         app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="parent"
@@ -68,7 +68,7 @@
         android:layout_height="64dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_percent="0.5"
+        app:layout_constraintGuide_percent="0.500684"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline

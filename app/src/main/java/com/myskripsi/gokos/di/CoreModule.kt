@@ -4,6 +4,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
 import com.myskripsi.gokos.data.AuthRepository
+import com.myskripsi.gokos.data.FavoriteRepository
 import com.myskripsi.gokos.data.KosRepository
 import com.myskripsi.gokos.data.SettingPreferences
 import com.myskripsi.gokos.data.UserProfileRepository
@@ -17,7 +18,9 @@ import com.myskripsi.gokos.ui.activity.map.MappingMapViewModel
 import com.myskripsi.gokos.ui.activity.onboarding.OnboardingViewModel
 import com.myskripsi.gokos.ui.activity.profile.personalData.PersonalDataViewModel
 import com.myskripsi.gokos.ui.activity.splash.SplashScreenViewModel
+import com.myskripsi.gokos.ui.fragment.favorite.FavoriteViewModel
 import com.myskripsi.gokos.ui.fragment.home.HomeViewModel
+import com.myskripsi.gokos.ui.fragment.maps.MapsViewModel
 import com.myskripsi.gokos.ui.fragment.profile.ProfileViewModel
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
@@ -67,6 +70,9 @@ val repositoryModule = module {
     single {
         UserProfileRepository(get(), get(), get(), androidContext())
     }
+    single {
+        FavoriteRepository(get())
+    }
 }
 
 val utilsModule = module {
@@ -81,7 +87,7 @@ val viewModelModule = module {
         ListKosViewModel(get())
     }
     viewModel {
-        DetailKosViewModel(get())
+        DetailKosViewModel(get(), get(), get())
     }
     viewModel {
         MappingMapViewModel(get())
@@ -106,6 +112,12 @@ val viewModelModule = module {
     }
     viewModel {
         OnboardingViewModel(get())
+    }
+    viewModel {
+        FavoriteViewModel(get(), get(), get())
+    }
+    viewModel {
+        MapsViewModel(get())
     }
 }
 

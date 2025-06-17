@@ -38,7 +38,7 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/notosans_bold"
+            android:fontFamily="@font/figtree_semibold"
             android:text="Daftar"
             android:textSize="30sp"
             android:textColor="@color/primary"/>
@@ -47,8 +47,10 @@
             android:id="@+id/messageTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/notosans_semibold"
-            android:text="Lengkapi data berikut agar dapat login!"/>
+            android:text="Lengkapi data berikut agar dapat login!"
+            android:textSize="14sp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/figtree_regular"/>
 
         <EditText
             android:id="@+id/fieldFullName"
@@ -57,6 +59,8 @@
             android:background="@drawable/border_transparent_with_stroke"
             android:drawableStart="@drawable/ic_person_24"
             android:drawablePadding="8dp"
+            android:fontFamily="@font/figtree_light"
+            android:textSize="14sp"
             android:hint="Nama Lengkap"
             android:layout_marginTop="10dp"
             android:paddingStart="16dp"
@@ -69,6 +73,8 @@
             android:background="@drawable/border_transparent_with_stroke"
             android:drawableStart="@drawable/ic_email_24"
             android:drawablePadding="8dp"
+            android:fontFamily="@font/figtree_light"
+            android:textSize="14sp"
             android:hint="Alamat Email"
             android:layout_marginTop="10dp"
             android:paddingStart="16dp"
@@ -82,6 +88,8 @@
             android:drawableStart="@drawable/ic_password_24"
             android:drawableEnd="@drawable/ic_eye_24"
             android:drawablePadding="8dp"
+            android:fontFamily="@font/figtree_light"
+            android:textSize="14sp"
             android:hint="@string/txt_password"
             android:inputType="textPassword"
             android:paddingStart="16dp"
@@ -98,6 +106,8 @@
             android:drawableStart="@drawable/ic_password_24"
             android:drawableEnd="@drawable/ic_eye_24"
             android:drawablePadding="8dp"
+            android:fontFamily="@font/figtree_light"
+            android:textSize="14sp"
             android:hint="@string/txt_password"
             android:inputType="textPassword"
             android:paddingStart="16dp"
@@ -111,7 +121,7 @@
             android:layout_height="60dp"
             android:backgroundTint="@color/primary"
             android:text="DAFTAR"
-            android:textColor="@color/white"
+            android:fontFamily="@font/figtree_semibold"
             android:textSize="18sp"
             android:layout_marginTop="10dp"/>
 
@@ -131,14 +141,16 @@
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="10dp"
                 android:text="Sudah memiliki akun?"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:fontFamily="@font/figtree_light"
+                android:textSize="14sp"/>
 
             <TextView
                 android:id="@+id/goLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Login"
+                android:fontFamily="@font/figtree_semibold"
+                android:textColor="@color/primary"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -162,8 +174,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="0dp"
                 android:text="Atau masuk dengan"
-                android:textColor="@color/black"
-                android:textSize="13sp" />
+                android:textSize="12sp" />
 
             <View
                 android:layout_width="150dp"
@@ -180,7 +191,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@drawable/border_button"
-            android:backgroundTint="@color/gray"
             android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -201,11 +211,11 @@
                 android:layout_height="50dp"
                 android:background="@drawable/border_transparent"
                 android:backgroundTint="@color/gray"
-                android:fontFamily="@font/notosans_bold"
+                android:fontFamily="@font/figtree_semibold"
                 android:gravity="start|center"
                 android:text="Akun Google yang ada"
                 android:textAllCaps="false"
-                android:textColor="@color/black"
+                android:textColor="@color/primary"
                 android:textSize="16sp" />
         </LinearLayout>
 

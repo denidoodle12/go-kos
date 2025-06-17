@@ -70,7 +70,8 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="15dp"
                     android:fontFamily="@font/figtree_semibold"
-                    android:text="@string/hiUsername"
+                    android:textColor="@color/black"
+                    tools:text="@string/hiUsername"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -149,6 +150,7 @@
                     android:fontFamily="@font/figtree_semibold"
                     android:text="@string/txt_headingOne"
                     android:textSize="16sp"
+                    android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cardViewBanner" />
 
@@ -249,6 +251,7 @@
                     android:fontFamily="@font/figtree_semibold"
                     android:text="@string/txt_headingTwo"
                     android:textSize="16sp"
+                    android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/divider1" />
 
@@ -351,6 +354,7 @@
                     android:fontFamily="@font/figtree_semibold"
                     android:text="@string/txt_cari_kos_sesuai_budgetmu"
                     android:textSize="16sp"
+                    android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/divider2" />
 
@@ -397,6 +401,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/filter_below_500k"
+                            android:fontFamily="@font/notosans_regular"
                             android:textAllCaps="false"
                             android:textColor="@color/selector_filter_button_text_color"
                             app:backgroundTint="@color/selector_filter_button_background_color"
@@ -409,6 +414,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/filter_500k_700k"
+                            android:fontFamily="@font/notosans_regular"
                             android:textAllCaps="false"
                             android:textColor="@color/selector_filter_button_text_color"
                             app:backgroundTint="@color/selector_filter_button_background_color"
@@ -421,6 +427,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/filter_above_700k"
+                            android:fontFamily="@font/notosans_regular"
                             android:textAllCaps="false"
                             android:textColor="@color/selector_filter_button_text_color"
                             app:backgroundTint="@color/selector_filter_button_background_color"

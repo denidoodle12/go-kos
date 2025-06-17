@@ -1,3 +1,4 @@
+// File: ui/activity/detailKos/DetailKosActivity.kt
 package com.myskripsi.gokos.ui.activity.detailKos
 
 import android.content.Intent
@@ -16,10 +17,12 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.MarkerOptions
 import com.myskripsi.gokos.R
+import com.myskripsi.gokos.data.model.Favorite
 import com.myskripsi.gokos.data.model.Kos
 import com.myskripsi.gokos.databinding.ActivityDetailKosBinding
 import com.myskripsi.gokos.databinding.ItemsFacilityBinding
 import com.myskripsi.gokos.ui.adapter.KosAdapter
+import com.myskripsi.gokos.ui.fragment.favorite.FavoriteActionBottomSheet
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.Locale
@@ -27,11 +30,12 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.myskripsi.gokos.utils.Result
 
 @Suppress("DEPRECATION")
-class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback {
+class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback, FavoriteActionBottomSheet.FavoriteActionListener {
 
     private lateinit var binding: ActivityDetailKosBinding
     private var googleMap: GoogleMap? = null
     private var currentKos: Kos? = null
+    private var currentFavoriteStatus: Favorite? = null // Untuk menyimpan status favorit
 
     private val viewModel: DetailKosViewModel by viewModel()
     private lateinit var otherKosAdapter: KosAdapter
@@ -43,19 +47,16 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
-
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowTitleEnabled(false)
         }
 
         shimmerOtherKosNearby = binding.shimmerOtherKosNearby
-
         setupOtherKosRecyclerView()
-        observeViewModel()
 
         var mapViewBundle: Bundle? = null
-        if (savedInstanceState !=null) {
+        if (savedInstanceState != null) {
             mapViewBundle = savedInstanceState.getBundle(MAPVIEW_BUNDLE_KEY)
         }
         binding.mapViewKosLocation.onCreate(mapViewBundle)
@@ -67,11 +68,42 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback {
             showData(dataKos)
             binding.mapViewKosLocation.getMapAsync(this)
 
+            // Panggil semua fungsi ViewModel di sini setelah dataKos dipastikan ada
             viewModel.fetchOtherNearbyKos(dataKos)
+            viewModel.checkFavoriteStatus(dataKos.id)
+            setupFavoriteButtonListener()
+        } else {
+            Toast.makeText(this, "Gagal memuat data kos.", Toast.LENGTH_SHORT).show()
+            finish()
+        }
+
+        observeViewModel() // Panggil observe di akhir
+    }
+
+    private fun setupFavoriteButtonListener() {
+        binding.ivFavorite.setOnClickListener {
+            currentKos?.let { kos ->
+                val mode = if (currentFavoriteStatus == null) FavoriteActionBottomSheet.Mode.ADD else FavoriteActionBottomSheet.Mode.DELETE
+                val bottomSheet = FavoriteActionBottomSheet.newInstance(kos, mode, currentFavoriteStatus?.note)
+                bottomSheet.setFavoriteActionListener(this)
+                bottomSheet.show(supportFragmentManager, FavoriteActionBottomSheet.TAG)
+            }
+        }
+    }
+
+    // Implementasi listener dari BottomSheet
+    override fun onSaveClicked(kos: Kos, note: String) {
+        viewModel.addFavorite(kos, note)
+    }
+
+    override fun onDeleteClicked(kos: Kos) {
+        currentFavoriteStatus?.let {
+            viewModel.removeFavorite(it.id, kos.id)
         }
     }
 
     private fun setupOtherKosRecyclerView() {
+        // ... (Fungsi ini tidak berubah)
         otherKosAdapter = KosAdapter()
         binding.rvOtherKosNearby.apply {
             layoutManager = LinearLayoutManager(this@DetailKosActivity, LinearLayoutManager.HORIZONTAL, false)
@@ -83,10 +115,12 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback {
                 putExtra(EXTRA_DETAIL_KOS, selectedKos)
             }
             startActivity(intent)
+            finish() // finish agar tidak menumpuk activity yang sama
         }
     }
 
     private fun observeViewModel() {
+        // Observe untuk data kos terdekat lainnya
         viewModel.otherNearbyKosState.observe(this) { result ->
             when (result) {
                 is Result.Loading -> {
@@ -97,9 +131,7 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback {
                 is Result.Success -> {
                     shimmerOtherKosNearby.stopShimmer()
                     shimmerOtherKosNearby.visibility = View.GONE
-
                     if (result.data.isEmpty()) {
-                        // Jika tidak ada data, sembunyikan section ini
                         binding.tvOtherKosNearbyTitle.visibility = View.GONE
                         binding.rvOtherKosNearby.visibility = View.GONE
                     } else {
@@ -111,16 +143,46 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback {
                 is Result.Error -> {
                     shimmerOtherKosNearby.stopShimmer()
                     shimmerOtherKosNearby.visibility = View.GONE
-
-                    // Sembunyikan section jika terjadi error, atau tampilkan pesan
                     binding.tvOtherKosNearbyTitle.visibility = View.GONE
                     binding.rvOtherKosNearby.visibility = View.GONE
                     Toast.makeText(this, result.message, Toast.LENGTH_SHORT).show()
                 }
             }
         }
+
+        // Observe untuk status favorit
+        viewModel.favoriteStatus.observe(this) { result ->
+            when (result) {
+                is Result.Loading -> {
+                    binding.ivFavorite.isEnabled = false
+                }
+                is Result.Success -> {
+                    binding.ivFavorite.isEnabled = true
+                    currentFavoriteStatus = result.data
+                    if (result.data != null) {
+                        binding.ivFavorite.setImageResource(R.drawable.ic_favorite_filled)
+                    } else {
+                        binding.ivFavorite.setImageResource(R.drawable.ic_favorite_outline)
+                    }
+                }
+                is Result.Error -> {
+                    binding.ivFavorite.isEnabled = false // Nonaktifkan jika gagal cek status
+                    Toast.makeText(this, result.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        // Observe untuk hasil aksi (add/remove)
+        viewModel.actionResult.observe(this) { result ->
+            if (result is Result.Success) {
+                Toast.makeText(this, result.data, Toast.LENGTH_SHORT).show()
+            } else if (result is Result.Error) {
+                Toast.makeText(this, result.message, Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
+    // ... Sisa file (onMapReady, showData, dll.) tidak ada perubahan ...
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         var mapViewBundle = outState.getBundle(MAPVIEW_BUNDLE_KEY)
@@ -283,6 +345,10 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onResume() {
         super.onResume()
         binding.mapViewKosLocation.onResume()
+        // Refresh status favorit saat kembali ke activity ini
+        currentKos?.let {
+            viewModel.checkFavoriteStatus(it.id)
+        }
     }
 
     override fun onStart() {

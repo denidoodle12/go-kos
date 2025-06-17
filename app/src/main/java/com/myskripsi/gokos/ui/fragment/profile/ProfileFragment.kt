@@ -15,6 +15,7 @@ import com.myskripsi.gokos.ui.activity.auth.login.LoginActivity
 import com.myskripsi.gokos.ui.activity.profile.editProfile.EditProfileActivity
 import com.myskripsi.gokos.ui.activity.profile.PrivacyPolicyActivity
 import com.myskripsi.gokos.ui.activity.profile.TermsConditionActivity
+import com.myskripsi.gokos.ui.activity.profile.aboutApp.AboutAppActivity
 import com.myskripsi.gokos.ui.activity.profile.personalData.PersonalDataActivity
 import com.myskripsi.gokos.ui.fragment.customalertdialog.ConfirmationDialogFragment
 import com.myskripsi.gokos.utils.Result
@@ -96,7 +97,7 @@ class ProfileFragment : Fragment(), ConfirmationDialogFragment.ConfirmationDialo
             tvMenuTitle.text = "Tentang Aplikasi"
             tvMenuSubtitle.text = "Informasi tentang aplikasi Go-Kos"
             root.setOnClickListener {
-                Toast.makeText(requireContext(), "Menu Tentang Aplikasi diklik", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(requireActivity(), AboutAppActivity::class.java))
             }
         }
 

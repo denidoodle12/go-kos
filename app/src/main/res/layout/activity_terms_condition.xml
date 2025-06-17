@@ -389,11 +389,6 @@
                 android:layout_height="1dp"
                 android:background="@color/gray" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gray" />
-
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -426,11 +421,13 @@
                 tools:visibility="visible" />
 
             <TextView
+                android:id="@+id/tv_about_app"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/figtree_regular"
                 android:textSize="14sp"
+                android:textColor="@color/primary"
                 android:text="TENTANG KAMI"
                 android:visibility="visible"
                 tools:visibility="visible" />
@@ -447,12 +444,26 @@
                 tools:visibility="visible" />
 
             <TextView
+                android:id="@+id/tv_privacy_policy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/figtree_regular"
+                android:textSize="14sp"
+                android:text="KEBIJAKAN PRIVASI"
+                android:textColor="@color/primary"
+                android:visibility="visible"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/tv_terms_condition"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/figtree_regular"
                 android:textSize="14sp"
                 android:text="SYARAT DAN KETENTUAN"
+                android:textColor="@color/primary"
                 android:visibility="visible"
                 tools:visibility="visible" />
 
@@ -468,17 +479,19 @@
                 tools:visibility="visible" />
 
             <TextView
+                android:id="@+id/tv_email_gokos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/figtree_regular"
                 android:textSize="14sp"
                 android:text="gokosapp@gmail.com"
-
+                android:textColor="@color/primary"
                 android:visibility="visible"
                 tools:visibility="visible" />
 
             <TextView
+                android:id="@+id/tv_number_gokos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -486,6 +499,7 @@
                 android:fontFamily="@font/figtree_regular"
                 android:textSize="14sp"
                 android:text="+62895610787820"
+                android:textColor="@color/primary"
                 android:visibility="visible"
                 tools:visibility="visible" />
 
