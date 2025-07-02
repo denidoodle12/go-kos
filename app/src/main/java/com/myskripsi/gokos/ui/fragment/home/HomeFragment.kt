@@ -19,8 +19,11 @@ import com.myskripsi.gokos.R
 import com.myskripsi.gokos.databinding.FragmentHomeBinding
 import com.myskripsi.gokos.ui.activity.listkos.ListKosActivity
 import com.myskripsi.gokos.ui.activity.detailKos.DetailKosActivity
+import com.myskripsi.gokos.ui.activity.listkos.AllKosListActivity
+import com.myskripsi.gokos.ui.activity.search.SearchActivity
 import com.myskripsi.gokos.ui.adapter.CampusAdapter
 import com.myskripsi.gokos.ui.adapter.KosAdapter
+import com.myskripsi.gokos.ui.adapter.KosLayoutType
 import com.myskripsi.gokos.utils.LocationHelper
 import com.myskripsi.gokos.utils.LocationResult
 import kotlinx.coroutines.launch
@@ -67,12 +70,81 @@ class HomeFragment : Fragment() {
         setupCampusRecyclerView()
         setupBudgetKosRecyclerView()
         setupBudgetToggleGroupListener()
+        setupSearchAction()
+        setupClickListeners()
 
         observeViewModel()
 
         initiateLocationProcess() // Memulai proses cek izin dan ambil lokasi
         viewModel.fetchCampusList() // Memulai fetch daftar kampus, akan memicu shimmer kampus
         viewModel.loadUserProfile()
+    }
+
+    private fun setupSearchAction() {
+        binding.searchViewItem.setOnClickListener {
+            val intent = Intent(requireContext(), SearchActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun setupClickListeners() {
+        // Listener untuk tombol "Lihat Lainnya" pada KOS TERDEKAT
+        binding.btnOtherKosNearby.setOnClickListener {
+            // Ambil data dari LiveData di ViewModel
+            val nearbyKosResult = viewModel.nearbyKosState.value
+            if (nearbyKosResult is Result.Success && nearbyKosResult.data.isNotEmpty()) {
+
+                // PENTING: Ubah layoutType agar menggunakan tampilan vertikal
+                val kosListForNewActivity = nearbyKosResult.data.map { kos ->
+                    kos.copy(layoutType = KosLayoutType.REGULAR)
+                }
+
+                val intent = Intent(requireContext(), AllKosListActivity::class.java).apply {
+                    putExtra(AllKosListActivity.EXTRA_TITLE, "Kos Terdekat")
+                    putExtra(AllKosListActivity.EXTRA_DESC_TITLE, "Di sekitar lokasi Anda saat ini")
+                    putParcelableArrayListExtra(
+                        AllKosListActivity.EXTRA_KOS_LIST,
+                        ArrayList(kosListForNewActivity)
+                    )
+                }
+                startActivity(intent)
+            } else {
+                Toast.makeText(requireContext(), "Data kos terdekat tidak tersedia.", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        // Listener untuk tombol "Lihat Lainnya" pada KOS BUDGET
+        binding.btnBudgetKos.setOnClickListener {
+            val budgetKosResult = viewModel.budgetKosState.value
+            if (budgetKosResult is Result.Success && budgetKosResult.data.isNotEmpty()) {
+
+                // PENTING: Ubah juga layoutType di sini
+                val kosListForNewActivity = budgetKosResult.data.map { kos ->
+                    kos.copy(layoutType = KosLayoutType.REGULAR)
+                }
+
+                // Buat judul dan sub-judul dinamis berdasarkan filter yang aktif
+                val title = "Kos Sesuai Budget"
+                val description = when (viewModel.selectedPriceRange.value) {
+                    PriceRangeFilter.BELOW_500K -> "List Kos di Bawah Rp 500 Ribu"
+                    PriceRangeFilter.BETWEEN_500K_700K -> "List Kos Rp 500 - 700 Ribu"
+                    PriceRangeFilter.ABOVE_700K -> "List Kos di Atas Rp 700 Ribu"
+                    else -> "Semua kos sesuai budget"
+                }
+
+                val intent = Intent(requireContext(), AllKosListActivity::class.java).apply {
+                    putExtra(AllKosListActivity.EXTRA_TITLE, title)
+                    putExtra(AllKosListActivity.EXTRA_DESC_TITLE, description)
+                    putParcelableArrayListExtra(
+                        AllKosListActivity.EXTRA_KOS_LIST,
+                        ArrayList(kosListForNewActivity)
+                    )
+                }
+                startActivity(intent)
+            } else {
+                Toast.makeText(requireContext(), "Data kos budget tidak tersedia.", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun setupNearbyKosRecyclerView() {
@@ -158,7 +230,7 @@ class HomeFragment : Fragment() {
                     } else {
                         binding.tvNearbyKosStatus.visibility = View.GONE
                         binding.rvNearbyKos.visibility = View.VISIBLE
-                        nearbyKosAdapter.submitList(result.data)
+                        nearbyKosAdapter.submitList(result.data.take(5))
                     }
                 }
                 is Result.Error -> {

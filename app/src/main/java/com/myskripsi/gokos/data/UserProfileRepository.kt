@@ -8,8 +8,6 @@ import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import com.myskripsi.gokos.data.model.UserProfile
 import com.myskripsi.gokos.utils.Result
-import io.github.jan.supabase.SupabaseClient
-import io.github.jan.supabase.storage.storage
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
@@ -17,7 +15,6 @@ import kotlinx.coroutines.tasks.await
 class UserProfileRepository(
     private val db: FirebaseFirestore,
     private val firebaseAuth: FirebaseAuth,
-    private val supabaseClient: SupabaseClient,
     private val context: Context
 ) {
 //    private val usersCollection = firestore.collection("users")

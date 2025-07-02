@@ -31,6 +31,9 @@ class ListKosActivity : AppCompatActivity() {
             setDisplayShowTitleEnabled(false)
         }
 
+        setupListKosRecyclerView()
+        observeViewModel()
+
         val campusId = intent.getStringExtra(EXTRA_CAMPUS_ID)
 
         if (campusId.isNullOrEmpty()) {
@@ -38,11 +41,7 @@ class ListKosActivity : AppCompatActivity() {
             finish()
             return
         }
-
         viewModel.loadKosAndCampusDetails(campusId)
-
-        setupListKosRecyclerView()
-        observeViewModel()
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -69,6 +68,7 @@ class ListKosActivity : AppCompatActivity() {
     private fun observeViewModel() {
         viewModel.campusName.observe(this) { name ->
             binding.campusName.text = name
+            kosAdapter.setCampusName(name)
         }
 
         viewModel.kosState.observe(this) { result ->

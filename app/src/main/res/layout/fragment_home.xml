@@ -135,7 +135,9 @@
                                 android:layout_height="wrap_content"
                                 android:theme="@style/CustomSearchView"
                                 app:iconifiedByDefault="false"
-                                app:queryHint="@string/searchItem" />
+                                app:queryHint="@string/searchItem"
+                                android:focusable="false"
+                                android:clickable="true"/>
                         </com.google.android.material.card.MaterialCardView>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>

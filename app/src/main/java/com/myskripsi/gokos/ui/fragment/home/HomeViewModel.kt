@@ -110,7 +110,7 @@ class HomeViewModel(private val repository: KosRepository, private val authRepos
                         }
 
                         val sortedNearbyKos = kosWithDistance.sortedBy { it.lokasi.jarak }
-                        _nearbyKosState.value = Result.Success(sortedNearbyKos.take(5))
+                        _nearbyKosState.value = Result.Success(sortedNearbyKos)
 
                         // Setelah _allKosList terisi, panggil filter budget jika ada filter terpilih atau default
                         if(_selectedPriceRange.value != null){

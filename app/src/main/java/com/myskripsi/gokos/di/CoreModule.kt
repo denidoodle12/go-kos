@@ -17,30 +17,15 @@ import com.myskripsi.gokos.ui.activity.listkos.ListKosViewModel
 import com.myskripsi.gokos.ui.activity.map.MappingMapViewModel
 import com.myskripsi.gokos.ui.activity.onboarding.OnboardingViewModel
 import com.myskripsi.gokos.ui.activity.profile.personalData.PersonalDataViewModel
+import com.myskripsi.gokos.ui.activity.search.SearchViewModel
 import com.myskripsi.gokos.ui.activity.splash.SplashScreenViewModel
 import com.myskripsi.gokos.ui.fragment.favorite.FavoriteViewModel
 import com.myskripsi.gokos.ui.fragment.home.HomeViewModel
 import com.myskripsi.gokos.ui.fragment.maps.MapsViewModel
 import com.myskripsi.gokos.ui.fragment.profile.ProfileViewModel
-import io.github.jan.supabase.SupabaseClient
-import io.github.jan.supabase.createSupabaseClient
-import io.github.jan.supabase.storage.Storage
-import io.github.jan.supabase.storage.storage
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
-
-val supabaseModule = module {
-    single {
-        createSupabaseClient(
-            supabaseUrl = "https://ideyxrussxjefszyoezt.supabase.co",
-            supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlkZXl4cnVzc3hqZWZzenlvZXp0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDMxNTI1NDMsImV4cCI6MjA1ODcyODU0M30.AZoH5NAGaJUQT1qPmqXrTO1hxFKR-hLpXxiCulfcPU4"
-        ) {
-            install(Storage)
-        }
-    }
-    single { get<SupabaseClient>().storage }
-}
 
 val firebaseModule = module {
     single {
@@ -68,7 +53,7 @@ val repositoryModule = module {
         AuthRepository(get(), get())
     }
     single {
-        UserProfileRepository(get(), get(), get(), androidContext())
+        UserProfileRepository(get(), get(), get())
     }
     single {
         FavoriteRepository(get())
@@ -119,10 +104,12 @@ val viewModelModule = module {
     viewModel {
         MapsViewModel(get())
     }
+    viewModel {
+        SearchViewModel(get())
+    }
 }
 
 val appModule = listOf(
-    supabaseModule,
     firebaseModule,
     repositoryModule,
     viewModelModule,

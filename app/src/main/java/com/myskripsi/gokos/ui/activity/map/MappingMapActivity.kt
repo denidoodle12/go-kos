@@ -252,8 +252,8 @@ class MappingMapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.On
     }
 
     private fun formatDistanceForPanel(distanceInKm: Double, campusName: String): String {
-        val campusShortName = campusName.replace("Universitas ", "Univ. ")
-            .replace("Fakultas Keguruan dan Ilmu Pendidikan ", "FKIP ")
+        val campusShortName = campusName.replace("Universitas Bina Bangsa ", "Uniba ")
+            .replace("Universitas Serang Raya ", "Unsera ")
             .replace("Sekolah Tinggi ", "ST ")
             .replace("Institut ", "Inst. ")
 
