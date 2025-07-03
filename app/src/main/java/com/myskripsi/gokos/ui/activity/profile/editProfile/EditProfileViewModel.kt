@@ -1,5 +1,6 @@
 package com.myskripsi.gokos.ui.activity.profile.editProfile
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -79,6 +80,63 @@ class EditProfileViewModel(private val repository: UserProfileRepository, privat
         viewModelScope.launch {
             repository.saveUserProfile(userId, profileToSave).collectLatest {
                 _saveProfileResult.value = it
+            }
+        }
+    }
+
+    fun uploadAndSaveProfilePicture(imageUri: Uri) {
+        val userId = firebaseAuth.currentUser?.uid
+        if (userId == null) {
+            _saveProfileResult.value = Result.Error("Pengguna tidak valid.")
+            return
+        }
+
+        viewModelScope.launch {
+            repository.uploadProfileImage(userId, imageUri).collectLatest { uploadResult ->
+                when (uploadResult) {
+                    is Result.Loading -> _saveProfileResult.value = Result.Loading
+                    is Result.Error -> _saveProfileResult.value = Result.Error(uploadResult.message)
+                    is Result.Success -> {
+                        val (newUrl, publicId) = uploadResult.data
+                        val updatedProfile = currentLoadedProfile!!.copy(
+                            profileImageUrl = newUrl,
+                            profileImagePublicId = publicId
+                        )
+                        repository.saveUserProfile(userId, updatedProfile).collectLatest { saveResult ->
+                            _saveProfileResult.value = saveResult
+                            if (saveResult is Result.Success) loadUserProfile()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    fun deleteProfilePicture() {
+        val userId = firebaseAuth.currentUser?.uid
+        val profileToDelete = currentLoadedProfile
+        val publicId = profileToDelete?.profileImagePublicId
+
+        if (userId == null || publicId.isNullOrBlank()) {
+            _saveProfileResult.value = Result.Error("Tidak ada gambar untuk dihapus.")
+            return
+        }
+
+        viewModelScope.launch {
+            _saveProfileResult.value = Result.Loading
+            repository.deleteProfileImage(publicId).collectLatest { deleteResult ->
+                if (deleteResult is Result.Success) {
+                    val updatedProfile = profileToDelete.copy(
+                        profileImageUrl = null,
+                        profileImagePublicId = null
+                    )
+                    repository.saveUserProfile(userId, updatedProfile).collectLatest { saveResult ->
+                        _saveProfileResult.value = saveResult
+                        if (saveResult is Result.Success) loadUserProfile()
+                    }
+                } else if (deleteResult is Result.Error) {
+                    _saveProfileResult.value = deleteResult
+                }
             }
         }
     }

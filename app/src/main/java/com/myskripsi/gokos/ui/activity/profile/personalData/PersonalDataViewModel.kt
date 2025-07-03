@@ -62,6 +62,7 @@ class PersonalDataViewModel(private val repository: UserProfileRepository, priva
         maritalStatus: String?,
         emergencyContact: String?
     ) {
+
         val userId = firebaseAuth.currentUser?.uid
         // Pemeriksaan ini sekarang akan berhasil karena 'currentLoadedProfile' tidak akan pernah null
         if (userId == null || currentLoadedProfile == null) {

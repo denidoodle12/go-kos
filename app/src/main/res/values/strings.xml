@@ -181,5 +181,6 @@
     <string name="txt_favorite_kos">Favorite</string>
     <string name="maps_campus_description">Klik untuk melihat detail sebaran kos-kosan di sekitar Kawasan Kampus %1$s</string>
     <string name="txt_list_nearby_kos">List Kos</string>
+    <string name="txt_search">Cari</string>
 
 </resources>

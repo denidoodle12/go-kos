@@ -1,9 +1,17 @@
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
+import java.util.Properties
+import java.io.FileInputStream
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
     id("com.google.gms.google-services")
     id("kotlin-parcelize")
+}
+
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localProperties.load(FileInputStream(localPropertiesFile))
 }
 
 android {
@@ -18,6 +26,11 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        // --- KODE BARU YANG BENAR ---
+        buildConfigField("String", "CLOUDINARY_CLOUD_NAME", localProperties.getProperty("CLOUDINARY_CLOUD_NAME", ""))
+        buildConfigField("String", "CLOUDINARY_API_KEY", localProperties.getProperty("CLOUDINARY_API_KEY", ""))
+        buildConfigField("String", "CLOUDINARY_API_SECRET", localProperties.getProperty("CLOUDINARY_API_SECRET", ""))
     }
 
     buildTypes {
@@ -38,6 +51,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -109,5 +123,7 @@ dependencies {
     // Shimmer Loading
     implementation("com.facebook.shimmer:shimmer:0.5.0")
 
+    // Cloudinary
+    implementation("com.cloudinary:cloudinary-android:2.4.0")
 
 }

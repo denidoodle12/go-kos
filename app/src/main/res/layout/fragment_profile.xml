@@ -65,6 +65,201 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_personal_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:backgroundTint="@android:color/white"
+                app:cardCornerRadius="20dp"
+                app:strokeColor="@color/lighter_gray"
+                app:strokeWidth="1dp">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <!-- ISI PERSONAL INFO -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/label_personal_info"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Data Pribadi"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/figtree_semibold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <!-- Guideline tengah -->
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline_vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.5" />
+
+                        <!-- Label & Data Kiri -->
+                        <TextView
+                            android:id="@+id/tvLabelGender"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:text="Jenis Kelamin"
+                            android:textSize="14sp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/figtree_medium"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/label_personal_info" />
+
+                        <TextView
+                            android:id="@+id/tvGender"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textSize="12sp"
+                            android:fontFamily="@font/figtree_light"
+                            app:layout_constraintTop_toBottomOf="@id/tvLabelGender"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvLabelDateOfBirth"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:text="Tanggal Lahir"
+                            android:textSize="14sp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/figtree_medium"
+                            app:layout_constraintTop_toBottomOf="@id/tvGender"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvDateOfBirth"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textSize="12sp"
+                            android:fontFamily="@font/figtree_light"
+                            app:layout_constraintTop_toBottomOf="@id/tvLabelDateOfBirth"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvLabelMaritalStatus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:text="Status"
+                            android:textSize="14sp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/figtree_medium"
+                            app:layout_constraintTop_toBottomOf="@id/tvDateOfBirth"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvMaritalStatus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textSize="12sp"
+                            android:fontFamily="@font/figtree_light"
+                            app:layout_constraintTop_toBottomOf="@id/tvLabelMaritalStatus"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <!-- Label & Data Kanan -->
+                        <TextView
+                            android:id="@+id/tvLabelProfession"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Profesi"
+                            android:textSize="14sp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/figtree_medium"
+                            app:layout_constraintTop_toTopOf="@id/tvLabelGender"
+                            app:layout_constraintStart_toStartOf="@id/guideline_vertical" />
+
+                        <TextView
+                            android:id="@+id/tvProfession"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textSize="12sp"
+                            android:fontFamily="@font/figtree_light"
+                            app:layout_constraintTop_toBottomOf="@id/tvLabelProfession"
+                            app:layout_constraintStart_toStartOf="@id/tvLabelProfession" />
+
+                        <TextView
+                            android:id="@+id/tvLabelProfessionName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:text="Detail Profesi"
+                            android:textSize="14sp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/figtree_medium"
+                            app:layout_constraintTop_toBottomOf="@id/tvProfession"
+                            app:layout_constraintStart_toStartOf="@id/tvProfession" />
+
+                        <TextView
+                            android:id="@+id/tvProfessionName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textSize="12sp"
+                            android:fontFamily="@font/figtree_light"
+                            app:layout_constraintTop_toBottomOf="@id/tvLabelProfessionName"
+                            app:layout_constraintStart_toStartOf="@id/tvLabelProfessionName" />
+
+                        <TextView
+                            android:id="@+id/tvLabelEmergencyContact"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:text="Kontak Darurat"
+                            android:textSize="14sp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/figtree_medium"
+                            app:layout_constraintTop_toBottomOf="@id/tvProfessionName"
+                            app:layout_constraintStart_toStartOf="@id/tvProfessionName" />
+
+                        <TextView
+                            android:id="@+id/tvEmergencyContact"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textSize="12sp"
+                            android:fontFamily="@font/figtree_light"
+                            app:layout_constraintTop_toBottomOf="@id/tvLabelEmergencyContact"
+                            app:layout_constraintStart_toStartOf="@id/tvLabelEmergencyContact" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <!-- Edit button di pojok kanan atas card -->
+                    <FrameLayout
+                        android:id="@+id/btn_edit"
+                        android:layout_width="65dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="top|end"
+                        android:background="@drawable/edit_box_top_right"
+                        android:backgroundTint="@color/primary"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/ic_edit_account" />
+                    </FrameLayout>
+
+                </FrameLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -90,9 +285,6 @@
                     android:layout_height="1dp"
                     android:background="@color/veryLighter_gray"
                     android:layout_marginHorizontal="16dp"/>
-                <include
-                    android:id="@+id/optionDataPribadi"
-                    layout="@layout/items_profile_menu" />
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"

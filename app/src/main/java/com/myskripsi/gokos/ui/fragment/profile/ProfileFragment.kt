@@ -1,5 +1,6 @@
 package com.myskripsi.gokos.ui.fragment.profile
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,6 +11,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.bumptech.glide.Glide
 import com.myskripsi.gokos.R
+import com.myskripsi.gokos.data.model.UserProfile
 import com.myskripsi.gokos.databinding.FragmentProfileBinding
 import com.myskripsi.gokos.ui.activity.auth.login.LoginActivity
 import com.myskripsi.gokos.ui.activity.profile.editProfile.EditProfileActivity
@@ -29,10 +31,13 @@ class ProfileFragment : Fragment(), ConfirmationDialogFragment.ConfirmationDialo
 
     private val profileViewModel: ProfileViewModel by viewModel()
 
-    private val editProfileLauncher = registerForActivityResult(
+    private val refreshProfileLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
-        profileViewModel.loadUserProfile()
+        if (result.resultCode == Activity.RESULT_OK || result.resultCode == 0) {
+            // Muat ulang data profil untuk menampilkan perubahan
+            profileViewModel.loadUserProfile()
+        }
     }
 
     // Callback dari dialog, dipanggil saat user menekan "IYA" / tombol positif
@@ -53,34 +58,30 @@ class ProfileFragment : Fragment(), ConfirmationDialogFragment.ConfirmationDialo
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        profileViewModel.loadUserProfile()
+
+        setupListeners()
+        observeViewModel()
+    }
+
+    private fun setupListeners() {
         binding.btnLogout.setOnClickListener {
             showLogoutConfirmationDialog()
         }
 
-        profileViewModel.loadUserProfile()
-
-        setupMenu()
-        observeViewModel()
-    }
-
-    private fun setupMenu() {
         binding.optionAccount.apply {
-            ivMenuIcon.setImageResource(R.drawable.ic_edit_account)
+            ivMenuIcon.setImageResource(R.drawable.ic_profile_outline)
             tvMenuTitle.text = "Ubah Profile"
             tvMenuSubtitle.text = "Ubah data profile pada akun kamu"
             root.setOnClickListener {
                 val intent = Intent(requireActivity(), EditProfileActivity::class.java)
-                editProfileLauncher.launch(intent)
+                refreshProfileLauncher.launch(intent)
             }
         }
 
-        binding.optionDataPribadi.apply {
-            ivMenuIcon.setImageResource(R.drawable.ic_personal_data)
-            tvMenuTitle.text = "Data Pribadi"
-            tvMenuSubtitle.text = "Informasi data pribadi akun kamu"
-            root.setOnClickListener {
-                startActivity(Intent(requireActivity(), PersonalDataActivity::class.java))
-            }
+        binding.btnEdit.setOnClickListener {
+            val intent = Intent(requireActivity(), PersonalDataActivity::class.java)
+            refreshProfileLauncher.launch(intent)
         }
 
         binding.optionLanguage.apply {
@@ -121,27 +122,20 @@ class ProfileFragment : Fragment(), ConfirmationDialogFragment.ConfirmationDialo
     }
 
     private fun observeViewModel() {
-        profileViewModel.userProfile.observe(viewLifecycleOwner) { user ->
-            if (user != null) {
-                // Tampilkan nama pengguna. Jika nama kosong (misal dari registrasi email), tampilkan "Pengguna GoKos"
-                binding.tvUsername.text = if (user.displayName.isNullOrBlank()) "Pengguna GoKos" else user.displayName
-
-                // Tampilkan email pengguna
-                binding.tvEmail.text = user.email
-
-                // Tampilkan foto profil
-                Glide.with(this)
-                    .load(user.photoUrl) // URL foto dari Firebase Auth
-                    .placeholder(R.drawable.placeholder_image) // Gambar default saat loading
-                    .error(R.drawable.placeholder_image) // Gambar default jika user tidak punya foto atau terjadi error
-                    .circleCrop() // (Opsional) jika ImageView Anda bukan ShapeableImageView
-                    .into(binding.profileImage)
-            } else {
-                // Handle jika tidak ada user yang login (seharusnya tidak terjadi di halaman ini)
-                binding.tvUsername.text = "Tamu"
-                binding.tvEmail.text = "Silakan login"
+        profileViewModel.userProfileState.observe(viewLifecycleOwner) { result ->
+            when(result) {
+                is Result.Loading -> binding.progressIndicator.visibility = View.VISIBLE
+                is Result.Success -> {
+                    binding.progressIndicator.visibility = View.GONE
+                    result.data?.let { populateProfileData(it) }
+                }
+                is Result.Error -> {
+                    binding.progressIndicator.visibility = View.GONE
+                    Toast.makeText(requireContext(), "Gagal memuat profil: ${result.message}", Toast.LENGTH_SHORT).show()
+                }
             }
         }
+
 
         profileViewModel.logoutState.observe(viewLifecycleOwner) { result ->
             when (result) {
@@ -161,6 +155,27 @@ class ProfileFragment : Fragment(), ConfirmationDialogFragment.ConfirmationDialo
                 }
             }
         }
+    }
+
+    private fun populateProfileData(profile: UserProfile) {
+        // --- Isi data utama ---
+        binding.tvUsername.text = profile.fullName
+        binding.tvEmail.text = profile.email
+        Glide.with(this)
+            .load(profile.profileImageUrl)
+            .placeholder(R.drawable.placeholder_image)
+            .error(R.drawable.placeholder_image)
+            .circleCrop()
+            .into(binding.profileImage)
+
+        // --- Isi data di CardView Data Pribadi ---
+        val placeholder = "-" // Teks pengganti jika data kosong
+        binding.tvGender.text = profile.gender ?: placeholder
+        binding.tvDateOfBirth.text = profile.dateOfBirth ?: placeholder
+        binding.tvMaritalStatus.text = profile.maritalStatus ?: placeholder
+        binding.tvProfession.text = profile.profession ?: placeholder
+        binding.tvProfessionName.text = profile.professionName ?: placeholder
+        binding.tvEmergencyContact.text = profile.emergencyContact ?: placeholder
     }
 
     private fun showLogoutConfirmationDialog() {

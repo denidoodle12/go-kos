@@ -1,8 +1,10 @@
 package com.myskripsi.gokos.di
 
+import com.cloudinary.Cloudinary
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
+import com.myskripsi.gokos.BuildConfig
 import com.myskripsi.gokos.data.AuthRepository
 import com.myskripsi.gokos.data.FavoriteRepository
 import com.myskripsi.gokos.data.KosRepository
@@ -26,6 +28,19 @@ import com.myskripsi.gokos.ui.fragment.profile.ProfileViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
+
+val thirdPartyModule = module {
+
+    single {
+        val config = mapOf(
+            "cloud_name" to BuildConfig.CLOUDINARY_CLOUD_NAME,
+            "api_key" to BuildConfig.CLOUDINARY_API_KEY,
+            "api_secret" to BuildConfig.CLOUDINARY_API_SECRET
+        )
+        Cloudinary(config)
+    }
+}
+
 
 val firebaseModule = module {
     single {
@@ -84,7 +99,7 @@ val viewModelModule = module {
         LoginViewModel(get())
     }
     viewModel {
-        ProfileViewModel(get())
+        ProfileViewModel(get(), get(), get())
     }
     viewModel {
         EditProfileViewModel(get(), get())
@@ -110,6 +125,7 @@ val viewModelModule = module {
 }
 
 val appModule = listOf(
+    thirdPartyModule,
     firebaseModule,
     repositoryModule,
     viewModelModule,

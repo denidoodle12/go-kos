@@ -44,6 +44,7 @@ data class UserProfile(
     var fullName: String = "",
     val email: String = "",
     var profileImageUrl: String? = null,
+    var profileImagePublicId: String? = null,
     var gender: String? = null,
     var dateOfBirth: String? = null,
     var profession: String? = null,
