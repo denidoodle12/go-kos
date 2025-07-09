@@ -8,14 +8,6 @@ import kotlin.math.sqrt
 object HaversineHelper {
     private const val EARTH_RADIUS = 6371.0
 
-    /**
-     * Menghitung jarak antara dua titik menggunakan formula Haversine
-     * @param lat1 Latitude titik pertama dalam derajat
-     * @param lon1 Longitude titik pertama dalam derajat
-     * @param lat2 Latitude titik kedua dalam derajat
-     * @param lon2 Longitude titik kedua dalam derajat
-     * @return Jarak dalam kilometer
-     */
     fun calculateDistance(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double {
         val latDistance = Math.toRadians(lat2 - lat1)
         val lonDistance = Math.toRadians(lon2 - lon1)

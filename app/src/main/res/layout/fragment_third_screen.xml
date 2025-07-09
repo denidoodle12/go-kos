@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
         android:gravity="center"
-        android:text="Dapatkan rumah kos keinginanmu dengan mempertimbangkan jarak, fasilitas dan harga\nsewa nya!"
+        android:text="Dapatkan rumah kos keinginanmu dengan mempertimbangkan jarak, fasilitas dan harga sewa nya!"
         android:textSize="16sp"
         android:fontFamily="@font/figtree_regular"
         app:layout_constraintBottom_toTopOf="@+id/guidelineHorizontal2"

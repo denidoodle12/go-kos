@@ -1,5 +1,6 @@
 package com.myskripsi.gokos.ui.activity.listkos
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -38,12 +39,24 @@ class ListKosViewModel(private val repository: KosRepository) : ViewModel() {
                         _campusName.value = campus.nama_kampus
 
                         val kosListWithDistance = kosList.map { kos ->
+
+                            if (kos.nama_kost.contains("Mamah Ica")) {
+                                Log.d("HAVERSINE_DEBUG", "Menghitung Kost Mamah Ica:")
+                                Log.d("HAVERSINE_DEBUG", "Kampus Lat: ${campus.lokasi.latitude}, Lon: ${campus.lokasi.longitude}")
+                                Log.d("HAVERSINE_DEBUG", "Kos Lat: ${kos.lokasi.latitude}, Lon: ${kos.lokasi.longitude}")
+                            }
+
                             val distance = HaversineHelper.calculateDistance(
                                 campus.lokasi.latitude,
                                 campus.lokasi.longitude,
                                 kos.lokasi.latitude,
                                 kos.lokasi.longitude
                             )
+
+                            if (kos.nama_kost.contains("Mamah Ica")) {
+                                Log.d("HAVERSINE_DEBUG", "Hasil Jarak (km): $distance")
+                            }
+
                             kos.copy(lokasi = kos.lokasi.copy(jarak = distance),
                                 layoutType = KosLayoutType.REGULAR)
                         }
