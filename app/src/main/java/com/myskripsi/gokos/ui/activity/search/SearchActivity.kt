@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.provider.Settings
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -37,13 +38,18 @@ class SearchActivity : AppCompatActivity() {
     // Komponen untuk menangani lokasi
     private lateinit var locationHelper: LocationHelper
 
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            locationHelper.handlePermissionResult(permissions)
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // Inisialisasi LocationHelper
-        locationHelper = LocationHelper(this)
+        locationHelper = LocationHelper(this, requestPermissionLauncher)
 
         setupToolbar()
         setupRecyclerViews()

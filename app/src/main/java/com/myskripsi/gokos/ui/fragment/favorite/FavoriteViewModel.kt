@@ -1,7 +1,6 @@
-// File: ui/fragment/favorite/FavoriteViewModel.kt
 package com.myskripsi.gokos.ui.fragment.favorite
 
-import android.util.Log
+import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,6 +10,7 @@ import com.myskripsi.gokos.data.FavoriteRepository
 import com.myskripsi.gokos.data.KosRepository
 import com.myskripsi.gokos.data.model.Favorite
 import com.myskripsi.gokos.data.model.FavoriteItemUI
+import com.myskripsi.gokos.utils.HaversineHelper
 import com.myskripsi.gokos.utils.Result
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -30,7 +30,8 @@ class FavoriteViewModel(
     private val _removeResult = MutableLiveData<Result<String>>()
     val removeResult: LiveData<Result<String>> = _removeResult
 
-    fun loadUserFavorites() {
+    // Updated to accept a nullable Location parameter
+    fun loadUserFavorites(userLocation: Location? = null) {
         val userId = authRepository.getCurrentUser()?.uid
         if (userId == null) {
             _favoritesState.value = Result.Error("Anda harus login untuk melihat favorit.")
@@ -40,65 +41,66 @@ class FavoriteViewModel(
         _favoritesState.value = Result.Loading
         viewModelScope.launch {
             favoriteRepository.getFavorites(userId).collectLatest { favResult ->
-                when (favResult) {
-                    is Result.Success -> {
-                        val favoriteObjects = favResult.data
-                        if (favoriteObjects.isEmpty()) {
-                            _favoritesState.value = Result.Success(emptyList())
-                            return@collectLatest
-                        }
-
-                        try {
-                            val favoriteUIList = favoriteObjects.map { favorite ->
-                                async {
-                                    // Memanggil suspend fun secara langsung, jauh lebih sederhana!
-                                    val kosResult = kosRepository.getKosById(favorite.kosId)
-                                    if (kosResult is Result.Success) {
-                                        FavoriteItemUI(favorite, kosResult.data)
-                                    } else {
-                                        null
-                                    }
-                                }
-                            }.awaitAll().filterNotNull()
-
-                            _favoritesState.value = Result.Success(favoriteUIList)
-
-                        } catch (e: Exception) {
-                            _favoritesState.value = Result.Error("Gagal memuat detail kos favorit: ${e.message}")
-                        }
+                if (favResult is Result.Success) {
+                    val favoriteObjects = favResult.data
+                    if (favoriteObjects.isEmpty()) {
+                        _favoritesState.value = Result.Success(emptyList()); return@collectLatest
                     }
-                    is Result.Error -> _favoritesState.value = Result.Error(favResult.message)
-                    is Result.Loading -> {}
+                    try {
+                        val favoriteUIList = favoriteObjects.map { favorite ->
+                            async {
+                                val kosResult = kosRepository.getKosById(favorite.kosId)
+                                if (kosResult is Result.Success) {
+                                    val kos = kosResult.data
+                                    // Calculate distance if location is available
+                                    val distance = if (userLocation != null) {
+                                        HaversineHelper.calculateDistance(
+                                            userLocation.latitude, userLocation.longitude,
+                                            kos.lokasi.latitude, kos.lokasi.longitude
+                                        )
+                                    } else { -1.0 }
+                                    val kosWithUpdatedDistance = kos.copy(
+                                        lokasi = kos.lokasi.copy(jarak = distance)
+                                    )
+
+                                    // Buat FavoriteItemUI dengan objek Kos yang baru
+                                    FavoriteItemUI(favorite, kosWithUpdatedDistance, distance)
+                                } else { null }
+                            }
+                        }.awaitAll().filterNotNull()
+
+                        // Sort the list by distance if location is available
+                        val sortedList = if (userLocation != null) favoriteUIList.sortedBy { it.distance } else favoriteUIList
+                        _favoritesState.value = Result.Success(sortedList)
+
+                    } catch (e: Exception) {
+                        _favoritesState.value = Result.Error("Gagal memuat detail kos favorit.")
+                    }
+                } else if (favResult is Result.Error) {
+                    _favoritesState.value = Result.Error(favResult.message)
                 }
             }
         }
     }
 
+    // Updated to call loadUserFavorites without location
     fun updateFavoriteNote(favoriteId: String, newNote: String) {
         viewModelScope.launch {
-            // Kita bisa langsung panggil update dan muat ulang daftar jika berhasil
-            favoriteRepository.updateNote(favoriteId, newNote).collectLatest { result ->
-                if (result is Result.Success) {
-                    // Beri feedback ke UI jika perlu, atau langsung muat ulang
-                    loadUserFavorites()
-                } else if (result is Result.Error) {
-                    // Kirim event error ke UI jika perlu
-                    // _updateError.value = result.message
-                }
+            favoriteRepository.updateNote(favoriteId, newNote).collectLatest {
+                if (it is Result.Success) loadUserFavorites()
             }
         }
     }
 
+    // Updated to call loadUserFavorites without location
     fun removeFavorite(favorite: Favorite) {
         viewModelScope.launch {
-            favoriteRepository.removeFavorite(favorite.id).collectLatest { result ->
-                when(result) {
-                    is Result.Success -> {
-                        _removeResult.value = Result.Success("Berhasil dihapus dari favorit.")
-                        loadUserFavorites()
-                    }
-                    is Result.Error -> _removeResult.value = Result.Error(result.message)
-                    is Result.Loading -> {}
+            favoriteRepository.removeFavorite(favorite.id).collectLatest {
+                if(it is Result.Success) {
+                    _removeResult.value = Result.Success("Berhasil dihapus dari favorit.")
+                    loadUserFavorites()
+                } else if (it is Result.Error) {
+                    _removeResult.value = it
                 }
             }
         }

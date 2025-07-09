@@ -1,20 +1,26 @@
-// File: ui/fragment/favorite/FavoriteFragment.kt
 package com.myskripsi.gokos.ui.fragment.favorite
 
+import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.myskripsi.gokos.data.model.Favorite
 import com.myskripsi.gokos.databinding.FragmentFavoriteBinding
 import com.myskripsi.gokos.ui.activity.detailKos.DetailKosActivity
 import com.myskripsi.gokos.ui.adapter.FavoriteAdapter
+import com.myskripsi.gokos.utils.LocationHelper
+import com.myskripsi.gokos.utils.LocationResult
 import com.myskripsi.gokos.utils.Result
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FavoriteFragment : Fragment(), EditNoteBottomSheet.EditNoteListener {
@@ -24,8 +30,21 @@ class FavoriteFragment : Fragment(), EditNoteBottomSheet.EditNoteListener {
 
     private val viewModel: FavoriteViewModel by viewModel()
     private lateinit var favoriteAdapter: FavoriteAdapter
-
     private var itemToEdit: Favorite? = null
+
+    private lateinit var locationHelper: LocationHelper
+
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            // 2. Berikan hasilnya ke LocationHelper untuk diproses
+            locationHelper.handlePermissionResult(permissions)
+        }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // 3. Inisialisasi LocationHelper di onCreate, dengan memberikan launcher yang sudah dibuat.
+        locationHelper = LocationHelper(requireActivity() as AppCompatActivity, requestPermissionLauncher)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
@@ -40,20 +59,45 @@ class FavoriteFragment : Fragment(), EditNoteBottomSheet.EditNoteListener {
 
     override fun onResume() {
         super.onResume()
-        viewModel.loadUserFavorites()
+        initiateLocationProcess()
+    }
+
+    private fun initiateLocationProcess() {
+        if (locationHelper.hasLocationPermission()) {
+            fetchLocationAndLoadFavorites()
+        } else {
+            locationHelper.requestLocationPermissions { permissions ->
+                if (permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false)) {
+                    fetchLocationAndLoadFavorites()
+                } else {
+                    Toast.makeText(requireContext(), "Izin lokasi ditolak, jarak tidak ditampilkan.", Toast.LENGTH_SHORT).show()
+                    viewModel.loadUserFavorites()
+                }
+            }
+        }
+    }
+
+    private fun fetchLocationAndLoadFavorites() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            val locationResult = locationHelper.getCurrentLocation()
+            if (locationResult is LocationResult.Success) {
+                viewModel.loadUserFavorites(locationResult.location)
+            } else {
+                viewModel.loadUserFavorites()
+            }
+        }
     }
 
     override fun onNoteSaved(newNote: String) {
         itemToEdit?.let {
             viewModel.updateFavoriteNote(it.id, newNote)
-            // Tampilkan Toast atau feedback lain jika perlu
             Toast.makeText(requireContext(), "Catatan diperbarui!", Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun setupRecyclerView() {
         favoriteAdapter = FavoriteAdapter()
-        binding.rvFavorites.apply { // <-- Menggunakan ID yang konsisten: rv_favorites
+        binding.rvFavorites.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = favoriteAdapter
         }
@@ -70,14 +114,11 @@ class FavoriteFragment : Fragment(), EditNoteBottomSheet.EditNoteListener {
         }
 
         favoriteAdapter.onNoteClick = { favoriteItem ->
-            // Simpan item yang akan diedit
             this.itemToEdit = favoriteItem.favorite
-            // Tampilkan bottom sheet
             val bottomSheet = EditNoteBottomSheet.newInstance(favoriteItem.favorite.note)
-            bottomSheet.setEditNoteListener(this) // Set fragment ini sebagai listener
+            bottomSheet.setEditNoteListener(this)
             bottomSheet.show(parentFragmentManager, EditNoteBottomSheet.TAG)
         }
-
     }
 
     private fun observeViewModel() {
@@ -119,7 +160,7 @@ class FavoriteFragment : Fragment(), EditNoteBottomSheet.EditNoteListener {
     private fun showRemoveConfirmationDialog(favorite: Favorite) {
         AlertDialog.Builder(requireContext())
             .setTitle("Hapus Favorit")
-            .setMessage("Anda yakin ingin menghapus kos ini dari daftar favorit?")
+            .setMessage("Anda yakin ingin menghapus dari daftar favorit?")
             .setPositiveButton("Hapus") { _, _ ->
                 viewModel.removeFavorite(favorite)
             }

@@ -18,22 +18,29 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
 class LocationHelper(
-    private val activity: AppCompatActivity
+    private val activity: AppCompatActivity,
+    private val permissionLauncher: ActivityResultLauncher<Array<String>>
 ) {
     private val fusedLocationClient: FusedLocationProviderClient =
         LocationServices.getFusedLocationProviderClient(activity) // Menggunakan activity
 
-    private var permissionLauncher: ActivityResultLauncher<Array<String>>
     private var onPermissionResultCallback: ((Map<String, Boolean>) -> Unit)? = null
 
-    init {
-        // Inisialisasi launcher menggunakan Activity
-        permissionLauncher = activity.registerForActivityResult(
-            ActivityResultContracts.RequestMultiplePermissions()
-        ) { permissions ->
-            onPermissionResultCallback?.invoke(permissions)
-        }
+    fun requestLocationPermissions(callback: (Map<String, Boolean>) -> Unit) {
+        this.onPermissionResultCallback = callback
+        permissionLauncher.launch(
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+        )
     }
+
+    fun handlePermissionResult(permissions: Map<String, Boolean>) {
+        onPermissionResultCallback?.invoke(permissions)
+    }
+
+
 
 
     fun hasLocationPermission(): Boolean {
@@ -44,16 +51,6 @@ class LocationHelper(
             activity,
             Manifest.permission.ACCESS_COARSE_LOCATION
         ) == PackageManager.PERMISSION_GRANTED
-    }
-
-    fun requestLocationPermissions(callback: (Map<String, Boolean>) -> Unit) {
-        onPermissionResultCallback = callback
-        permissionLauncher.launch(
-            arrayOf(
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            )
-        )
     }
 
     @SuppressLint("MissingPermission")
