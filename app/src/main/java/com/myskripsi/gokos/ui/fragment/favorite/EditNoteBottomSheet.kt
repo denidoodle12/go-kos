@@ -1,4 +1,3 @@
-// File: ui/fragment/favorite/EditNoteBottomSheet.kt
 package com.myskripsi.gokos.ui.fragment.favorite
 
 import android.os.Bundle
@@ -14,7 +13,6 @@ class EditNoteBottomSheet : BottomSheetDialogFragment() {
     private var _binding: FragmentEditNoteBinding? = null
     private val binding get() = _binding!!
 
-    // Listener untuk mengirim data kembali ke Fragment
     private var listener: EditNoteListener? = null
 
     interface EditNoteListener {
@@ -29,7 +27,6 @@ class EditNoteBottomSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Ambil catatan lama dan tampilkan di EditText
         val currentNote = arguments?.getString(ARG_CURRENT_NOTE)
         binding.etNote.setText(currentNote)
 

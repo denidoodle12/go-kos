@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.myskripsi.gokos.R
 import com.myskripsi.gokos.data.model.Favorite
 import com.myskripsi.gokos.databinding.FragmentFavoriteBinding
 import com.myskripsi.gokos.ui.activity.detailKos.DetailKosActivity
@@ -36,13 +37,11 @@ class FavoriteFragment : Fragment(), EditNoteBottomSheet.EditNoteListener {
 
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-            // 2. Berikan hasilnya ke LocationHelper untuk diproses
             locationHelper.handlePermissionResult(permissions)
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // 3. Inisialisasi LocationHelper di onCreate, dengan memberikan launcher yang sudah dibuat.
         locationHelper = LocationHelper(requireActivity() as AppCompatActivity, requestPermissionLauncher)
     }
 
@@ -70,7 +69,7 @@ class FavoriteFragment : Fragment(), EditNoteBottomSheet.EditNoteListener {
                 if (permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false)) {
                     fetchLocationAndLoadFavorites()
                 } else {
-                    Toast.makeText(requireContext(), "Izin lokasi ditolak, jarak tidak ditampilkan.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.location_permission_denied), Toast.LENGTH_SHORT).show()
                     viewModel.loadUserFavorites()
                 }
             }
@@ -91,7 +90,7 @@ class FavoriteFragment : Fragment(), EditNoteBottomSheet.EditNoteListener {
     override fun onNoteSaved(newNote: String) {
         itemToEdit?.let {
             viewModel.updateFavoriteNote(it.id, newNote)
-            Toast.makeText(requireContext(), "Catatan diperbarui!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.note_updated), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -159,12 +158,12 @@ class FavoriteFragment : Fragment(), EditNoteBottomSheet.EditNoteListener {
 
     private fun showRemoveConfirmationDialog(favorite: Favorite) {
         AlertDialog.Builder(requireContext())
-            .setTitle("Hapus Favorit")
-            .setMessage("Anda yakin ingin menghapus dari daftar favorit?")
-            .setPositiveButton("Hapus") { _, _ ->
+            .setTitle(getString(R.string.delete_favorit))
+            .setMessage(getString(R.string.delete_confirmation))
+            .setPositiveButton(getString(R.string.delete)) { _, _ ->
                 viewModel.removeFavorite(favorite)
             }
-            .setNegativeButton("Batal", null)
+            .setNegativeButton(getString(R.string.cancel), null)
             .show()
     }
 

@@ -135,13 +135,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
-                        android:text="@string/txt_detail_distance"
+                        tools:text="@string/txt_detail_distance"
                         android:textColor="@android:color/white"
                         android:textSize="16sp"
                         android:fontFamily="@font/figtree_semibold"/>
                 </LinearLayout>
 
-                <!-- Kos Type Badge -->
                 <TextView
                     android:id="@+id/tvKosType"
                     android:layout_width="0dp"
@@ -151,7 +150,7 @@
                     android:background="@drawable/bg_stroke"
                     android:paddingHorizontal="10dp"
                     android:paddingVertical="5dp"
-                    android:text="@string/txt_categorykos"
+                    tools:text="@string/txt_categorykos"
                     android:textSize="14sp"
                     android:textColor="@color/black"
                     android:fontFamily="@font/figtree_medium"
@@ -169,7 +168,7 @@
                     android:gravity="center"
                     android:paddingHorizontal="10dp"
                     android:paddingVertical="4dp"
-                    android:text="Termasuk Listrik"
+                    android:text="@string/including_electricity"
                     android:textColor="@color/white"
                     android:textSize="14sp"
                     android:visibility="gone"
@@ -179,7 +178,6 @@
                     app:layout_constraintStart_toEndOf="@+id/tvKosType"
                     app:layout_constraintTop_toTopOf="@+id/tvKosType" />
 
-                <!-- Kos Name -->
                 <TextView
                     android:id="@+id/tvKosName"
                     android:layout_width="0dp"
@@ -187,7 +185,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginEnd="16dp"
-                    android:text="@string/txt_kosName"
+                    tools:text="@string/txt_kosName"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
                     android:fontFamily="@font/figtree_semibold"
@@ -195,7 +193,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvKosType" />
 
-                <!-- Location -->
                 <ImageView
                     android:id="@+id/ivLocationIcon"
                     android:layout_width="24dp"
@@ -212,7 +209,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="16dp"
-                    android:text="@string/txt_address_unsera"
+                    tools:text="@string/txt_address_unsera"
                     android:textColor="@color/gray"
                     android:textSize="14sp"
                     android:fontFamily="@font/figtree_medium"
@@ -220,17 +217,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/ivLocationIcon"
                     app:layout_constraintTop_toTopOf="@+id/ivLocationIcon" />
-
-                <!-- Section Divider -->
-<!--                <View-->
-<!--                    android:id="@+id/divider1"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="10dp"-->
-<!--                    android:layout_marginTop="15dp"-->
-<!--                    android:background="@color/veryLighter_gray"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/tvKosAddress" />-->
 
                 <LinearLayout
                     android:id="@+id/linear1"
@@ -273,7 +259,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/figtree_semibold"
-                            android:text="Dikelola oleh GoKos"
+                            android:text="@string/managed_by"
                             android:textColor="@color/black"
                             android:textSize="14sp" />
 
@@ -282,7 +268,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/figtree_light"
-                            android:text="Sudah bekerja sama dengan pemilik kos"
+                            android:text="@string/already_working_with_the_owner_kos"
                             android:textColor="@color/black"
                             android:textSize="12sp" />
 
@@ -314,13 +300,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="@string/txt_detail_descriptionKos"
+                        tools:text="@string/txt_detail_descriptionKos"
                         android:textSize="14sp"
                         android:fontFamily="@font/figtree_light"/>
 
                 </LinearLayout>
 
-                <!-- Section Divider -->
                 <View
                     android:id="@+id/divider2"
                     android:layout_width="match_parent"
@@ -345,7 +330,7 @@
                         android:id="@+id/tvFasilitasKamarTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Fasilitas Kamar"
+                        android:text="@string/facilities_room"
                         android:textColor="@android:color/black"
                         android:textSize="16sp"
                         android:fontFamily="@font/figtree_semibold"
@@ -388,12 +373,12 @@
 
                     <TextView
                         android:id="@+id/tvFasilitasKamarMandiTitle"
-                        android:layout_width="wrap_content"
+                        android:layout_width="154dp"
                         android:layout_height="wrap_content"
-                        android:text="Fasilitas Kamar Mandi"
+                        android:fontFamily="@font/figtree_semibold"
+                        android:text="@string/facilities_room_bathroom"
                         android:textColor="@android:color/black"
                         android:textSize="16sp"
-                        android:fontFamily="@font/figtree_semibold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/divider3" />
 
@@ -434,7 +419,7 @@
                         android:id="@+id/tvLokasiTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Lokasi Kos"
+                        android:text="@string/location_kos"
                         android:textColor="@android:color/black"
                         android:textSize="16sp"
                         android:fontFamily="@font/figtree_semibold"
@@ -503,8 +488,7 @@
                             android:id="@+id/iv_participation_icon"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/ic_participate"
-                            android:contentDescription="Ikon partisipasi" />
+                            android:src="@drawable/ic_participate" />
 
                         <TextView
                             android:id="@+id/tv_participation_text"
@@ -514,7 +498,7 @@
                             android:layout_marginStart="16dp"
                             android:layout_marginEnd="16dp"
                             android:fontFamily="@font/figtree_light"
-                            android:text="Yuk bagi pengalaman kamu di GoKos"
+                            android:text="@string/share_your_experience"
                             android:textColor="@color/black"
                             android:textSize="14sp" />
 
@@ -524,7 +508,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/figtree_medium"
-                            android:text="Partisipasi"
+                            android:text="@string/participation"
                             android:textColor="@color/black"
                             app:strokeColor="@color/black"
                             app:cornerRadius="8dp"/>
@@ -606,43 +590,61 @@
         
     </androidx.core.widget.NestedScrollView>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottomContactPriceBar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:background="@android:color/white"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:paddingTop="12dp"
         android:paddingBottom="12dp"
-        android:elevation="8dp" app:layout_constraintStart_toStartOf="parent"
+        android:elevation="8dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
             android:id="@+id/tvPrice"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            tools:text="Rp.500.000 / month"
+            tools:text="Rp.500.000"
             android:textColor="@color/red"
             android:textSize="18sp"
             android:fontFamily="@font/figtree_bold"
-            android:gravity="start|center_vertical"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:id="@+id/tvPriceSuffix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/month"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:fontFamily="@font/figtree_regular"
+            android:layout_marginStart="4dp"
+
+            app:layout_constraintBaseline_toBaselineOf="@id/tvPrice"
+            app:layout_constraintStart_toEndOf="@id/tvPrice" />
 
         <Button
             android:id="@+id/btnContactBottom"
             style="@style/Widget.Material3.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CONTACT"
+            android:text="@string/contact"
             android:fontFamily="@font/figtree_semibold"
             android:backgroundTint="@color/red"
             android:textColor="@android:color/white"
             android:paddingStart="24dp"
-            android:paddingEnd="24dp"/>
+            android:paddingEnd="24dp"
 
-    </LinearLayout>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

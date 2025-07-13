@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.myskripsi.gokos.R
 import com.myskripsi.gokos.data.model.Kos
 import com.myskripsi.gokos.databinding.ActivityAllKosListBinding
 import com.myskripsi.gokos.ui.activity.detailKos.DetailKosActivity
@@ -39,10 +40,8 @@ class AllKosListActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        binding.toolbarTitleMainAppcompat.text = title ?: "Daftar Kos"
+        binding.toolbarTitleMainAppcompat.text = title ?: getString(R.string.list_kos)
 
-        // --- PERBAIKAN DI SINI ---
-        // Hanya tampilkan sub-judul jika teksnya ada
         if (!descriptionTitle.isNullOrBlank()) {
             binding.tvDescriptionToolbar.visibility = View.VISIBLE
             binding.tvDescriptionToolbar.text = descriptionTitle
@@ -57,7 +56,6 @@ class AllKosListActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        // Kita gunakan KosAdapter yang sudah ada, ini sudah benar
         kosAdapter = KosAdapter()
         binding.rvKost.apply {
             layoutManager = LinearLayoutManager(this@AllKosListActivity)

@@ -1,4 +1,3 @@
-// EditProfileActivity.kt
 package com.myskripsi.gokos.ui.activity.profile.editProfile
 
 import android.net.Uri
@@ -20,12 +19,11 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEditProfileBinding
     private val viewModel: EditProfileViewModel by viewModel()
 
-    // Deklarasi Photo Picker
     private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri: Uri? ->
         if (uri != null) {
             viewModel.uploadAndSaveProfilePicture(uri)
         } else {
-            Toast.makeText(this, "Tidak ada gambar dipilih.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.no_image_selected), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -34,14 +32,9 @@ class EditProfileActivity : AppCompatActivity() {
         binding = ActivityEditProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Setup Toolbar
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-
-        // TODO: Fungsionalitas upload & hapus foto akan ditambahkan nanti
-//        binding.btnUploadPhoto.isEnabled = false
-//        binding.btnDeletePhoto.isEnabled = false
 
         setupClickListeners()
 
@@ -50,11 +43,10 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     private fun setupClickListeners(){
-        // ID tombol di XML Anda adalah btnLogout, sebaiknya diganti menjadi btnSaveChanges atau sejenisnya
         binding.btnSaveChanges.setOnClickListener {
             val fullName = binding.etFullName.text.toString().trim()
             if (fullName.isBlank()) {
-                binding.tilFullName.error = "Nama tidak boleh kosong"
+                binding.tilFullName.error = getString(R.string.name_must_not_be_empty)
                 return@setOnClickListener
             }
             binding.tilFullName.error = null
@@ -90,7 +82,7 @@ class EditProfileActivity : AppCompatActivity() {
                 is Result.Loading -> showLoading(true)
                 is Result.Success -> {
                     showLoading(false)
-                    Toast.makeText(this, "Profil berhasil diperbarui!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.profile_updated), Toast.LENGTH_SHORT).show()
                     finish()
                 }
                 is Result.Error -> {
@@ -103,11 +95,10 @@ class EditProfileActivity : AppCompatActivity() {
 
     private fun populateProfileData(profile: UserProfile) {
         binding.etFullName.setText(profile.fullName)
-        binding.tvEmailUser.text = profile.email // Tampilkan email
+        binding.tvEmailUser.text = profile.email
 
         binding.btnDeletePhoto.isEnabled = !profile.profileImageUrl.isNullOrBlank()
 
-        // Muat gambar profil
         Glide.with(this)
             .load(profile.profileImageUrl)
             .placeholder(R.drawable.placeholder_image)
@@ -121,7 +112,6 @@ class EditProfileActivity : AppCompatActivity() {
         binding.progressIndicator.visibility = if (isLoading) View.VISIBLE else View.GONE
         binding.btnSaveChanges.isEnabled = !isLoading
         binding.btnUploadPhoto.isEnabled = !isLoading
-        // Logika untuk tombol hapus sedikit berbeda, diatur di populateProfileData
         if(isLoading) binding.btnDeletePhoto.isEnabled = false
     }
 

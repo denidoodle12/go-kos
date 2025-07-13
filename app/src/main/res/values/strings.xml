@@ -1,186 +1,292 @@
 <resources>
     <string name="app_name">GoKos</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="searchItem">Cari kos kosan</string>
-
+    <string name="searchItem">Search for a boarding house</string>
     <string name="default_web_client_id" translatable="false">908675920423-p382pndkp7ej6ojevb8ar20v7q5uis4g.apps.googleusercontent.com</string>
-
-    'Home Fragment and List Kos Strings'
     <string name="codes_arrow_back_result_activity">back button</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_home">Home</string>
     <string name="title_maps">Maps</string>
     <string name="title_profile">Profile</string>
-    <string name="kos_image">This is kos image</string>
-    <string name="email_format_invalid">Format email tidak valid</string>
+    <string name="kos_image">This is a boarding house image</string>
+    <string name="email_format_invalid">Invalid email format</string>
     <string name="txt_password">*******</string>
-    <string name="password_too_short">Password terlalu pendek</string>
+    <string name="password_too_short">Password is too short</string>
     <string name="appBarGo">Go</string>
     <string name="appBarKos">-kos.</string>
     <string name="hiUsername">Hi, %1$s!</string>
-    <string name="txt_infoToSearch">Mau cari kos kosan?</string>
-    <string name="txt_headingOne">Kos Disekitarmu</string>
-    <string name="txt_headingOneInfo">Kami berikan rekomendasi kost terdekat dari lokasimu yang mungkin cocok untuk kamu</string>
-    <string name="btn_kosNearbyYou">Kos lainnya disekitar kamu</string>
-    <string name="txt_headingTwo">Kos Terdekat dari Kampusmu</string>
-    <string name="txt_headingTwoInfo">Kami berikan rekomendasi kost terdekat dari lokasimu yang mungkin cocok untuk kamu</string>
-    <string name="txt_unsera">Universitas Serang Raya</string>
-    <string name="txt_uniba">Universitas Bina Bangsa</string>
-    <string name="txt_uinsmhbanten">Universitas SMH Banten</string>
-    <string name="txt_infoToSearch2">Kita punya rekomendasi kos-kosan untukmu!</string>
-    <string name="txt_list_kos">List Kosan</string>
+    <string name="txt_infoToSearch">Looking for a boarding house?</string>
+    <string name="txt_headingOne">Boarding Houses Near You</string>
+    <string name="txt_headingOneInfo">We provide recommendations for the nearest boarding houses from your location that might suit you</string>
+    <string name="btn_kosNearbyYou">Other boarding houses near you</string>
+    <string name="txt_headingTwo">Boarding Houses Near Your Campus</string>
+    <string name="txt_headingTwoInfo">We provide recommendations for the nearest boarding houses from your campus that might suit you</string>
+    <string name="txt_unsera">Serang Raya University</string>
+    <string name="txt_uniba">Bina Bangsa University</string>
+    <string name="txt_uinsmhbanten">UIN SMH Banten</string>
+    <string name="txt_infoToSearch2">We have boarding house recommendations for you!</string>
+    <string name="txt_list_kos">Boarding House List</string>
     <string name="txt_list_kos_info">Campus Name</string>
-    <string name="error_message">Error message</string>
-    <string name="txt_cari_kos_sesuai_budgetmu">Cari Kos Sesuai Budgetmu</string>
-    <string name="txt_yuk_cari_kos_murah">Yuk cari kos murah meriah sesuai budgetmu! GoKos memberikan rekomendasi kos yang mungkin cocok untukmu</string>
+    <string name="error_message">Error Message</string>
+    <string name="txt_cari_kos_sesuai_budgetmu">Find a Boarding House by Budget</string>
+    <string name="txt_yuk_cari_kos_murah">Let\'s find an affordable boarding house that fits your budget! GoKos provides recommendations that might be perfect for you</string>
     <string name="filter_below_500k">&lt;500k</string>
-    <string name="filter_500k_700k">500-700k</string>
+    <string name="filter_500k_700k">500k-700k</string>
     <string name="filter_above_700k">&gt;700k</string>
-    <string name="txt_no_kos_found_for_budget">Tidak ada kos ditemukan untuk budget ini.</string>
-
-    'Profile Fragment Strings'
+    <string name="txt_no_kos_found_for_budget">No boarding houses found for this budget.</string>
     <string name="txt_emailUser">gokosapp@gmail.com</string>
-    <string name="txt_account">Akun</string>
-    <string name="txt_accountInfo">Informasi akun kamu</string>
-    <string name="txt_aboutapp">Tentang Aplikasi</string>
-    <string name="txt_aboutappInfo">Informasi aplikasi Go-Kos</string>
-    <string name="txt_language">Bahasa</string>
-    <string name="txt_languageInfo">Ubah ke bahasa lain</string>
+    <string name="txt_account">Account</string>
+    <string name="txt_accountInfo">Your account information</string>
+    <string name="txt_aboutapp">About App</string>
+    <string name="txt_aboutappInfo">Information about the Go-Kos app</string>
+    <string name="txt_language">Language</string>
+    <string name="txt_languageInfo">Change to another language</string>
     <string name="btn_logout">LOGOUT</string>
-
-    'Card View Nearby Kos Strings'
     <string name="txt_distance">0.5 KM</string>
-    <string name="txt_categorykos">Kos Campuran</string>
-    <string name="txt_kosName">Kost Pelangi Desa Drangong</string>
+    <string name="txt_categorykos">Mixed Boarding House</string>
+    <string name="txt_kosName">Pelangi Boarding House, Drangong Village</string>
     <string name="txt_addressName">Jl. Raya Serang - Cilegon Km 5 Taman Drangong, Serang, Banten</string>
     <string name="txt_startFrom">Starts from</string>
-    <string name="txt_priceKos">Rp. 500.000 </string>
+    <string name="txt_priceKos">Rp. 500.000</string>
     <string name="txt_perMonth">/ month</string>
-    <string name="txt_descriptionKos">Kost ini merupakan hunian nyaman favorite mahasiswa. Terdapat fasilitas yang lengkap dan lingkungan yang...</string>
+    <string name="txt_descriptionKos">This boarding house is a favorite comfortable residence for students. It has complete facilities and a comfortable environment...</string>
     <string name="title_user">-User</string>
-
-    'Maps Fragment and Mapping Map Activity Strings'
     <string name="txt_fkip_untirta">FKIP Untirta</string>
     <string name="txt_toolbar_maps">Mapping Maps</string>
     <string name="txt_address_unsera">Jl. Raya Serang - Cilegon Km 5 Taman Drangong, Serang, Banten</string>
-    <string name="txt_description_unsera">Klik untuk melihat detail sebaran kos-kosan di sekitar Kawasan Kampus Universitas Serang Raya.</string>
-    <string name="txt_address_uniba">JL Raya Serang - Jakarta, KM. 03 No. 1B, Panancangan, Kec. Cipocok Jaya, Kota Serang, Banten 42124</string>
-    <string name="txt_description_uniba">Klik untuk melihat detail sebaran kos-kosan di sekitar Kawasan Kampus Universitas Bina Bangsa.</string>
-    <string name="txt_address_uinsmhbanten">Jl. Syekh Moh. Nawawi Albantani, Kemanisan, Kec. Curug, Kota Serang, Banten</string>
-    <string name="txt_description_uinsmhbanten">Klik untuk melihat detail sebaran kos-kosan di sekitar Kawasan Kampus UIN SMH Banten.</string>
-    <string name="txt_address_fkip">Jl. Ciwaru Raya, Cipare, Kec. Serang, Kota Serang, Banten 42117</string>
-    <string name="txt_description_fkip">Klik untuk melihat detail sebaran kos-kosan di sekitar Kawasan Kampus FKIP Untirta.</string>
+    <string name="txt_description_unsera">Click to see the distribution details of boarding houses around the Serang Raya University Campus Area.</string>
+    <string name="txt_address_uniba">JL Raya Serang - Jakarta, KM. 03 No. 1B, Panancangan, Cipocok Jaya, Serang City, Banten 42124</string>
+    <string name="txt_description_uniba">Click to see the distribution details of boarding houses around the Bina Bangsa University Campus Area.</string>
+    <string name="txt_address_uinsmhbanten">Jl. Syekh Moh. Nawawi Albantani, Kemanisan, Curug, Serang City, Banten</string>
+    <string name="txt_description_uinsmhbanten">Click to see the distribution details of boarding houses around the UIN SMH Banten Campus Area.</string>
+    <string name="txt_address_fkip">Jl. Ciwaru Raya, Cipare, Serang, Serang City, Banten 42117</string>
+    <string name="txt_description_fkip">Click to see the distribution details of boarding houses around the FKIP Untirta Campus Area.</string>
     <string name="txt_mapping_map">Mapping Map</string>
-    <string name="txt_mapping_map_info">Menampilkan Visualisasi GIS</string>
-    <string name="txt_detail_distance">0,5 KM dari Universitas Serang Raya</string>
-    <string name="txt_header_descriptionKos">Deskripsi Kos</string>
-    <string name="txt_detail_descriptionKos">Kost ini merupakan hunian nyaman favorite mahasiswa. Terdapat fasilitas yang lengkap dan lingkungan yang nyaman sehingga sangat direkomendasikan untuk disinggahi selama menempuh pendidikan.</string>
-    <string name="txt_detail_kos">Detail Kosan</string>
-    <string name="txt_detail_kosan_info">Detail lainnya tentang kosan</string>
-    <string name="txt_cannot_find_kos_nearby_you">Cannot find kos nearby you!</string>
-    <string name="txt_campus_list_not_available">Campus list not available.</string>
-    <string name="txt_unable_to_get_your_location_to_find_the_nearby_kos">Unable to get your location to find the nearby kos.</string>
+    <string name="txt_mapping_map_info">Displaying GIS Visualization</string>
+    <string name="txt_detail_distance">0.5 KM from Serang Raya University</string>
+    <string name="txt_header_descriptionKos">Boarding House Description</string>
+    <string name="txt_detail_descriptionKos">This boarding house is a favorite comfortable residence for students. It has complete facilities and a comfortable environment, making it highly recommended for a stay during your studies.</string>
+    <string name="txt_detail_kos">Boarding House Details</string>
+    <string name="txt_detail_kosan_info">Other details about the boarding house</string>
+    <string name="txt_cannot_find_kos_nearby_you">Cannot find any boarding houses near you!</string>
+    <string name="txt_campus_list_not_available">Campus list is not available.</string>
+    <string name="txt_unable_to_get_your_location_to_find_the_nearby_kos">Unable to get your location to find the nearest boarding houses.</string>
     <string name="txt_location_services_gps_are_disabled_please_enable_them">Location services (GPS) are disabled. Please enable them.</string>
     <string name="txt_location_permission_denied_nearby_features_cannot_be_used">Location permission denied. Nearby features cannot be used.</string>
-    <string name="txt_allow_location_access_to_see_kos_nearby_you">Allow location access to see kos nearby you</string>
-    <string name="txt_there_are_no_kos_found_around_this_campus">There are no kos found around this campus.</string>
+    <string name="txt_allow_location_access_to_see_kos_nearby_you">Allow location access to see boarding houses near you</string>
+    <string name="txt_there_are_no_kos_found_around_this_campus">No boarding houses found around this campus.</string>
     <string name="latitude">Latitude: %1$s</string>
     <string name="longitude">Longitude: %1$s</string>
     <string name="txt_editProfile">Edit Profile</string>
-    <string name="txt_editProfile_info">Informasi tentang akun kamu</string>
+    <string name="txt_editProfile_info">Information about your account</string>
     <string name="dialog_icon_description">Dialog Icon</string>
     <string name="success_illustration">icon success illustration</string>
-    <string name="btn_budgetKos">Lihat Semua</string>
-    <string name="txt_OtherKosNearbyTitle">Kos Lainnya Dekat Sini</string>
+    <string name="btn_budgetKos">View All</string>
+    <string name="txt_OtherKosNearbyTitle">Other Boarding Houses Near Here</string>
+    <string name="privacy_police_detail">Welcome to GoKos. We, as the developers of the GoKos application (\"We"\), are committed to protecting your personal data and privacy. This Privacy Policy is a comprehensive guide to provide you with a clear understanding of how we handle your personal information.\n\nTo provide an optimal, personal, and relevant boarding house search service, our application requires the collection of several types of data. By using the GoKos application, you acknowledge that you have read and understood this Privacy Policy. We encourage you to read each section carefully.\n\nWhat information we collect from you, both that you provide directly and that we obtain automatically when you use the application.\n\n1. Our purpose in using this information is to run and improve the functionality of the GoKos application.\n2. With whom and under what conditions your information may be shared.\n3. The steps we take to protect the security of your data.\n4. The rights you have regarding your personal data.\n\nBy using the GoKos application, you acknowledge that you have read and understood this Privacy Policy. We encourage you to read each section carefully so that you can make informed decisions and feel secure when using our services.</string>
+    <string name="txt_privacyPolicy1">1. Information We Collect</string>
+    <string name="txt_privacyPolicy1_detail">We collect several types of information to provide and improve our service:\n\na. Account Information: When you register, we collect your full name, email address, and password. If you register using Google, we will receive basic profile information from your Google account according to the permissions you grant.\n\nb. Additional Profile Information: You have the option to complete your profile with information such as a profile photo, gender, date of birth, and emergency contact information. Providing this information is voluntary.\n\nc. Location Information: The main feature of GoKos is to help you find the nearest boarding house. For this, with your permission, we will collect your precise geographic location data (latitude and longitude). This data is used to calculate the distance between you and the boarding house locations using the Haversine method and to display boarding houses around you.\n\nd. Usage Information: We may collect data about how you interact with the application, such as the features you use and the time you spend, for analysis and service improvement purposes.</string>
+    <string name="txt_privacyPolicy2">2. How We Use Your Information</string>
+    <string name="txt_privacyPolicy2_detail">We use your information for several purposes:\n\na. Providing Core Services: To manage your account, authenticate logins, and run the main features of the application such as searching for boarding houses by location and budget.\n\nb. Personalizing Experience: Displaying your name on the home page and providing relevant content.\n\nc. Analysis and Improvement: Understanding how users use our application to fix bugs, develop new features, and improve the overall user experience.\n\nd. Security: Protecting the security of your account and our platform.</string>
+    <string name="txt_privacyPolicy3">3. Information Sharing</string>
+    <string name="txt_privacyPolicy3_detail">We do not sell your personal information. We may share your information under the following circumstances:\n\na. Third-Party Service Providers: We use third-party services for application operations, such as Firebase (for database and authentication) and Google (for Google Sign-In and Google Maps). These parties only have access to the information necessary to perform their services and are obligated to protect it.\n\nb. Legal Obligations: If required by law or a valid legal process, we may need to disclose your information.</string>
+    <string name="txt_privacyPolicy4">4. Data Security</string>
+    <string name="txt_privacyPolicy4_detail">We implement reasonable security measures to protect your information from unauthorized access, disclosure, alteration, or destruction. However, no method of transmission over the internet or electronic storage is 100% secure.</string>
+    <string name="txt_privacyPolicy5">5. Your Rights</string>
+    <string name="txt_privacyPolicy5_detail">You have the right to access and update your profile information at any time through the Edit Profile page. You can also request the deletion of your account by contacting us.</string>
+    <string name="txt_privacyPolicy6">6. Changes to This Privacy Policy</string>
+    <string name="txt_privacyPolicy6_detail">We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new policy on this page. You are advised to review this Privacy Policy periodically for any changes.</string>
+    <string name="txt_privacyPolicy7">7. Contact Us</string>
+    <string name="txt_privacyPolicy7_detail">If you have any questions about this Privacy Policy, please contact us at: denih500@gmail.com.</string>
+    <string name="txt_privacyPolicy8">5. Your Rights</string>
+    <string name="txt_privacyPolicy8_detail">You have the right to access and update your profile information at any time via the Edit Profile page. You may also request the deletion of your account by contacting us.</string>
+    <string name="terms_detail">Please read these Terms and Conditions (\"Terms"\) carefully. This document, along with the accompanying Privacy Policy, constitutes a binding legal agreement between you as the user (\"You"\) and us as the developers of the GoKos application (\"We"\). By downloading, registering, or using our services in any form, you automatically state that you have read, understood, and agree to be bound by all the provisions contained herein.\n\nThe GoKos application provides an information platform to facilitate the search for boarding houses in the Serang campus area, with one of its main features being the accurate distance calculation using the Haversine method. If you cannot agree to these Terms and Conditions, please do not continue to use and immediately delete the application from your device. We advise you to review this document to fully understand your rights and obligations.</string>
+    <string name="txt_terms1">1. Description of Service</string>
+    <string name="txt_terms1_detail">GoKos is a mobile application based on Android designed to help users, especially students, in finding information about boarding houses around the campus area in Serang. This service utilizes location technology to provide recommendations based on proximity, with calculations using the Haversine method.</string>
+    <string name="txt_terms2">2. Use of Service</string>
+    <string name="txt_terms2_detail">a. Eligibility: You must be at least 17 years old or have permission from a parent/guardian to use this Service.\n\nb. User Account: You are responsible for maintaining the confidentiality of your account information, including your password. All activities that occur under your account are your responsibility.\n\nc. Permitted Use: You agree not to use the Service for any purpose that is unlawful, fraudulent, or harmful to others. You are not permitted to copy, modify, or redistribute content from the Service without permission.</string>
+    <string name="txt_terms3">3. Content and Information Accuracy</string>
+    <string name="txt_terms3_detail">a. GoKos strives to present accurate data. However, information regarding boarding houses (such as prices, room availability, facilities, and other details) may change. We do not guarantee the accuracy, completeness, or reliability of any information displayed.\n\nb. You are fully responsible for verifying all information directly with the boarding house provider before making any transactions or commitments. GoKos only acts as an information provider platform.</string>
+    <string name="txt_terms4">4. Location-Based Services</string>
+    <string name="txt_terms4_detail">Some core features of the Service, such as "Nearest Boarding House" and distance calculation, require access to your device\'s location data. By using these features, you agree to our access and use of your location data in accordance with our Privacy Policy.</string>
+    <string name="txt_terms5">5. Changes to Terms and Conditions</string>
+    <string name="txt_terms5_detail">We reserve the right to change these Terms at any time. Changes will be effective upon posting on this page within the application. Your continued use of the Service after such changes constitutes your acceptance of the new Terms.</string>
+    <string name="txt_terms6">6. Limitation of Liability</string>
+    <string name="txt_terms6_detail">a. The Service is provided "as is". We make no warranties, express or implied, regarding the operation of the Service or the information and content contained therein.\n\nb. GoKos is not responsible for any form of loss, damage, disputes, or other issues that may arise from transactions or interactions between you (the user) and the boarding house provider.</string>
 
-    'Privacy Policy'
-
-    <string name="privacy_police_detail">Selamat datang di GoKos. Kami, selaku pengembang aplikasi GoKos (\'Kami\'), selalu berkomitmen untuk melindungi data dan privasi pribadi Anda. Kebijakan Privasi ini adalah panduan komprehensif untuk memberikan Anda pemahaman yang jelas tentang bagaimana kami menangani informasi pribadi Anda. \n\nUntuk dapat memberikan layanan pencarian rumah kos yang optimal, personal, dan relevan, aplikasi kami memerlukan pengumpulan beberapa jenis data. Dengan menggunakan aplikasi GoKos, Anda mengakui bahwa Anda telah membaca dan memahami Kebijakan Privasi ini. Kami mendorong Anda untuk membaca setiap bagian dengan saksama.\n\nInformasi apa saja yang kami kumpulkan dari Anda, baik yang Anda berikan secara langsung maupun yang kami peroleh secara otomatis saat Anda menggunakan aplikasi.\n\n1. Tujuan kami menggunakan informasi tersebut untuk menjalankan dan meningkatkan fungsionalitas aplikasi GoKos.\n2. Dengan siapa dan dalam kondisi apa informasi Anda mungkin kami bagikan.\n3. Langkah-langkah yang kami ambil untuk melindungi keamanan data Anda.\n4. Hak-hak yang Anda miliki terkait data pribadi Anda.\n\nDengan menggunakan aplikasi GoKos, Anda mengakui bahwa Anda telah membaca dan memahami Kebijakan Privasi ini. Kami mendorong Anda untuk membaca setiap bagian dengan saksama agar Anda dapat membuat keputusan yang tepat dan merasa aman saat menggunakan layanan kami.</string>
-
-    <string name="txt_privacyPolicy1">1. Informasi yang Kami Kumpulkan</string>
-    <string name="txt_privacyPolicy1_detail">Kami mengumpulkan beberapa jenis informasi untuk menyediakan dan meningkatkan layanan kami:
-    \n\na. Informasi Akun: Saat Anda mendaftar, kami mengumpulkan nama lengkap, alamat email, dan kata sandi Anda. Jika Anda mendaftar menggunakan Google, kami akan menerima informasi profil dasar dari akun Google Anda sesuai dengan izin yang Anda berikan.
-    \n\nb. Informasi Profil Tambahan: Anda memiliki opsi untuk melengkapi profil Anda dengan informasi seperti foto profil, jenis kelamin, tanggal lahir, dan informasi kontak darurat. Pemberian informasi ini bersifat sukarela.
-    \n\nc. Informasi Lokasi: Fitur utama GoKos adalah membantu Anda menemukan rumah kos terdekat. Untuk itu, dengan izin Anda, kami akan mengumpulkan data lokasi geografis (latitude dan longitude) Anda secara presisi. Data ini digunakan untuk menghitung jarak antara Anda dan lokasi rumah kos menggunakan metode Haversine serta menampilkan kos di sekitar Anda.
-    \n\nd. Informasi Penggunaan: Kami dapat mengumpulkan data tentang bagaimana Anda berinteraksi dengan aplikasi, seperti fitur yang Anda gunakan dan waktu yang Anda habiskan, untuk tujuan analisis dan peningkatan layanan.</string>
-
-    <string name="txt_privacyPolicy2">2. Bagaimana Kami Menggunakan Informasi Anda</string>
-    <string name="txt_privacyPolicy2_detail">Kami mengumpulkan beberapa jenis informasi untuk menyediakan dan meningkatkan layanan kami:
-    \n\na. Menyediakan Layanan Inti: Untuk mengelola akun Anda, mengautentikasi login, dan menjalankan fitur utama aplikasi seperti pencarian kos berdasarkan lokasi dan budget.
-    \n\nb. Personalisasi Pengalaman: Menampilkan nama Anda di halaman utama dan menyediakan konten yang relevan.
-    \n\nc. Analisis dan Peningkatan: Memahami bagaimana pengguna menggunakan aplikasi kami untuk memperbaiki bug, mengembangkan fitur baru, dan meningkatkan pengalaman pengguna secara keseluruhan.
-    \n\nd. Keamanan: Melindungi keamanan akun Anda dan platform kami.</string>
-
-    <string name="txt_privacyPolicy3">3. Berbagi Informasi</string>
-    <string name="txt_privacyPolicy3_detail">Kami mengumpulkan beberapa jenis informasi untuk menyediakan dan meningkatkan layanan kami:
-    \n\na. Penyedia Layanan Pihak Ketiga: Kami menggunakan layanan pihak ketiga untuk operasional aplikasi, seperti Firebase (untuk database dan autentikasi) dan Google (untuk Google Sign-In dan Google Maps). Pihak-pihak ini hanya memiliki akses ke informasi yang diperlukan untuk menjalankan layanan mereka dan diwajibkan untuk melindunginya.
-    \n\nb. Kewajiban Hukum: Jika diwajibkan oleh hukum atau proses hukum yang sah, kami mungkin perlu mengungkap informasi Anda.</string>
-
-    <string name="txt_privacyPolicy4">4. Keamanan Data</string>
-    <string name="txt_privacyPolicy4_detail">Kami menerapkan langkah-langkah keamanan yang wajar untuk melindungi informasi Anda dari akses, pengungkapan, perubahan, atau penghancuran yang tidak sah. Namun, tidak ada metode transmisi melalui internet atau penyimpanan elektronik yang 100% aman.</string>
-
-    <string name="txt_privacyPolicy5">5. Hak Anda</string>
-    <string name="txt_privacyPolicy5_detail">sffsef.</string>
-
-    <string name="txt_privacyPolicy6">6. Perubahan pada Kebijakan Privasi Ini</string>
-    <string name="txt_privacyPolicy6_detail">Kami dapat memperbarui Kebijakan Privasi ini dari waktu ke waktu. Kami akan memberitahu Anda tentang perubahan apa pun dengan memposting kebijakan baru di halaman ini. Anda disarankan untuk meninjau Kebijakan Privasi ini secara berkala.</string>
-
-    <string name="txt_privacyPolicy7">7. Hubungi Kami</string>
-    <string name="txt_privacyPolicy7_detail">Jika Anda memiliki pertanyaan tentang Kebijakan Privasi ini, silakan hubungi kami di: denih500@gmail.com.</string>
-
-    <string name="txt_privacyPolicy8">5. Hak Anda</string>
-    <string name="txt_privacyPolicy8_detail">Anda memiliki hak untuk mengakses dan memperbarui informasi profil Anda kapan saja melalui halaman Edit Profil. Anda juga dapat meminta penghapusan akun Anda dengan menghubungi kami.</string>
-
-    'Terms Condition'
-    <string name="terms_detail">Harap baca Syarat dan Ketentuan ("Syarat") ini dengan saksama. Dokumen ini, beserta Kebijakan Privasi yang menyertainya, merupakan perjanjian hukum yang mengikat antara Anda sebagai pengguna ("Anda") dan kami selaku pengembang aplikasi GoKos ("Kami"). Dengan mengunduh, mendaftar, atau menggunakan layanan kami dalam bentuk apa pun, Anda secara otomatis menyatakan telah membaca, memahami, dan setuju untuk terikat pada seluruh ketentuan yang tercantum di dalamnya.
-    \n\nAplikasi GoKos menyediakan platform informasi untuk mempermudah pencarian rumah kos di kawasan kampus Serang, dengan salah satu fitur utamanya adalah perhitungan jarak akurat yang menerapkan metode Haversine. Jika Anda tidak dapat menyetujui Syarat dan Ketentuan ini, mohon untuk tidak melanjutkan penggunaan dan segera menghapus aplikasi dari perangkat Anda. Kami menyarankan Anda untuk meninjau dokumen ini agar dapat memahami hak dan kewajiban Anda sepenuhnya.</string>
-    <string name="txt_terms1">1. Deskripsi Layanan</string>
-    <string name="txt_terms1_detail">GoKos adalah aplikasi mobile berbasis Android yang dirancang untuk membantu pengguna, khususnya mahasiswa, dalam mencari informasi rumah kos di sekitar kawasan kampus di Serang. Layanan ini memanfaatkan teknologi lokasi untuk memberikan rekomendasi berdasarkan kedekatan, yang perhitungannya menggunakan penerapan metode Haversine.</string>
-
-    <string name="txt_terms2">2. Penggunaan Layanan</string>
-    <string name="txt_terms2_detail">a. Kelayakan: Anda harus berusia minimal 17 tahun atau memiliki izin dari orang tua/wali untuk menggunakan Layanan ini.
-    \n\nb. Akun Pengguna: Anda bertanggung jawab untuk menjaga kerahasiaan informasi akun Anda, termasuk kata sandi. Segala aktivitas yang terjadi di bawah akun Anda adalah tanggung jawab Anda.
-    \n\nc. Penggunaan yang Diizinkan: Anda setuju untuk tidak menggunakan Layanan untuk tujuan yang melanggar hukum, menipu, atau merugikan pihak lain. Anda tidak diizinkan untuk menyalin, memodifikasi, atau mendistribusikan ulang konten dari Layanan tanpa izin.</string>
-
-    <string name="txt_terms3">3. Konten Dan Akurasi Informasi</string>
-    <string name="txt_terms3_detail">a. GoKos berusaha untuk menyajikan data yang akurat. Namun, informasi mengenai rumah kos (seperti harga, ketersediaan kamar, fasilitas, dan detail lainnya) dapat berubah. Kami tidak menjamin keakuratan, kelengkapan, atau keandalan dari setiap informasi yang ditampilkan.
-    \n\nb. Anda bertanggung jawab penuh untuk memverifikasi semua informasi secara langsung dengan pihak penyedia rumah kos sebelum melakukan transaksi atau membuat komitmen apa pun. GoKos hanya bertindak sebagai platform penyedia informasi.</string>
-
-    <string name="txt_terms4">4. Layanan Berbasis Lokasi</string>
-    <string name="txt_terms4_detail">Beberapa fitur inti dari Layanan, seperti "Kos Terdekat" dan perhitungan jarak, memerlukan akses ke data lokasi perangkat Anda. Dengan menggunakan fitur-fitur ini, Anda setuju untuk kami mengakses dan menggunakan data lokasi Anda sesuai dengan Kebijakan Privasi kami.</string>
-
-    <string name="txt_terms5">5. Perubahan Syarat Dan Ketentuan</string>
-    <string name="txt_terms5_detail">Kami berhak untuk mengubah Syarat ini kapan saja. Perubahan akan berlaku efektif setelah diposting di halaman ini dalam aplikasi. Penggunaan Anda yang berkelanjutan atas Layanan setelah perubahan tersebut merupakan penerimaan Anda terhadap Syarat yang baru.</string>
-
-    <string name="txt_terms6">6. Batasan Tanggung Jawab</string>
-    <string name="txt_terms6_detail">a. Layanan ini disediakan "sebagaimana adanya" ("as is"). Kami tidak membuat jaminan apa pun, baik tersurat maupun tersirat, mengenai operasional Layanan atau informasi dan konten yang ada di dalamnya.
-    \n\nb. GoKos tidak bertanggung jawab atas segala bentuk kerugian, kerusakan, perselisihan, atau masalah lain yang mungkin timbul dari transaksi atau interaksi antara Anda (pengguna) dan pihak penyedia rumah kos.</string>
-
-    <string name="txt_termsCondition">Syarat dan Ketentuan</string>
-    <string name="txt_termsCondition_info">Informasi Syarat dan Ketentuan GoKos</string>
-    <string name="txt_privacyPolicy">Kebijakan Privasi</string>
-    <string name="txt_privacyPolicy_info">Informasi Kebijakan Privasi GoKos</string>
-    <string name="txt_personalData">Data Pribadi</string>
-    <string name="txt_personalData_info">Informasi data pribadi kamu</string>
-    <string name="txt_about_app">Tentang Aplikasi</string>
-    <string name="txt_desc_about_app">GoKos adalah aplikasi yang dirancang untuk membantu mahasiswa atau masyarakat umum dalam mencari rumah kos terdekat di kawasan kampus serang. Aplikasi ini dapat memberikan rekomendasi kosan terdekat di sekitaran kampus dan sekitar kamu dengan menampilkan jarak menggunakan metode haversine. Selain itu, GoKos menawarkan fitur visualisasi GIS untuk pemetaan kos-kosan, sehingga memudahkan pengguna ketika ingin mencari kos-kosan hanya dengan melihat peta sebaran kos-kosan saja. Dengan dukungan GoKos, mencari rumah kos menjadi lebih mudah dan praktis.</string>
-    <string name="txt_what_is_in_it">Ada Apa Saja?</string>
-    <string name="txt_desc_what_is_in_it">1. Informasi seputar kos-kosan.
-        \n2. Informasi seputar jarak, harga sewa dan fasilitas yang ditawarkan.
-        \n3. Menampilkan Visualisasi GIS untuk melihat peta sebaran kos-kosan.
-        \n4. Menampilkan kos-kosan sesuai preferensi budget kamu.
-        \n5. Menampilkan kos-kosan di sekitar kamu.
-        \n6. Menyimpan kos-kosan ke favorite.
-        \n7. Interface yang user-friendly.</string>
-    <string name="txt_main_feature">Fitur Utama</string>
-    <string name="txt_gis">Visualisasi GIS</string>
-    <string name="txt_desc_main_feature">Pada fitur utama aplikasi GoKos, menerapkan Visualisasi GIS untuk memberikan informasi peta digital sebaran kos-kosan di kampus tertentu. Sehingga memudahkan dalam mencari kos-kosan dengan mudah dan cepat</string>
-    <string name="txt_aboutApp">Tentang Aplikasi</string>
-    <string name="txt_aboutApp_info">Informasi tentang GoKos</string>
+    <string name="txt_termsCondition">Terms and Conditions</string>
+    <string name="txt_termsCondition_info">GoKos Terms and Conditions Information</string>
+    <string name="txt_privacyPolicy">Privacy Policy</string>
+    <string name="txt_privacyPolicy_info">GoKos Privacy Policy Information</string>
+    <string name="txt_personalData">Personal Data</string>
+    <string name="txt_personalData_info">Your personal data information</string>
+    <string name="txt_about_app">About App</string>
+    <string name="txt_desc_about_app">GoKos is an application designed to help students or the general public find the nearest boarding house in the Serang campus area. This application can provide recommendations for the nearest boarding houses around the campus and your location by displaying the distance using the Haversine method. In addition, GoKos offers a GIS visualization feature for mapping boarding houses, making it easier for users who want to find a boarding house just by looking at the distribution map. With the support of GoKos, finding a boarding house becomes easier and more practical.</string>
+    <string name="txt_what_is_in_it">What\'s Inside?</string>
+    <string name="txt_desc_what_is_in_it">1. Information about boarding houses.\n2. Information about distance, rental prices, and offered facilities.\n3. GIS visualization to see the distribution map of boarding houses.\n4. Displaying boarding houses according to your budget preferences.\n5. Displaying boarding houses around you.\n6. Saving boarding houses to favorites.\n7. User-friendly interface.</string>
+    <string name="txt_main_feature">Main Feature</string>
+    <string name="txt_gis">GIS Visualization</string>
+    <string name="txt_desc_main_feature">In the main feature of the GoKos application, GIS Visualization is applied to provide digital map information on the distribution of boarding houses at a specific campus. This makes it easier to find a boarding house quickly and easily.</string>
+    <string name="txt_aboutApp">About App</string>
+    <string name="txt_aboutApp_info">Information about GoKos</string>
     <string name="title_favorite">Favorite</string>
     <string name="txt_favorite_kos">Favorite</string>
-    <string name="maps_campus_description">Klik untuk melihat detail sebaran kos-kosan di sekitar Kawasan Kampus %1$s</string>
-    <string name="txt_list_nearby_kos">List Kos</string>
-    <string name="txt_search">Cari</string>
-
+    <string name="maps_campus_description">Click to see the distribution details of boarding houses around the %1$s Campus Area.</string>
+    <string name="txt_list_nearby_kos">Boarding House List</string>
+    <string name="txt_search">Search</string>
+    <string name="txt_first_screen_heading1">Welcome to Go-Kos</string>
+    <string name="txt_first_screen_description">The solution for finding the nearest boarding house in the Serang City campus area</string>
+    <string name="txt_btn_next">CONTINUE</string>
+    <string name="txt_second_screen_heading1">See Map\nDistribution</string>
+    <string name="txt_second_screen_description">Displays a distribution map of the nearest boarding houses in the Serang City campus area</string>
+    <string name="txt_third_screen_heading1">Get a Boarding House According to Preferences</string>
+    <string name="txt_third_screen_description">Get your desired boarding house by considering distance, facilities, and rental price!</string>
+    <string name="txt_title_app">Go-Kos</string>
+    <string name="txt_start_screen_description">The solution for finding the nearest boarding house in the Serang City campus area</string>
+    <string name="txt_btn_start">START</string>
+    <string name="txt_start_screen_rule">By logging in or registering, you agree to the\nterms of service and privacy policy</string>
+    <string name="txt_loginpage_heading1">Welcome</string>
+    <string name="txt_loginpage_description">Please log in first to continue</string>
+    <string name="txt_loginpage_email">Email</string>
+    <string name="txt_loginpage_btn_login">LOGIN</string>
+    <string name="txt_loginpage_dont_have_account">Don\'t have an account?</string>
+    <string name="txt_loginpage_signup">Sign Up</string>
+    <string name="txt_loginpage_info">Or log in with</string>
+    <string name="txt_loginpage_btn_info_login_google">Existing Google Account</string>
+    <string name="txt_login_google_cancelled">Login with Google was cancelled.</string>
+    <string name="txt_email_password_must_filled">Email and password fields cannot be empty!</string>
+    <string name="txt_failed_get_id_token_google">Failed to get ID Token from Google.</string>
+    <string name="txt_failed_login_google">Google Login Failed: %1$s</string>
+    <string name="txt_success_dialog">Success!</string>
+    <string name="txt_description_info_dialog">Login Successful! Welcome to GoKos, %1$s</string>
+    <string name="txt_next_dialog">Continue</string>
+    <string name="txt_failed_dialog">Failed!</string>
+    <string name="txt_try_again_dialog">Try Again</string>
+    <string name="txt_signup">Sign Up</string>
+    <string name="txt_signup_description">Complete the following data to log in!</string>
+    <string name="txt_signup_full_name">Full Name</string>
+    <string name="txt_signup_email">Email Address</string>
+    <string name="txt_signup_btn_signup">SIGN UP</string>
+    <string name="txt_signup_info1">Already have an account?</string>
+    <string name="txt_signup_login">Login</string>
+    <string name="full_name_can_t_be_empty">Full name can\'t be empty!</string>
+    <string name="email_can_t_be_empty">Email can\'t be empty!</string>
+    <string name="invalid_email_format">Invalid email format!</string>
+    <string name="password_can_t_be_empty">Password can\'t be empty!</string>
+    <string name="the_password_must_be_at_least_6_characters_long">Password must be at least 6 characters long.</string>
+    <string name="password_confirmation_can_t_be_empty">Password confirmation can\'t be empty!</string>
+    <string name="password_and_password_confirmation_do_not_match">Password and password confirmation do not match</string>
+    <string name="txt_confirmation_dialog">Registration Confirmation</string>
+    <string name="txt_confirmation2_dialog">Are you sure you want to register your account?</string>
+    <string name="txt_yes_dialog">YES</string>
+    <string name="txt_no_dialog">NO</string>
+    <string name="please_fill_in_all_fields_correctly">Please fill in all fields correctly.</string>
+    <string name="kos_terdekat">Nearest Boarding House</string>
+    <string name="di_sekitar_anda">Around your current location</string>
+    <string name="data_kos_terdekat_tidak_tersedia">Nearest boarding house data is not available.</string>
+    <string name="kos_sesuai_budget">Boarding House by Budget</string>
+    <string name="list_kos_under_500">List of Boarding Houses Under 500k</string>
+    <string name="list_kos_500_to_700">List of Boarding Houses 500k - 700k</string>
+    <string name="list_kos_above_700">List of Boarding Houses Above 700k</string>
+    <string name="all_kos_according_budget">All boarding houses according to budget</string>
+    <string name="data_kos_budget_not_available">Budget boarding house data is not available.</string>
+    <string name="location_permission_needed">Location Permission Needed!</string>
+    <string name="this_app_requires_location_permission_to_display_kos_nearby_you">This app requires location permission to display boarding houses near you.</string>
+    <string name="grant_permission">Grant Permission</string>
+    <string name="cancel">Cancel</string>
+    <string name="location_permission_denied">Location permission denied.</string>
+    <string name="permission_needed">Permission Needed!</string>
+    <string name="this_app_requires_location_permission_enable">This app requires location permission. Enable it in App Settings.</string>
+    <string name="settings">Settings</string>
+    <string name="failed_load_list_campus">Failed to load campus list</string>
+    <string name="no_kos_found_for_that_budget">No boarding houses found for that budget.</string>
+    <string name="note_updated">Note updated!</string>
+    <string name="delete_favorit">Delete Favorite</string>
+    <string name="delete_confirmation">Are you sure you want to delete from favorites?</string>
+    <string name="delete">Delete</string>
+    <string name="data_campus_not_available">Campus data is not available.</string>
+    <string name="failed_load_data">Failed to load data</string>
+    <string name="permit_location_denied">Location permission denied, distance will not be displayed.</string>
+    <string name="failed_to_obtain_location_distance">Failed to get location, distance may be inaccurate.</string>
+    <string name="kos_kosan_your_wish">Your desired boarding house</string>
+    <string name="where">Where?</string>
+    <string name="failed_load_data_kos">Failed to load boarding house data.</string>
+    <string name="including_electricity">Includes Electricity</string>
+    <string name="managed_by">Managed by GoKos</string>
+    <string name="already_working_with_the_owner_kos">Already working with the boarding house owner</string>
+    <string name="facilities_room">Room Facilities</string>
+    <string name="facilities_room_bathroom">Bathroom Facilities</string>
+    <string name="location_kos">Boarding House Location</string>
+    <string name="share_your_experience">Share your experience at GoKos</string>
+    <string name="participation">Participation</string>
+    <string name="month">/ month</string>
+    <string name="contact">CONTACT</string>
+    <string name="list_kos">Boarding House List</string>
+    <string name="around_your_location">Around your location</string>
+    <string name="campus_id_didn_t_valid">Campus ID isn\'t valid</string>
+    <string name="google_maps_is_not_installed">Google Maps is not installed. Try opening it in your browser.</string>
+    <string name="no_map_application_or_browser_can_handle_this">No map application or browser can handle this.</string>
+    <string name="edit_note">Edit Note</string>
+    <string name="add_note">Add a note (optional)</string>
+    <string name="save">Save</string>
+    <string name="save_to_favorite">Save to Favorites</string>
+    <string name="delete_from_favorite">Remove from Favorites</string>
+    <string name="confirmation">Confirmation</string>
+    <string name="confirmation_info">Are you sure you want to register your account?</string>
+    <string name="confirmation_dialog_no">NO</string>
+    <string name="confirmation_dialog_yes">YES</string>
+    <string name="success_dialog_info">Your login process has been completed successfully.</string>
+    <string name="custon_dialog_next">CONTINUE</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="edit_profile_description_info">Change your account profile data</string>
+    <string name="language">Language</string>
+    <string name="language_description_info">Change to your desired language</string>
+    <string name="about_app">About App</string>
+    <string name="about_app_description_info">Information about the Go-Kos app</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="privacy_policy_description_info">View Go-Kos privacy policy</string>
+    <string name="terms_conditions"><![CDATA[Terms & Conditions]]></string>
+    <string name="terms_conditions_description_info"><![CDATA[View Go-Kos terms & conditions]]></string>
+    <string name="logout_success">Logout successful!</string>
+    <string name="logout_failed">Logout failed: %1$s</string>
+    <string name="confirmation_logout_description">Are you sure you want to log out of this account?</string>
+    <string name="data_personal">Personal Data</string>
+    <string name="gender">Gender</string>
+    <string name="date_of_birth">Date of Birth</string>
+    <string name="miritial_status">Status</string>
+    <string name="profession">Profession</string>
+    <string name="profession_details">Profession Details</string>
+    <string name="emergency_contact">Emergency Contact</string>
+    <string name="help">Help</string>
+    <string name="logout">LOGOUT</string>
+    <string name="campus_name">Campus Name</string>
+    <string name="profession_name">Institution/Company Name</string>
+    <string name="detail_profession">Profession Detail</string>
+    <string name="success_update_personal_data">Personal data updated successfully!</string>
+    <string name="no_image_selected">No image selected.</string>
+    <string name="name_must_not_be_empty">Name cannot be empty</string>
+    <string name="profile_updated">Profile updated successfully!</string>
+    <string name="upload_foto">Upload photo</string>
+    <string name="delete_image">Delete</string>
+    <string name="personal_data">Personal Data</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="save_capslock">SAVE</string>
+    <string name="select_gender">Select gender</string>
+    <string name="input_date_birth">Enter date of birth</string>
+    <string name="select_profession">Select profession</string>
+    <string name="select_status">Select status</string>
+    <string name="input_emergency_contact">(Optional)</string>
+    <string name="privacy_policy_gokos">GoKos Privacy Policy</string>
+    <string name="information_that_we_collect">1. Information We Collect</string>
+    <string name="how_we_use_your_information">2. How We Use Your Information</string>
+    <string name="description_gokos">Get Boarding House Information According to Your Preferences Only on the GoKos App.</string>
+    <string name="gokos_capslock">GOKOS</string>
+    <string name="about_app_capslock">ABOUT US</string>
+    <string name="policy_capslock">POLICY</string>
+    <string name="privacy_policy_capslock">PRIVACY POLICY</string>
+    <string name="terms_condition_capslock">TERMS AND CONDITIONS</string>
+    <string name="contact_us_capslock">CONTACT US</string>
+    <string name="made_with_love">Made With Love</string>
+    <string name="terms_condition">General Terms and Conditions</string>
 </resources>

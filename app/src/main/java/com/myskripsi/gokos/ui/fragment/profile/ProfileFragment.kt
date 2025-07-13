@@ -3,6 +3,7 @@ package com.myskripsi.gokos.ui.fragment.profile
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -23,7 +24,6 @@ import com.myskripsi.gokos.ui.fragment.customalertdialog.ConfirmationDialogFragm
 import com.myskripsi.gokos.utils.Result
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-// Implementasikan listener dari dialog
 class ProfileFragment : Fragment(), ConfirmationDialogFragment.ConfirmationDialogListener {
     private var _binding: FragmentProfileBinding? = null
 
@@ -35,14 +35,11 @@ class ProfileFragment : Fragment(), ConfirmationDialogFragment.ConfirmationDialo
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode == Activity.RESULT_OK || result.resultCode == 0) {
-            // Muat ulang data profil untuk menampilkan perubahan
             profileViewModel.loadUserProfile()
         }
     }
 
-    // Callback dari dialog, dipanggil saat user menekan "IYA" / tombol positif
     override fun onConfirm() {
-        // Panggil fungsi logout di ViewModel
         profileViewModel.logoutUser()
     }
 
@@ -71,8 +68,8 @@ class ProfileFragment : Fragment(), ConfirmationDialogFragment.ConfirmationDialo
 
         binding.optionAccount.apply {
             ivMenuIcon.setImageResource(R.drawable.ic_profile_outline)
-            tvMenuTitle.text = "Ubah Profile"
-            tvMenuSubtitle.text = "Ubah data profile pada akun kamu"
+            tvMenuTitle.text = getString(R.string.edit_profile)
+            tvMenuSubtitle.text = getString(R.string.edit_profile_description_info)
             root.setOnClickListener {
                 val intent = Intent(requireActivity(), EditProfileActivity::class.java)
                 refreshProfileLauncher.launch(intent)
@@ -86,17 +83,17 @@ class ProfileFragment : Fragment(), ConfirmationDialogFragment.ConfirmationDialo
 
         binding.optionLanguage.apply {
             ivMenuIcon.setImageResource(R.drawable.ic_translate)
-            tvMenuTitle.text = "Bahasa"
-            tvMenuSubtitle.text = "Ubah ke bahasa yang kamu inginkan"
+            tvMenuTitle.text = getString(R.string.language)
+            tvMenuSubtitle.text = getString(R.string.language_description_info)
             root.setOnClickListener {
-                Toast.makeText(requireContext(), "Menu Bahasa diklik", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
             }
         }
 
         binding.optionAboutApp.apply {
             ivMenuIcon.setImageResource(R.drawable.ic_aboutapp)
-            tvMenuTitle.text = "Tentang Aplikasi"
-            tvMenuSubtitle.text = "Informasi tentang aplikasi Go-Kos"
+            tvMenuTitle.text = getString(R.string.about_app)
+            tvMenuSubtitle.text = getString(R.string.about_app_description_info)
             root.setOnClickListener {
                 startActivity(Intent(requireActivity(), AboutAppActivity::class.java))
             }
@@ -104,8 +101,8 @@ class ProfileFragment : Fragment(), ConfirmationDialogFragment.ConfirmationDialo
 
         binding.optionPrivacyPolicy.apply {
             ivMenuIcon.setImageResource(R.drawable.ic_privacy)
-            tvMenuTitle.text = "Kebijakan Privasi"
-            tvMenuSubtitle.text = "Lihat kebijakan privasi Go-Kos"
+            tvMenuTitle.text = getString(R.string.privacy_policy)
+            tvMenuSubtitle.text = getString(R.string.privacy_policy_description_info)
             root.setOnClickListener {
                 startActivity(Intent(requireActivity(), PrivacyPolicyActivity::class.java))
             }
@@ -113,8 +110,8 @@ class ProfileFragment : Fragment(), ConfirmationDialogFragment.ConfirmationDialo
 
         binding.optionTerms.apply {
             ivMenuIcon.setImageResource(R.drawable.ic_rule)
-            tvMenuTitle.text = "Syarat & Ketentuan"
-            tvMenuSubtitle.text = "Lihat syarat & ketentuan Go-Kos"
+            tvMenuTitle.text = getString(R.string.terms_conditions)
+            tvMenuSubtitle.text = getString(R.string.terms_conditions_description_info)
             root.setOnClickListener {
                 startActivity(Intent(requireActivity(), TermsConditionActivity::class.java))
             }
@@ -145,20 +142,21 @@ class ProfileFragment : Fragment(), ConfirmationDialogFragment.ConfirmationDialo
                 }
                 is Result.Success -> {
                     binding.progressIndicator.visibility = View.GONE
-                    Toast.makeText(requireContext(), "Logout berhasil!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(),
+                        getString(R.string.logout_success), Toast.LENGTH_SHORT).show()
                     navigateToLoginScreen()
                 }
                 is Result.Error -> {
                     binding.progressIndicator.visibility = View.GONE
                     binding.btnLogout.isEnabled = true
-                    Toast.makeText(requireContext(), "Logout gagal: ${result.message}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(),
+                        getString(R.string.logout_failed, result.message), Toast.LENGTH_LONG).show()
                 }
             }
         }
     }
 
     private fun populateProfileData(profile: UserProfile) {
-        // --- Isi data utama ---
         binding.tvUsername.text = profile.fullName
         binding.tvEmail.text = profile.email
         Glide.with(this)
@@ -168,8 +166,7 @@ class ProfileFragment : Fragment(), ConfirmationDialogFragment.ConfirmationDialo
             .circleCrop()
             .into(binding.profileImage)
 
-        // --- Isi data di CardView Data Pribadi ---
-        val placeholder = "-" // Teks pengganti jika data kosong
+        val placeholder = "-"
         binding.tvGender.text = profile.gender ?: placeholder
         binding.tvDateOfBirth.text = profile.dateOfBirth ?: placeholder
         binding.tvMaritalStatus.text = profile.maritalStatus ?: placeholder
@@ -179,15 +176,12 @@ class ProfileFragment : Fragment(), ConfirmationDialogFragment.ConfirmationDialo
     }
 
     private fun showLogoutConfirmationDialog() {
-        // Gunakan ConfirmationDialogFragment yang sudah kita buat
         val dialog = ConfirmationDialogFragment.newInstance(
-            "Konfirmasi",
-            "Apakah Anda yakin ingin keluar dari akun ini?",
-            "IYA",
-            "TIDAK"
+            getString(R.string.confirmation),
+            getString(R.string.confirmation_logout_description),
+            getString(R.string.confirmation_dialog_yes),
+            getString(R.string.confirmation_dialog_no)
         )
-        // Karena fragment ini sudah mengimplementasikan listener,
-        // dialog akan otomatis terhubung.
         dialog.show(childFragmentManager, "ConfirmLogoutDialog")
     }
 

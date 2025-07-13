@@ -333,7 +333,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:visibility="gone"
-                        tools:text="Gagal memuat daftar kampus"/>
+                        tools:text="@string/failed_load_list_campus"/>
 
                 </FrameLayout>
 
@@ -403,7 +403,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/filter_below_500k"
-                            android:fontFamily="@font/notosans_regular"
+                            android:fontFamily="@font/figtree_regular"
                             android:textAllCaps="false"
                             android:textColor="@color/selector_filter_button_text_color"
                             app:backgroundTint="@color/selector_filter_button_background_color"
@@ -416,7 +416,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/filter_500k_700k"
-                            android:fontFamily="@font/notosans_regular"
+                            android:fontFamily="@font/figtree_regular"
                             android:textAllCaps="false"
                             android:textColor="@color/selector_filter_button_text_color"
                             app:backgroundTint="@color/selector_filter_button_background_color"
@@ -429,7 +429,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/filter_above_700k"
-                            android:fontFamily="@font/notosans_regular"
+                            android:fontFamily="@font/figtree_regular"
                             android:textAllCaps="false"
                             android:textColor="@color/selector_filter_button_text_color"
                             app:backgroundTint="@color/selector_filter_button_background_color"
@@ -504,7 +504,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/budgetKosContainer"
-                    tools:text="Tidak ada kos ditemukan untuk budget tersebut." />
+                    tools:text="@string/no_kos_found_for_that_budget" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

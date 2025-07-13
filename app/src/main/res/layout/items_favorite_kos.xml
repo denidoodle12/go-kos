@@ -25,20 +25,6 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/backgrounds/scenic" />
 
-        <ImageView
-            android:id="@+id/ivFavorite"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"
-            android:background="@drawable/bg_circle_white"
-            android:padding="8dp"
-            android:src="@drawable/ic_favorite_nofilled"
-            app:layout_constraintEnd_toEndOf="@id/imageKos"
-            app:layout_constraintTop_toTopOf="@id/imageKos"
-            app:tint="@color/red"
-            android:contentDescription="Favorite Button"/>
-
         <TextView
             android:id="@+id/tvDistance"
             android:layout_width="wrap_content"

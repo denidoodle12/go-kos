@@ -29,26 +29,19 @@ class EditProfileViewModel(private val repository: UserProfileRepository, privat
                 repository.getUserProfile(firebaseUser.uid).collectLatest { result ->
                     when (result) {
                         is Result.Success -> {
-                            // Jika profil ditemukan di Firestore, gunakan itu.
                             currentLoadedProfile = result.data
                             _userProfileState.value = result
                         }
                         is Result.Error -> {
-                            // --- INI BAGIAN PENTINGNYA ---
-                            // Jika profil TIDAK DITEMUKAN di Firestore (kasus pengguna baru),
-                            // jangan kirim error ke UI. Sebagai gantinya, buat profil default
-                            // dari data Firebase Auth dan kirim sebagai Result.Success.
                             val defaultProfile = UserProfile(
                                 uid = firebaseUser.uid,
                                 fullName = firebaseUser.displayName ?: "",
                                 email = firebaseUser.email ?: ""
-                                // Atribut lain akan menggunakan nilai default dari data class
                             )
                             currentLoadedProfile = defaultProfile
                             _userProfileState.value = Result.Success(defaultProfile)
                         }
                         is Result.Loading -> {
-                            // Biarkan loading state
                         }
                     }
                 }
@@ -65,14 +58,11 @@ class EditProfileViewModel(private val repository: UserProfileRepository, privat
             return
         }
 
-        // Karena `loadUserProfile` sudah diubah, `currentLoadedProfile` sekarang
-        // tidak akan pernah null di sini jika pengguna sudah login.
         if (currentLoadedProfile == null) {
             _saveProfileResult.value = Result.Error("Tidak bisa menyimpan, data profil awal tidak ditemukan. Coba lagi.")
             return
         }
 
-        // Buat objek baru dengan menyalin data yang ada dan hanya mengubah nama
         val profileToSave = currentLoadedProfile!!.copy(
             fullName = fullName
         )

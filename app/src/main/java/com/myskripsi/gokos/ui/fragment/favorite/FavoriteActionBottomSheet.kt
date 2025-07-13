@@ -1,11 +1,9 @@
-// File: ui/fragment/favorite/FavoriteActionBottomSheet.kt
 package com.myskripsi.gokos.ui.fragment.favorite
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -39,7 +37,6 @@ class FavoriteActionBottomSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Ambil data dari arguments
         arguments?.let {
             kos = it.getParcelable(ARG_KOS)!!
             mode = it.getSerializable(ARG_MODE) as Mode
@@ -61,15 +58,14 @@ class FavoriteActionBottomSheet : BottomSheetDialogFragment() {
         }
 
         if (mode == Mode.ADD) {
-            binding.tvTitle.text = "Simpan ke Favorit"
+            binding.tvTitle.text = getString(R.string.save_to_favorite)
             binding.tilNote.visibility = View.VISIBLE
             binding.etNote.setText(existingNote)
-            binding.btnConfirm.text = "Simpan"
+            binding.btnConfirm.text = getString(R.string.save)
         } else { // Mode.DELETE
-            binding.tvTitle.text = "Hapus dari Favorit"
+            binding.tvTitle.text = getString(R.string.delete_from_favorite)
             binding.tilNote.visibility = View.GONE
-            binding.btnConfirm.text = "Hapus"
-            // Ganti warna tombol hapus menjadi merah (error color)
+            binding.btnConfirm.text = getString(R.string.delete)
             binding.btnConfirm.setBackgroundColor(requireContext().getColor(R.color.red))
         }
     }

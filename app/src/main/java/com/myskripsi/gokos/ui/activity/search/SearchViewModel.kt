@@ -25,14 +25,11 @@ class SearchViewModel(private val repository: KosRepository) : ViewModel() {
     private val _searchResultsState = MutableLiveData<List<Kos>>()
     val searchResultsState: LiveData<List<Kos>> = _searchResultsState
 
-    // --- TAMBAHAN BARU: Menyimpan state lokasi pengguna ---
     private val _userLocation = MutableLiveData<Location?>()
 
     init {
         fetchInitialData()
     }
-
-    // --- FUNGSI BARU: Untuk di-panggil oleh Activity ---
     fun updateUserLocation(location: Location?) {
         _userLocation.value = location
     }
@@ -52,8 +49,6 @@ class SearchViewModel(private val repository: KosRepository) : ViewModel() {
         }
     }
 
-    // --- FUNGSI INI DIPERBARUI ---
-    // Tidak lagi menerima parameter lokasi, tetapi mengambil dari LiveData
     fun performSearch(query: String) {
         if (query.isBlank()) {
             _searchResultsState.value = emptyList()

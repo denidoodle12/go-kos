@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.myskripsi.gokos.R
 import com.myskripsi.gokos.data.model.Campus
 import com.myskripsi.gokos.databinding.FragmentMapsBinding
 import com.myskripsi.gokos.ui.activity.map.MappingMapActivity
@@ -33,8 +34,6 @@ class MapsFragment : Fragment() {
 
         setupRecyclerView()
         observeViewModel()
-
-        // Panggil ViewModel untuk mengambil data
         viewModel.fetchCampuses()
     }
 
@@ -63,7 +62,7 @@ class MapsFragment : Fragment() {
                     binding.shimmerLayout.stopShimmer()
                     binding.shimmerLayout.visibility = View.GONE
                     if (result.data.isEmpty()) {
-                        binding.tvError.text = "Data kampus tidak tersedia."
+                        binding.tvError.text = getString(R.string.data_campus_not_available)
                         binding.tvError.visibility = View.VISIBLE
                     } else {
                         binding.rvCampusMaps.visibility = View.VISIBLE

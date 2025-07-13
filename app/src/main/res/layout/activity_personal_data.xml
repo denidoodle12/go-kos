@@ -64,7 +64,7 @@
                 android:id="@+id/tvLabelDataPribadi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Data Pribadi"
+                android:text="@string/personal_data"
                 android:textSize="18sp"
                 android:fontFamily="@font/figtree_semibold"
                 android:textColor="@color/black"
@@ -78,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/figtree_semibold"
-                android:text="Jenis Kelamin"
+                android:text="@string/gender"
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
@@ -101,7 +101,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/border_transparent_with_stroke"
                     android:inputType="none"
-                    android:hint="Pilih jenis kelamin"/>
+                    android:hint="@string/select_gender"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -111,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/figtree_semibold"
-                android:text="Tanggal Lahir"
+                android:text="@string/date_of_birth"
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
@@ -136,7 +136,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/border_transparent_with_stroke"
                     android:inputType="none"
-                    android:hint="Masukan tanggal lahir"
+                    android:hint="@string/input_date_birth"
                     android:focusable="false"
                     android:clickable="true"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -147,7 +147,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/figtree_semibold"
-                android:text="Profesi"
+                android:text="@string/profession"
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
@@ -169,7 +169,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
-                    android:hint="Pilih profesi"
+                    android:hint="@string/select_profession"
                     android:background="@drawable/border_transparent_with_stroke"
                     tools:ignore="LabelFor" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -180,7 +180,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/figtree_semibold"
-                android:text="Nama Profesi"
+                android:text="@string/profession_details"
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
@@ -201,7 +201,7 @@
                     android:id="@+id/etProfessionName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nama"
+                    android:hint="@string/name"
                     android:background="@drawable/border_transparent_with_stroke"
                     android:inputType="textCapWords"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -212,7 +212,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/figtree_semibold"
-                android:text="Status"
+                android:text="@string/miritial_status"
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
@@ -234,7 +234,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
-                    android:hint="Pilih status"
+                    android:hint="@string/select_status"
                     android:background="@drawable/border_transparent_with_stroke"
                     tools:ignore="LabelFor" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -245,7 +245,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/figtree_semibold"
-                android:text="Kontak Darurat"
+                android:text="@string/emergency_contact"
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
@@ -266,7 +266,7 @@
                     android:id="@+id/etEmergencyContact"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="(Opsional)"
+                    android:hint="@string/input_emergency_contact"
                     android:background="@drawable/border_transparent_with_stroke"
                     android:inputType="phone"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -277,7 +277,7 @@
                 android:layout_height="60dp"
                 android:layout_marginTop="16dp"
                 android:backgroundTint="@color/red"
-                android:text="SIMPAN"
+                android:text="@string/save_capslock"
                 android:textColor="@color/white"
                 android:fontFamily="@font/figtree_semibold"
                 app:cornerRadius="16dp"

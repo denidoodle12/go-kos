@@ -34,7 +34,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_dialog_icon"
-            tools:text="Berhasil!" />
+            tools:text="@string/txt_success_dialog" />
 
         <TextView
             android:id="@+id/tv_dialog_message"
@@ -48,7 +48,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_dialog_title"
-            tools:text="Proses login Anda telah berhasil dilakukan." />
+            tools:text="@string/success_dialog_info" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_dialog_action"
@@ -63,7 +63,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_dialog_message"
-            tools:text="LANJUT" />
+            tools:text="@string/custon_dialog_next" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

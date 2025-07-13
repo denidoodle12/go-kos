@@ -1,4 +1,3 @@
-// File: ui/activity/profile/personalData/PersonalDataViewModel.kt
 package com.myskripsi.gokos.ui.activity.profile.personalData
 
 import androidx.lifecycle.LiveData
@@ -29,14 +28,10 @@ class PersonalDataViewModel(private val repository: UserProfileRepository, priva
                 repository.getUserProfile(firebaseUser.uid).collectLatest { result ->
                     when (result) {
                         is Result.Success -> {
-                            // Jika profil ditemukan di Firestore, gunakan itu.
                             currentLoadedProfile = result.data
                             _userProfileState.value = result
                         }
                         is Result.Error -> {
-                            // --- INI LOGIKA PENTING YANG DISALIN ---
-                            // Jika profil TIDAK DITEMUKAN (kasus pengguna baru),
-                            // buat profil default dari data Firebase Auth.
                             val defaultProfile = UserProfile(
                                 uid = firebaseUser.uid,
                                 fullName = firebaseUser.displayName ?: "",
@@ -64,7 +59,6 @@ class PersonalDataViewModel(private val repository: UserProfileRepository, priva
     ) {
 
         val userId = firebaseAuth.currentUser?.uid
-        // Pemeriksaan ini sekarang akan berhasil karena 'currentLoadedProfile' tidak akan pernah null
         if (userId == null || currentLoadedProfile == null) {
             _saveProfileResult.value = Result.Error("Tidak bisa menyimpan, data profil awal tidak ditemukan.")
             return

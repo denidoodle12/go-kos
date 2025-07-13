@@ -4,36 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/background_bottom_sheet">
+    android:background="@drawable/background_bottom_sheet"
+    android:padding="16dp">
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/figtree_semibold"
-        android:text="Ubah Catatan"
+        android:text="@string/edit_note"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/btn_close"
-        app:layout_constraintBottom_toBottomOf="@id/btn_close"/>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_close"
-        style="@style/Widget.Material3.Button.IconButton"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="-10dp"
-        android:layout_marginEnd="16dp"
-        app:icon="@drawable/ic_close_panel"
-        app:iconGravity="textStart"
-        app:iconPadding="0dp"
-        app:iconSize="24dp"
-        app:iconTint="?attr/colorOnSurface"
-        app:layout_constraintBottom_toTopOf="@id/til_edit_note"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btn_close"
+        android:layout_width="24dp"  android:layout_height="24dp" android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_close_panel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="?attr/colorOnSurface" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_edit_note"
@@ -41,8 +33,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="16dp"
-        android:hint="Tambah catatan (opsional)"
+        android:hint="@string/add_note"
         app:counterEnabled="true"
         app:counterMaxLength="140"
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,12 +55,10 @@
         android:id="@+id/btn_save_note"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
         android:backgroundTint="@color/primary"
         android:fontFamily="@font/figtree_semibold"
-        android:text="Simpan"
+        android:text="@string/save"
         android:textColor="@color/white"
         app:cornerRadius="16dp"
         app:layout_constraintBottom_toBottomOf="parent"

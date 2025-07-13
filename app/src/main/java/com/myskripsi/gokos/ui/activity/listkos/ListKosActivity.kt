@@ -54,6 +54,7 @@ class ListKosActivity : AppCompatActivity() {
         kosAdapter.onItemClick = { selectedData ->
             val intent = Intent(this, DetailKosActivity::class.java).apply {
                 putExtra(DetailKosActivity.EXTRA_DETAIL_KOS, selectedData)
+                putExtra(DetailKosActivity.EXTRA_CAMPUS_NAME_REF, viewModel.campusName.value)
             }
             startActivity(intent)
         }

@@ -33,7 +33,6 @@ class FavoriteAdapter : ListAdapter<FavoriteItemUI, FavoriteAdapter.FavoriteView
     inner class FavoriteViewHolder(private val binding: ItemsFavoriteKosBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.root.setOnClickListener { getItem(absoluteAdapterPosition)?.let { onItemClick?.invoke(it) } }
-            binding.ivFavorite.setOnClickListener { getItem(absoluteAdapterPosition)?.let { onRemoveClick?.invoke(it) } }
             binding.noteContainer.setOnClickListener { getItem(absoluteAdapterPosition)?.let { onNoteClick?.invoke(it) } }
             binding.ivEditNote.setOnClickListener { getItem(absoluteAdapterPosition)?.let { onNoteClick?.invoke(it) } }
         }
@@ -72,7 +71,7 @@ class FavoriteAdapter : ListAdapter<FavoriteItemUI, FavoriteAdapter.FavoriteView
             // --- NEW LOGIC FOR DISTANCE ---
             if (item.distance >= 0) {
                 binding.tvDistance.visibility = View.VISIBLE
-                binding.tvDistance.text = "${formatDistance(item.distance)} from you"
+                binding.tvDistance.text = formatDistance(item.distance)
             } else {
                 binding.tvDistance.visibility = View.GONE
             }

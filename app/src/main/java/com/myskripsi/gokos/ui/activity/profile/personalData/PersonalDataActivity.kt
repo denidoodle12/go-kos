@@ -1,13 +1,10 @@
-// PersonalDataActivity.kt
 package com.myskripsi.gokos.ui.activity.profile.personalData
 
 import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.InputType
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import com.myskripsi.gokos.R
 import com.myskripsi.gokos.data.model.UserProfile
@@ -28,18 +25,15 @@ class PersonalDataActivity : AppCompatActivity() {
         binding = ActivityPersonalDataBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Setup Toolbar
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        // Setup semua interaksi UI
         setupDropdowns()
         setupDatePicker()
         setupProfessionListeners()
         setupSaveButton()
 
-        // Mulai memuat data dan mengamatinya
         viewModel.loadUserProfile()
         observeViewModel()
     }
@@ -78,7 +72,7 @@ class PersonalDataActivity : AppCompatActivity() {
     }
 
     private fun updateDateInView(calendar: Calendar) {
-        val myFormat = "dd MMMM yyyy" // Format yang lebih mudah dibaca
+        val myFormat = "dd MMMM yyyy"
         val sdf = SimpleDateFormat(myFormat, Locale("id", "ID"))
         binding.etDateOfBirth.setText(sdf.format(calendar.time))
     }
@@ -92,9 +86,9 @@ class PersonalDataActivity : AppCompatActivity() {
 
     private fun updateProfessionNameHint(profession: String?) {
         when (profession) {
-            "Mahasiswa" -> binding.tilProfessionName.hint = "Nama Kampus"
-            "Pekerja" -> binding.tilProfessionName.hint = "Nama Instansi/Perusahaan"
-            else -> binding.tilProfessionName.hint = "Detail Profesi"
+            "Mahasiswa" -> binding.tilProfessionName.hint = getString(R.string.campus_name)
+            "Pekerja" -> binding.tilProfessionName.hint = getString(R.string.profession_name)
+            else -> binding.tilProfessionName.hint = getString(R.string.detail_profession)
         }
     }
 
@@ -124,8 +118,9 @@ class PersonalDataActivity : AppCompatActivity() {
                 is Result.Loading -> binding.progressIndicator.visibility = View.VISIBLE
                 is Result.Success -> {
                     binding.progressIndicator.visibility = View.GONE
-                    Toast.makeText(this, "Data pribadi berhasil diperbarui!", Toast.LENGTH_SHORT).show()
-                    finish() // Tutup activity setelah berhasil
+                    Toast.makeText(this,
+                        getString(R.string.success_update_personal_data), Toast.LENGTH_SHORT).show()
+                    finish()
                 }
                 is Result.Error -> {
                     binding.progressIndicator.visibility = View.GONE

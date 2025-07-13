@@ -37,7 +37,6 @@ class TermsConditionActivity : AppCompatActivity() {
             toggleSection(binding.contentSection1, binding.arrowSection1)
         }
 
-        // Section 2
         binding.headerSection2.setOnClickListener {
             toggleSection(binding.contentSection2, binding.arrowSection2)
         }
@@ -104,7 +103,6 @@ class TermsConditionActivity : AppCompatActivity() {
             data = Uri.parse(url)
         }
 
-        // Cek apakah ada aplikasi yang bisa menangani intent ini (browser atau WhatsApp)
         if (intent.resolveActivity(packageManager) != null) {
             startActivity(intent)
         } else {
@@ -114,17 +112,14 @@ class TermsConditionActivity : AppCompatActivity() {
 
     private fun toggleSection(contentView: TextView, arrowView: ImageView) {
         if (contentView.visibility == View.GONE) {
-            // Jika tertutup, buka
             contentView.visibility = View.VISIBLE
             arrowView.animate().rotation(180f).setDuration(300).start()
         } else {
-            // Jika terbuka, tutup
             contentView.visibility = View.GONE
             arrowView.animate().rotation(0f).setDuration(300).start()
         }
     }
 
-    // Fungsi untuk handle klik tombol kembali di toolbar
     override fun onSupportNavigateUp(): Boolean {
         onBackPressedDispatcher.onBackPressed()
         return true

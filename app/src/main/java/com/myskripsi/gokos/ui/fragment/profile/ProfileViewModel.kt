@@ -1,4 +1,3 @@
-// File: ui/fragment/profile/ProfileViewModel.kt
 package com.myskripsi.gokos.ui.fragment.profile
 
 import androidx.lifecycle.LiveData
@@ -15,14 +14,13 @@ import kotlinx.coroutines.launch
 
 class ProfileViewModel(
     private val authRepository: AuthRepository,
-    private val profileRepository: UserProfileRepository, // <-- Tambahkan dependensi ini
-    private val firebaseAuth: FirebaseAuth // <-- Tambahkan dependensi ini
+    private val profileRepository: UserProfileRepository,
+    private val firebaseAuth: FirebaseAuth
 ) : ViewModel() {
 
     private val _logoutState = MutableLiveData<Result<Unit>>()
     val logoutState: LiveData<Result<Unit>> = _logoutState
 
-    // Ubah LiveData untuk menampung UserProfile yang lebih lengkap
     private val _userProfileState = MutableLiveData<Result<UserProfile?>>()
     val userProfileState: LiveData<Result<UserProfile?>> = _userProfileState
 
@@ -37,8 +35,6 @@ class ProfileViewModel(
                             _userProfileState.value = result
                         }
                         is Result.Error -> {
-                            // Jika dokumen profil belum ada di Firestore (pengguna baru),
-                            // buat objek default dari Firebase Auth agar UI tidak error.
                             val defaultProfile = UserProfile(
                                 uid = firebaseUser.uid,
                                 fullName = firebaseUser.displayName ?: "Pengguna GoKos",

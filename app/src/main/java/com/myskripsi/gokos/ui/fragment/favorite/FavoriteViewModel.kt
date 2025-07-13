@@ -30,7 +30,6 @@ class FavoriteViewModel(
     private val _removeResult = MutableLiveData<Result<String>>()
     val removeResult: LiveData<Result<String>> = _removeResult
 
-    // Updated to accept a nullable Location parameter
     fun loadUserFavorites(userLocation: Location? = null) {
         val userId = authRepository.getCurrentUser()?.uid
         if (userId == null) {
@@ -62,14 +61,11 @@ class FavoriteViewModel(
                                     val kosWithUpdatedDistance = kos.copy(
                                         lokasi = kos.lokasi.copy(jarak = distance)
                                     )
-
-                                    // Buat FavoriteItemUI dengan objek Kos yang baru
                                     FavoriteItemUI(favorite, kosWithUpdatedDistance, distance)
                                 } else { null }
                             }
                         }.awaitAll().filterNotNull()
 
-                        // Sort the list by distance if location is available
                         val sortedList = if (userLocation != null) favoriteUIList.sortedBy { it.distance } else favoriteUIList
                         _favoritesState.value = Result.Success(sortedList)
 
@@ -83,7 +79,6 @@ class FavoriteViewModel(
         }
     }
 
-    // Updated to call loadUserFavorites without location
     fun updateFavoriteNote(favoriteId: String, newNote: String) {
         viewModelScope.launch {
             favoriteRepository.updateNote(favoriteId, newNote).collectLatest {
@@ -92,7 +87,6 @@ class FavoriteViewModel(
         }
     }
 
-    // Updated to call loadUserFavorites without location
     fun removeFavorite(favorite: Favorite) {
         viewModelScope.launch {
             favoriteRepository.removeFavorite(favorite.id).collectLatest {

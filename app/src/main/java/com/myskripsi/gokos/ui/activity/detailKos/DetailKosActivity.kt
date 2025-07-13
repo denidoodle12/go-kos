@@ -35,7 +35,8 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback, FavoriteActio
     private lateinit var binding: ActivityDetailKosBinding
     private var googleMap: GoogleMap? = null
     private var currentKos: Kos? = null
-    private var currentFavoriteStatus: Favorite? = null // Untuk menyimpan status favorit
+    private var currentFavoriteStatus: Favorite? = null
+    private var campusNameRef: String? = null
 
     private val viewModel: DetailKosViewModel by viewModel()
     private lateinit var otherKosAdapter: KosAdapter
@@ -62,22 +63,22 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback, FavoriteActio
         binding.mapViewKosLocation.onCreate(mapViewBundle)
 
         val dataKos = intent.getParcelableExtra<Kos>(EXTRA_DETAIL_KOS)
+        campusNameRef = intent.getStringExtra(EXTRA_CAMPUS_NAME_REF)
 
         if (dataKos != null) {
             this.currentKos = dataKos
             showData(dataKos)
             binding.mapViewKosLocation.getMapAsync(this)
 
-            // Panggil semua fungsi ViewModel di sini setelah dataKos dipastikan ada
             viewModel.fetchOtherNearbyKos(dataKos)
             viewModel.checkFavoriteStatus(dataKos.id)
             setupFavoriteButtonListener()
         } else {
-            Toast.makeText(this, "Gagal memuat data kos.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.failed_load_data_kos), Toast.LENGTH_SHORT).show()
             finish()
         }
 
-        observeViewModel() // Panggil observe di akhir
+        observeViewModel()
     }
 
     private fun setupFavoriteButtonListener() {
@@ -91,7 +92,6 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback, FavoriteActio
         }
     }
 
-    // Implementasi listener dari BottomSheet
     override fun onSaveClicked(kos: Kos, note: String) {
         viewModel.addFavorite(kos, note)
     }
@@ -103,7 +103,6 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback, FavoriteActio
     }
 
     private fun setupOtherKosRecyclerView() {
-        // ... (Fungsi ini tidak berubah)
         otherKosAdapter = KosAdapter()
         binding.rvOtherKosNearby.apply {
             layoutManager = LinearLayoutManager(this@DetailKosActivity, LinearLayoutManager.HORIZONTAL, false)
@@ -115,12 +114,11 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback, FavoriteActio
                 putExtra(EXTRA_DETAIL_KOS, selectedKos)
             }
             startActivity(intent)
-            finish() // finish agar tidak menumpuk activity yang sama
+            finish()
         }
     }
 
     private fun observeViewModel() {
-        // Observe untuk data kos terdekat lainnya
         viewModel.otherNearbyKosState.observe(this) { result ->
             when (result) {
                 is Result.Loading -> {
@@ -150,7 +148,6 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback, FavoriteActio
             }
         }
 
-        // Observe untuk status favorit
         viewModel.favoriteStatus.observe(this) { result ->
             when (result) {
                 is Result.Loading -> {
@@ -166,13 +163,12 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback, FavoriteActio
                     }
                 }
                 is Result.Error -> {
-                    binding.ivFavorite.isEnabled = false // Nonaktifkan jika gagal cek status
+                    binding.ivFavorite.isEnabled = false
                     Toast.makeText(this, result.message, Toast.LENGTH_SHORT).show()
                 }
             }
         }
 
-        // Observe untuk hasil aksi (add/remove)
         viewModel.actionResult.observe(this) { result ->
             if (result is Result.Success) {
                 Toast.makeText(this, result.data, Toast.LENGTH_SHORT).show()
@@ -182,7 +178,6 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback, FavoriteActio
         }
     }
 
-    // ... Sisa file (onMapReady, showData, dll.) tidak ada perubahan ...
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         var mapViewBundle = outState.getBundle(MAPVIEW_BUNDLE_KEY)
@@ -246,7 +241,18 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback, FavoriteActio
             binding.ivKosMainImage.setImageResource(R.drawable.placeholder_image)
         }
 
-        binding.tvDistance.text = formatDistance(dataKos.lokasi.jarak)
+        if (!campusNameRef.isNullOrBlank()) {
+            val campusShortName = when {
+                campusNameRef!!.contains("Serang Raya", ignoreCase = true) -> "Unsera"
+                campusNameRef!!.contains("Bina Bangsa", ignoreCase = true) -> "Uniba"
+                else -> campusNameRef
+            }
+            val formattedDistance = formatDistance(dataKos.lokasi.jarak)
+            binding.tvDistance.text = "$formattedDistance dari $campusShortName"
+        } else {
+            binding.tvDistance.text = formatDistance(dataKos.lokasi.jarak)
+        }
+
         binding.tvKosType.text = dataKos.kategori
         binding.tvKosName.text = dataKos.nama_kost
         binding.tvKosAddress.text = dataKos.alamat
@@ -345,7 +351,6 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback, FavoriteActio
     override fun onResume() {
         super.onResume()
         binding.mapViewKosLocation.onResume()
-        // Refresh status favorit saat kembali ke activity ini
         currentKos?.let {
             viewModel.checkFavoriteStatus(it.id)
         }
@@ -380,6 +385,7 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback, FavoriteActio
     companion object {
         const val EXTRA_DETAIL_KOS = "extra_detail_kos"
         const val MAPVIEW_BUNDLE_KEY = "MapViewBundleKey"
+        const val EXTRA_CAMPUS_NAME_REF = "extra_campus_name_ref"
         val CURRENCY_FORMATTER: NumberFormat = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
     }
 }
