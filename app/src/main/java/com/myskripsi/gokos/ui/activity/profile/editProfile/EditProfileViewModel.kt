@@ -1,5 +1,6 @@
 package com.myskripsi.gokos.ui.activity.profile.editProfile
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -28,26 +29,19 @@ class EditProfileViewModel(private val repository: UserProfileRepository, privat
                 repository.getUserProfile(firebaseUser.uid).collectLatest { result ->
                     when (result) {
                         is Result.Success -> {
-                            // Jika profil ditemukan di Firestore, gunakan itu.
                             currentLoadedProfile = result.data
                             _userProfileState.value = result
                         }
                         is Result.Error -> {
-                            // --- INI BAGIAN PENTINGNYA ---
-                            // Jika profil TIDAK DITEMUKAN di Firestore (kasus pengguna baru),
-                            // jangan kirim error ke UI. Sebagai gantinya, buat profil default
-                            // dari data Firebase Auth dan kirim sebagai Result.Success.
                             val defaultProfile = UserProfile(
                                 uid = firebaseUser.uid,
                                 fullName = firebaseUser.displayName ?: "",
                                 email = firebaseUser.email ?: ""
-                                // Atribut lain akan menggunakan nilai default dari data class
                             )
                             currentLoadedProfile = defaultProfile
                             _userProfileState.value = Result.Success(defaultProfile)
                         }
                         is Result.Loading -> {
-                            // Biarkan loading state
                         }
                     }
                 }
@@ -64,14 +58,11 @@ class EditProfileViewModel(private val repository: UserProfileRepository, privat
             return
         }
 
-        // Karena `loadUserProfile` sudah diubah, `currentLoadedProfile` sekarang
-        // tidak akan pernah null di sini jika pengguna sudah login.
         if (currentLoadedProfile == null) {
             _saveProfileResult.value = Result.Error("Tidak bisa menyimpan, data profil awal tidak ditemukan. Coba lagi.")
             return
         }
 
-        // Buat objek baru dengan menyalin data yang ada dan hanya mengubah nama
         val profileToSave = currentLoadedProfile!!.copy(
             fullName = fullName
         )
@@ -79,6 +70,63 @@ class EditProfileViewModel(private val repository: UserProfileRepository, privat
         viewModelScope.launch {
             repository.saveUserProfile(userId, profileToSave).collectLatest {
                 _saveProfileResult.value = it
+            }
+        }
+    }
+
+    fun uploadAndSaveProfilePicture(imageUri: Uri) {
+        val userId = firebaseAuth.currentUser?.uid
+        if (userId == null) {
+            _saveProfileResult.value = Result.Error("Pengguna tidak valid.")
+            return
+        }
+
+        viewModelScope.launch {
+            repository.uploadProfileImage(userId, imageUri).collectLatest { uploadResult ->
+                when (uploadResult) {
+                    is Result.Loading -> _saveProfileResult.value = Result.Loading
+                    is Result.Error -> _saveProfileResult.value = Result.Error(uploadResult.message)
+                    is Result.Success -> {
+                        val (newUrl, publicId) = uploadResult.data
+                        val updatedProfile = currentLoadedProfile!!.copy(
+                            profileImageUrl = newUrl,
+                            profileImagePublicId = publicId
+                        )
+                        repository.saveUserProfile(userId, updatedProfile).collectLatest { saveResult ->
+                            _saveProfileResult.value = saveResult
+                            if (saveResult is Result.Success) loadUserProfile()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    fun deleteProfilePicture() {
+        val userId = firebaseAuth.currentUser?.uid
+        val profileToDelete = currentLoadedProfile
+        val publicId = profileToDelete?.profileImagePublicId
+
+        if (userId == null || publicId.isNullOrBlank()) {
+            _saveProfileResult.value = Result.Error("Tidak ada gambar untuk dihapus.")
+            return
+        }
+
+        viewModelScope.launch {
+            _saveProfileResult.value = Result.Loading
+            repository.deleteProfileImage(publicId).collectLatest { deleteResult ->
+                if (deleteResult is Result.Success) {
+                    val updatedProfile = profileToDelete.copy(
+                        profileImageUrl = null,
+                        profileImagePublicId = null
+                    )
+                    repository.saveUserProfile(userId, updatedProfile).collectLatest { saveResult ->
+                        _saveProfileResult.value = saveResult
+                        if (saveResult is Result.Success) loadUserProfile()
+                    }
+                } else if (deleteResult is Result.Error) {
+                    _saveProfileResult.value = deleteResult
+                }
             }
         }
     }

@@ -28,6 +28,19 @@ class KosRepository(
             emit(Result.Error("Failed to retrieve campus data: ${e.message}"))
         }
     }
+    suspend fun getKosById(kosId: String): Result<Kos> {
+        return try {
+            val snapshot = db.collection("kost").document(kosId).get().await()
+            val kos = snapshot.toObject(Kos::class.java)?.copy(id = snapshot.id)
+            if (kos != null) {
+                Result.Success(kos)
+            } else {
+                Result.Error("Data kos dengan ID $kosId tidak ditemukan.")
+            }
+        } catch (e: Exception) {
+            Result.Error("Gagal mengambil data kos: ${e.message}")
+        }
+    }
     fun getKosByCampusId(campusId: String): Flow<Result<List<Kos>>> = flow {
         emit(Result.Loading)
         try {

@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
                 android:fontFamily="@font/figtree_semibold"
-                android:text="Kebijakan Privasi GoKos"
+                android:text="@string/privacy_policy_gokos"
                 android:textColor="@color/black"
                 android:textSize="35sp" />
 
@@ -101,7 +101,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:fontFamily="@font/figtree_semibold"
-                    android:text="1. Informasi yang Kami Kumpulkan"
+                    android:text="@string/information_that_we_collect"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -151,7 +151,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:fontFamily="@font/figtree_semibold"
-                    android:text="2. Bagaimana Kami Menggunakan Informasi Anda"
+                    android:text="@string/how_we_use_your_information"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -454,7 +454,7 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/figtree_regular"
                 android:textSize="14sp"
-                android:text="Dapatkan Informasi Kos-Kosan Sesuai Preferensimu Hanya di Aplikasi GoKos."
+                android:text="@string/description_gokos"
                 android:visibility="visible"
                 tools:visibility="visible" />
 
@@ -465,17 +465,19 @@
                 android:fontFamily="@font/figtree_semibold"
                 android:textSize="18sp"
                 android:textColor="@color/black"
-                android:text="GOKOS"
+                android:text="@string/gokos_capslock"
                 android:visibility="visible"
                 tools:visibility="visible" />
 
             <TextView
+                android:id="@+id/tv_about_app"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/figtree_regular"
                 android:textSize="14sp"
-                android:text="TENTANG KAMI"
+                android:textColor="@color/primary"
+                android:text="@string/about_app_capslock"
                 android:visibility="visible"
                 tools:visibility="visible" />
 
@@ -486,27 +488,31 @@
                 android:fontFamily="@font/figtree_semibold"
                 android:textSize="18sp"
                 android:textColor="@color/black"
-                android:text="KEBIJAKAN"
+                android:text="@string/policy_capslock"
                 android:visibility="visible"
                 tools:visibility="visible" />
 
             <TextView
+                android:id="@+id/tv_privacy_policy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/figtree_regular"
                 android:textSize="14sp"
-                android:text="KEBIJAKAN PRIVASI"
+                android:text="@string/privacy_policy_capslock"
+                android:textColor="@color/primary"
                 android:visibility="visible"
                 tools:visibility="visible" />
 
             <TextView
+                android:id="@+id/tv_terms_condition"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/figtree_regular"
                 android:textSize="14sp"
-                android:text="SYARAT DAN KETENTUAN"
+                android:text="@string/terms_condition_capslock"
+                android:textColor="@color/primary"
                 android:visibility="visible"
                 tools:visibility="visible" />
 
@@ -517,21 +523,24 @@
                 android:fontFamily="@font/figtree_semibold"
                 android:textSize="18sp"
                 android:textColor="@color/black"
-                android:text="HUBUNGI KAMI"
+                android:text="@string/contact_us_capslock"
                 android:visibility="visible"
                 tools:visibility="visible" />
 
             <TextView
+                android:id="@+id/tv_email_gokos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/figtree_regular"
                 android:textSize="14sp"
                 android:text="gokosapp@gmail.com"
+                android:textColor="@color/primary"
                 android:visibility="visible"
                 tools:visibility="visible" />
 
             <TextView
+                android:id="@+id/tv_number_gokos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -539,6 +548,7 @@
                 android:fontFamily="@font/figtree_regular"
                 android:textSize="14sp"
                 android:text="+62895610787820"
+                android:textColor="@color/primary"
                 android:visibility="visible"
                 tools:visibility="visible" />
 
@@ -587,7 +597,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/figtree_semibold"
-                android:text="Made with Love"
+                android:text="@string/made_with_love"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 

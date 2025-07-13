@@ -28,73 +28,71 @@ class SignupActivity : AppCompatActivity(), ConfirmationDialogFragment.Confirmat
         observeViewModel()
     }
 
-    // Fungsi ini adalah callback dari dialog, dipanggil saat user menekan "IYA"
     override fun onConfirm() {
-        // Pindahkan logika pemanggilan ViewModel ke sini
         val fullName = binding.fieldFullName.text.toString().trim()
         val email = binding.fieldEmail.text.toString().trim()
         val password = binding.fieldPassword.text.toString().trim()
-        val confirmPassword = binding.confirmPassword.text.toString().trim() // Ambil lagi untuk validasi ViewModel
+        val confirmPassword = binding.confirmPassword.text.toString().trim()
         viewModel.signupUser(fullName, email, password, confirmPassword)
     }
 
     private fun setupAction() {
         binding.btnRegister.setOnClickListener {
-            // Validasi input di sisi UI terlebih dahulu
             val fullName = binding.fieldFullName.text.toString().trim()
             val email = binding.fieldEmail.text.toString().trim()
             val password = binding.fieldPassword.text.toString().trim()
             val confirmPassword = binding.confirmPassword.text.toString().trim()
 
-            // Reset error
             binding.fieldFullName.error = null
             binding.fieldEmail.error = null
             binding.fieldPassword.error = null
             binding.confirmPassword.error = null
 
             var isValid = true
-            // ... (logika validasi Anda tetap di sini) ...
             if (fullName.isBlank()) {
-                binding.fieldFullName.error = "Full name can't be empty"
+                binding.fieldFullName.error = getString(R.string.full_name_can_t_be_empty)
                 isValid = false
             }
 
             if (email.isBlank()) {
-                binding.fieldEmail.error = "Email can't be empty"
+                binding.fieldEmail.error = getString(R.string.email_can_t_be_empty)
                 isValid = false
             } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                binding.fieldEmail.error = "Invalid email format"
+                binding.fieldEmail.error = getString(R.string.invalid_email_format)
                 isValid = false
             }
 
             if (password.isBlank()) {
-                binding.fieldPassword.error = "Password can't be empty"
+                binding.fieldPassword.error = getString(R.string.password_can_t_be_empty)
                 isValid = false
             } else if (password.length < 6) {
-                binding.fieldPassword.error = "The password must be at least 6 characters long."
+                binding.fieldPassword.error =
+                    getString(R.string.the_password_must_be_at_least_6_characters_long)
                 isValid = false
             }
 
             if (confirmPassword.isBlank()) {
-                binding.confirmPassword.error = "Password confirmation can't be empty"
+                binding.confirmPassword.error =
+                    getString(R.string.password_confirmation_can_t_be_empty)
                 isValid = false
             }
 
             if (isValid && password.isNotBlank() && confirmPassword.isNotBlank() && password != confirmPassword) {
-                binding.confirmPassword.error = "Password and password confirmation do not match"
+                binding.confirmPassword.error =
+                    getString(R.string.password_and_password_confirmation_do_not_match)
                 isValid = false
             }
 
             if (isValid) {
-                // JANGAN langsung panggil ViewModel, tapi TAMPILKAN DIALOG KONFIRMASI
                 ConfirmationDialogFragment.newInstance(
-                    "Konfirmasi Pendaftaran",
-                    "Apakah Anda yakin ingin mendaftarkan akun anda?",
-                    "IYA",
-                    "TIDAK"
+                    getString(R.string.txt_confirmation_dialog),
+                    getString(R.string.txt_confirmation2_dialog),
+                    getString(R.string.txt_yes_dialog),
+                    getString(R.string.txt_no_dialog)
                 ).show(supportFragmentManager, "ConfirmSignupDialog")
             } else {
-                Toast.makeText(this, "Please fill in all fields correctly.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,
+                    getString(R.string.please_fill_in_all_fields_correctly), Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -117,20 +115,18 @@ class SignupActivity : AppCompatActivity(), ConfirmationDialogFragment.Confirmat
                     progressBar.visibility = View.GONE
                     binding.btnRegister.isEnabled = true
 
-                    // JANGAN tampilkan dialog lagi, tapi PINDAH KE ACTIVITY SUKSES
                     startActivity(Intent(this, RegisterSuccessActivity::class.java))
-                    finish() // Tutup SignupActivity agar tidak bisa kembali
+                    finish()
                 }
                 is Result.Error -> {
                     progressBar.visibility = View.GONE
                     binding.btnRegister.isEnabled = true
 
-                    // Gunakan CustomAlertDialogFragment yang lama untuk menampilkan error
                     val errorDialog = CustomAlertDialogFragment.newInstance(
                         R.drawable.ic_falied_filled,
-                        "Registrasi Gagal!",
+                        getString(R.string.txt_failed_dialog),
                         result.message,
-                        "Tutup"
+                        getString(R.string.txt_try_again_dialog)
                     )
                     errorDialog.show(supportFragmentManager, "ErrorSignupDialog")
                 }

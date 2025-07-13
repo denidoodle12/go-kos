@@ -60,7 +60,7 @@ class MappingMapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.On
         campusName = intent.getStringExtra(EXTRA_CAMPUS_NAME)
 
         if (campusId == null) {
-            Toast.makeText(this, "Campus ID didn't valid.", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, getString(R.string.campus_id_didn_t_valid), Toast.LENGTH_LONG).show()
             finish()
             return
         }
@@ -109,9 +109,11 @@ class MappingMapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.On
                 val webUri = Uri.parse("https://developers.google.com/maps/documentation/android-sdk/infowindows#custom_infowindows")
                 val webIntent = Intent(Intent.ACTION_VIEW, webUri)
                 startActivity(webIntent)
-                Toast.makeText(this, "Google Maps is not installed. Try opening it in your browser.", Toast.LENGTH_LONG).show()
+                Toast.makeText(this,
+                    getString(R.string.google_maps_is_not_installed), Toast.LENGTH_LONG).show()
             } catch (e: Exception) {
-                Toast.makeText(this, "No map application or browser can handle this.", Toast.LENGTH_LONG).show()
+                Toast.makeText(this,
+                    getString(R.string.no_map_application_or_browser_can_handle_this), Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -126,7 +128,7 @@ class MappingMapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.On
                 is Result.Success -> {
                     binding.mapProgressBar.visibility = View.GONE
                     val mapData = result.data
-                    currentCampusData = mapData.campus // Simpan data kampus saat ini
+                    currentCampusData = mapData.campus
                     displayDataOnMap(mapData)
                 }
                 is Result.Error -> {
@@ -176,7 +178,7 @@ class MappingMapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.On
             val bounds = boundsBuilder.build()
 
             if (bounds.northeast != bounds.southwest) {
-                val padding = resources.displayMetrics.widthPixels / 6 // padding dalam pixels
+                val padding = resources.displayMetrics.widthPixels / 6
                 mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding))
             } else if (campus.lokasi.latitude != 0.0 || campus.lokasi.longitude != 0.0) {
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(campusLatLng, 15f))
@@ -252,8 +254,8 @@ class MappingMapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.On
     }
 
     private fun formatDistanceForPanel(distanceInKm: Double, campusName: String): String {
-        val campusShortName = campusName.replace("Universitas ", "Univ. ")
-            .replace("Fakultas Keguruan dan Ilmu Pendidikan ", "FKIP ")
+        val campusShortName = campusName.replace("Universitas Bina Bangsa ", "Uniba ")
+            .replace("Universitas Serang Raya ", "Unsera ")
             .replace("Sekolah Tinggi ", "ST ")
             .replace("Institut ", "Inst. ")
 

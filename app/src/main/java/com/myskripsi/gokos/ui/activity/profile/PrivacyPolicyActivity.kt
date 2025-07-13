@@ -1,11 +1,15 @@
-package com.myskripsi.gokos.ui.activity.profile // Sesuaikan package Anda
+package com.myskripsi.gokos.ui.activity.profile
 
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import com.myskripsi.gokos.databinding.ActivityPrivacyPolicyBinding
+import com.myskripsi.gokos.ui.activity.profile.aboutApp.AboutAppActivity
 
 class PrivacyPolicyActivity : AppCompatActivity() {
 
@@ -16,7 +20,6 @@ class PrivacyPolicyActivity : AppCompatActivity() {
         binding = ActivityPrivacyPolicyBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Setup Toolbar
         setSupportActionBar(binding.toolbar)
 
         supportActionBar?.apply {
@@ -24,17 +27,15 @@ class PrivacyPolicyActivity : AppCompatActivity() {
             setDisplayShowTitleEnabled(false)
         }
 
-        // Setup listener untuk setiap section
         setupExpandableSections()
+        setupClickListeners()
     }
 
     private fun setupExpandableSections() {
-        // Section 1
         binding.headerSection1.setOnClickListener {
             toggleSection(binding.contentSection1, binding.arrowSection1)
         }
 
-        // Section 2
         binding.headerSection2.setOnClickListener {
             toggleSection(binding.contentSection2, binding.arrowSection2)
         }
@@ -61,24 +62,68 @@ class PrivacyPolicyActivity : AppCompatActivity() {
 
     }
 
-    /**
-     * Helper function untuk membuka/menutup section dan memutar ikon panah.
-     * @param contentView TextView yang akan ditampilkan/disembunyikan.
-     * @param arrowView ImageView panah yang akan diputar.
-     */
+    private fun setupClickListeners() {
+        binding.tvAboutApp.setOnClickListener {
+            startActivity(Intent(this, AboutAppActivity::class.java))
+        }
+
+        binding.tvPrivacyPolicy.setOnClickListener {
+            startActivity(Intent(this, PrivacyPolicyActivity::class.java))
+        }
+
+        binding.tvTermsCondition.setOnClickListener {
+            startActivity(Intent(this, TermsConditionActivity::class.java))
+        }
+
+        binding.tvEmailGokos.setOnClickListener {
+            openEmailClient()
+        }
+
+        binding.tvNumberGokos.setOnClickListener {
+            openWhatsApp()
+        }
+    }
+
+    private fun openEmailClient() {
+        val email = "gokosapp@gmail.com"
+        val intent = Intent(Intent.ACTION_SENDTO).apply {
+            data = Uri.parse("mailto:")
+            putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
+            putExtra(Intent.EXTRA_SUBJECT, "Pertanyaan tentang Aplikasi GoKos")
+        }
+
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivity(intent)
+        } else {
+            Toast.makeText(this, "Tidak ada aplikasi email yang terinstall.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun openWhatsApp() {
+        val phoneNumberWithCountryCode = "62895610787820"
+        val url = "https://api.whatsapp.com/send?phone=$phoneNumberWithCountryCode"
+
+        val intent = Intent(Intent.ACTION_VIEW).apply {
+            data = Uri.parse(url)
+        }
+
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivity(intent)
+        } else {
+            Toast.makeText(this, "Tidak ada aplikasi yang bisa membuka link ini.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private fun toggleSection(contentView: TextView, arrowView: ImageView) {
         if (contentView.visibility == View.GONE) {
-            // Jika tertutup, buka
             contentView.visibility = View.VISIBLE
             arrowView.animate().rotation(180f).setDuration(300).start()
         } else {
-            // Jika terbuka, tutup
             contentView.visibility = View.GONE
             arrowView.animate().rotation(0f).setDuration(300).start()
         }
     }
 
-    // Fungsi untuk handle klik tombol kembali di toolbar
     override fun onSupportNavigateUp(): Boolean {
         onBackPressedDispatcher.onBackPressed()
         return true

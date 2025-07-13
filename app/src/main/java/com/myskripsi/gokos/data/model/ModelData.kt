@@ -16,7 +16,7 @@ data class Campus (
 
 @Parcelize
 data class Kos (
-    val id: String = "",
+    var id: String = "",
     val nama_kost: String = "",
     val alamat: String = "",
     val deskripsi: String = "",
@@ -28,7 +28,7 @@ data class Kos (
     val fasilitas_kamar: List<String> = listOf(),
     val fasilitas_kamar_mandi: List<String> = listOf(),
     val listrik: String = "",
-    val layoutType: KosLayoutType = KosLayoutType.REGULAR
+    var layoutType: KosLayoutType = KosLayoutType.REGULAR
 ) : Parcelable
 
 @Parcelize
@@ -44,6 +44,7 @@ data class UserProfile(
     var fullName: String = "",
     val email: String = "",
     var profileImageUrl: String? = null,
+    var profileImagePublicId: String? = null,
     var gender: String? = null,
     var dateOfBirth: String? = null,
     var profession: String? = null,

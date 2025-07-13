@@ -9,7 +9,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -55,42 +54,40 @@ class LoginActivity : AppCompatActivity() {
                 val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
                 handleGoogleSignInResult(task)
             } else {
-                Log.w(TAG, "Login Google dibatalkan atau gagal, resultCode: ${result.resultCode}")
-                Toast.makeText(this, "Login dengan Google dibatalkan.", Toast.LENGTH_SHORT).show()
-                setLoadingState(false) // Sembunyikan loading
+                Toast.makeText(this,
+                    getString(R.string.txt_login_google_cancelled), Toast.LENGTH_SHORT).show()
+                setLoadingState(false)
             }
         }
 
-        // Cek jika user sudah login
         if (viewModel.getCurrentUser() != null) {
             navigateToMainActivity()
-            return // Keluar dari onCreate agar tidak menjalankan setup lainnya
+            return
         }
 
-        setupAction() // Ganti nama dari setupListeners() jika perlu agar konsisten
+        setupAction()
         observeViewModel()
     }
 
-    private fun setupAction() { // Sebelumnya bernama setupListeners
+    private fun setupAction() {
         binding.btnLogin.setOnClickListener {
-            val email = binding.email.text.toString().trim() // Asumsikan ID EditText email adalah "email"
-            val pass = binding.password.text.toString().trim() // Asumsikan ID EditText password adalah "password"
+            val email = binding.email.text.toString().trim()
+            val pass = binding.password.text.toString().trim()
 
             if (email.isNotEmpty() && pass.isNotEmpty()) {
-                viewModel.loginUser(email, pass) // Pastikan metode ini ada di ViewModel
+                viewModel.loginUser(email, pass)
             } else {
-                Toast.makeText(this, "Kolom email dan password tidak boleh kosong!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,
+                    getString(R.string.txt_email_password_must_filled), Toast.LENGTH_SHORT).show()
             }
         }
 
-        binding.goRegister.setOnClickListener { // Asumsikan ID TextView/Button adalah "goRegister"
+        binding.goRegister.setOnClickListener {
             startActivity(Intent(this, SignupActivity::class.java))
         }
 
-        // Listener untuk tombol Google Sign-In
-        // Pastikan Anda memiliki tombol dengan ID "btnGoogleLogin" di activity_login.xml
-        binding.btnGoogleLogin?.setOnClickListener { // Menggunakan safe call jika tombol opsional
-            setLoadingState(true) // Tampilkan loading
+        binding.btnGoogleLogin?.setOnClickListener {
+            setLoadingState(true)
             val signInIntent = googleSignInClient.signInIntent
             googleSignInLauncher.launch(signInIntent)
         }
@@ -99,21 +96,18 @@ class LoginActivity : AppCompatActivity() {
     private fun handleGoogleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
             val account: GoogleSignInAccount = completedTask.getResult(ApiException::class.java)
-            Log.d(TAG, "Google Sign-In sukses. Account Email: ${account.email}")
 
             if (account.idToken != null) {
-                Log.d(TAG, "ID Token diterima.")
-                // viewModel sudah diinisialisasi, _loginState.value = Result.Loading sudah dihandle di ViewModel atau di observe
-                viewModel.loginWithGoogleToken(account.idToken!!) // Panggil metode di ViewModel
+                viewModel.loginWithGoogleToken(account.idToken!!)
             } else {
-                Log.w(TAG, "Google Sign-In berhasil tapi ID Token null.")
-                Toast.makeText(this, "Gagal mendapatkan ID Token dari Google.", Toast.LENGTH_SHORT).show()
-                setLoadingState(false) // Sembunyikan loading
+                Toast.makeText(this,
+                    getString(R.string.txt_failed_get_id_token_google), Toast.LENGTH_SHORT).show()
+                setLoadingState(false)
             }
         } catch (e: ApiException) {
-            Log.w(TAG, "Google Sign-In gagal, code: ${e.statusCode}, message: ${e.message}")
-            Toast.makeText(this, "Login Google Gagal: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
-            setLoadingState(false) // Sembunyikan loading
+            Toast.makeText(this,
+                getString(R.string.txt_failed_login_google, e.localizedMessage), Toast.LENGTH_LONG).show()
+            setLoadingState(false)
         }
     }
 
@@ -127,9 +121,12 @@ class LoginActivity : AppCompatActivity() {
                     setLoadingState(false)
                     val successDialog = CustomAlertDialogFragment.newInstance(
                         R.drawable.ic_certificate_success_filled,
-                        "Berhasil!",
-                        "Login Berhasil! Selamat Datang di GoKos, ${result.data.displayName ?: result.data.email}",
-                        "Lanjut"
+                        getString(R.string.txt_success_dialog),
+                        getString(
+                            R.string.txt_description_info_dialog,
+                            result.data.displayName ?: result.data.email
+                        ),
+                        getString(R.string.txt_next_dialog)
                     )
                     successDialog.setOnDialogActionListener {
                         navigateToMainActivity()
@@ -140,9 +137,9 @@ class LoginActivity : AppCompatActivity() {
                     setLoadingState(false)
                     val errorDialog = CustomAlertDialogFragment.newInstance(
                         R.drawable.ic_falied_filled,
-                        "Gagal!",
-                        result.message ?: "Terjadi kesalahan saat proses login.",
-                        "Coba Lagi"
+                        getString(R.string.txt_failed_dialog),
+                        result.message,
+                        getString(R.string.txt_try_again_dialog)
                     )
                     errorDialog.show(supportFragmentManager, "ErrorLoginDialog")
                 }
@@ -154,7 +151,7 @@ class LoginActivity : AppCompatActivity() {
         if (isLoading) {
             binding.progressBar.visibility = View.VISIBLE
             binding.btnLogin.isEnabled = false
-            binding.btnGoogleLogin?.isEnabled = false // Nonaktifkan tombol Google juga
+            binding.btnGoogleLogin?.isEnabled = false
             binding.email.isEnabled = false
             binding.password.isEnabled = false
         } else {

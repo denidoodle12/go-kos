@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:backgroundTint="@color/white"
     app:cardCornerRadius="28dp">
 
     <LinearLayout
@@ -18,7 +19,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/figtree_bold"
             android:gravity="center"
-            android:text="Konfirmasi"
+            android:text="@string/confirmation"
             android:textColor="@color/black"
             android:textSize="22sp" />
 
@@ -30,7 +31,7 @@
             android:fontFamily="@font/figtree_regular"
             android:gravity="center"
             android:lineSpacingExtra="4dp"
-            android:text="Apakah anda yakin ingin mendaftarkan akun anda?"
+            android:text="@string/confirmation_info"
             android:textColor="@color/gray"
             android:textSize="16sp" />
 
@@ -47,7 +48,7 @@
                 android:layout_height="60dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/figtree_semibold"
-                tools:text="TIDAK"
+                tools:text="@string/confirmation_dialog_no"
                 android:textColor="@color/primary"
                 app:strokeColor="@color/primary"
                 app:cornerRadius="16dp" />
@@ -59,7 +60,7 @@
                 android:layout_weight="1"
                 android:backgroundTint="@color/primary"
                 android:fontFamily="@font/figtree_semibold"
-                tools:text="IYA"
+                tools:text="@string/confirmation_dialog_yes"
                 app:cornerRadius="16dp" />
         </LinearLayout>
 

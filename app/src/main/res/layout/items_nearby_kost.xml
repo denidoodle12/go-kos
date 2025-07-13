@@ -22,20 +22,6 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/backgrounds/scenic" />
 
-        <ImageView
-            android:id="@+id/ivFavorite"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"
-            android:background="@drawable/bg_circle_white"
-            android:contentDescription="Favorite Button"
-            android:padding="6dp"
-            android:src="@drawable/ic_favorite_nofilled"
-            app:layout_constraintEnd_toEndOf="@id/imageKos"
-            app:layout_constraintTop_toTopOf="@id/imageKos"
-            app:tint="@color/red" />
-
         <TextView
             android:id="@+id/textView"
             android:layout_width="0dp"
@@ -108,6 +94,7 @@
             android:fontFamily="@font/figtree_semibold"
             android:maxLines="1"
             android:text="@string/txt_kosName"
+            android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tagsContainer"
@@ -134,6 +121,19 @@
             app:layout_constraintTop_toBottomOf="@+id/nameKos" />
 
         <TextView
+            android:id="@+id/facilitiesKos"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            tools:text="Fasilitas"
+            android:textColor="@color/black"
+            android:fontFamily="@font/figtree_regular"
+            android:textSize="10sp"
+            android:maxLines="1"
+            app:layout_constraintStart_toStartOf="@+id/tagsContainer"
+            app:layout_constraintTop_toBottomOf="@id/addressKos"/>
+
+        <TextView
             android:id="@+id/startFrom"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -142,7 +142,7 @@
             android:text="@string/txt_startFrom"
             android:textSize="10sp"
             app:layout_constraintStart_toStartOf="@+id/tagsContainer"
-            app:layout_constraintTop_toBottomOf="@id/addressKos" />
+            app:layout_constraintTop_toBottomOf="@id/facilitiesKos" />
 
         <TextView
             android:id="@+id/priceKos"

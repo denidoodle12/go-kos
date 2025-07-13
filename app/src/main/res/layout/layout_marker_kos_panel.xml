@@ -89,6 +89,7 @@
             android:paddingStart="16dp"
             android:paddingTop="16dp" android:paddingEnd="16dp"
             android:paddingBottom="16dp"
+            android:background="@color/white"
             app:layout_constraintTop_toBottomOf="@id/llPanelTitleBanner"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -110,7 +111,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="Kos Campuran"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp"
+                    android:fontFamily="@font/figtree_regular"
+                    />
             </LinearLayout>
 
             <LinearLayout
@@ -120,9 +123,9 @@
                 android:gravity="top"
                 android:layout_marginBottom="8dp">
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/maps_filled"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_maps_filled"
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="15dp"/>
                 <TextView
@@ -130,7 +133,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="Jalan Taman Baru Koptek K, RT.016/RW.005, Taman Baru, Kec. Taktakan, Kota Serang, Banten."
-                    android:textSize="14sp"/>
+                    android:textSize="14sp"
+                    android:fontFamily="@font/figtree_regular"/>
             </LinearLayout>
 
             <LinearLayout
@@ -140,8 +144,8 @@
                 android:gravity="top"
                 android:layout_marginBottom="12dp">
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:src="@drawable/ic_facilities_panel"
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="15dp"/>
@@ -150,7 +154,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="Jendela, Dapur di dalam, Kamar mandi di dalam, WC Jongkok, Ember mandi, Gayung"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp"
+                    android:fontFamily="@font/figtree_regular"/>
             </LinearLayout>
 
             <LinearLayout
@@ -159,8 +164,8 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:src="@drawable/ic_pricetag_panel"
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="15dp"/>
@@ -170,7 +175,7 @@
                     android:layout_height="wrap_content"
                     tools:text="Rp. 500.000 / month"
                     android:textSize="16sp"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/figtree_semibold"
                     android:textColor="@color/red"/>
             </LinearLayout>
         </LinearLayout>

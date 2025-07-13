@@ -9,7 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -19,8 +21,11 @@ import com.myskripsi.gokos.R
 import com.myskripsi.gokos.databinding.FragmentHomeBinding
 import com.myskripsi.gokos.ui.activity.listkos.ListKosActivity
 import com.myskripsi.gokos.ui.activity.detailKos.DetailKosActivity
+import com.myskripsi.gokos.ui.activity.listkos.AllKosListActivity
+import com.myskripsi.gokos.ui.activity.search.SearchActivity
 import com.myskripsi.gokos.ui.adapter.CampusAdapter
 import com.myskripsi.gokos.ui.adapter.KosAdapter
+import com.myskripsi.gokos.ui.adapter.KosLayoutType
 import com.myskripsi.gokos.utils.LocationHelper
 import com.myskripsi.gokos.utils.LocationResult
 import kotlinx.coroutines.launch
@@ -36,15 +41,21 @@ class HomeFragment : Fragment() {
     private lateinit var nearbyKosAdapter: KosAdapter
     private lateinit var campusAdapter: CampusAdapter
     private lateinit var budgetKosAdapter: KosAdapter
-    private lateinit var locationHelper: LocationHelper
 
     private lateinit var shimmerNearbyKosLayout: ShimmerFrameLayout
     private lateinit var shimmerCampusLayout: ShimmerFrameLayout
     private lateinit var shimmerBudgetKosLayout: ShimmerFrameLayout
 
+    private lateinit var locationHelper: LocationHelper
+
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            locationHelper.handlePermissionResult(permissions)
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        locationHelper = LocationHelper(this)
+        locationHelper = LocationHelper(requireActivity() as AppCompatActivity, requestPermissionLauncher)
     }
 
     override fun onCreateView(
@@ -67,12 +78,78 @@ class HomeFragment : Fragment() {
         setupCampusRecyclerView()
         setupBudgetKosRecyclerView()
         setupBudgetToggleGroupListener()
+        setupSearchAction()
+        setupClickListeners()
 
         observeViewModel()
 
-        initiateLocationProcess() // Memulai proses cek izin dan ambil lokasi
-        viewModel.fetchCampusList() // Memulai fetch daftar kampus, akan memicu shimmer kampus
+        initiateLocationProcess()
+        viewModel.fetchCampusList()
         viewModel.loadUserProfile()
+    }
+
+    private fun setupSearchAction() {
+        binding.searchViewItem.setOnClickListener {
+            val intent = Intent(requireContext(), SearchActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun setupClickListeners() {
+        binding.btnOtherKosNearby.setOnClickListener {
+            val nearbyKosResult = viewModel.nearbyKosState.value
+            if (nearbyKosResult is Result.Success && nearbyKosResult.data.isNotEmpty()) {
+
+                val kosListForNewActivity = nearbyKosResult.data.map { kos ->
+                    kos.copy(layoutType = KosLayoutType.REGULAR)
+                }
+
+                val intent = Intent(requireContext(), AllKosListActivity::class.java).apply {
+                    putExtra(AllKosListActivity.EXTRA_TITLE, getString(R.string.kos_terdekat))
+                    putExtra(AllKosListActivity.EXTRA_DESC_TITLE,
+                        getString(R.string.di_sekitar_anda))
+                    putParcelableArrayListExtra(
+                        AllKosListActivity.EXTRA_KOS_LIST,
+                        ArrayList(kosListForNewActivity)
+                    )
+                }
+                startActivity(intent)
+            } else {
+                Toast.makeText(requireContext(),
+                    getString(R.string.data_kos_terdekat_tidak_tersedia), Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.btnBudgetKos.setOnClickListener {
+            val budgetKosResult = viewModel.budgetKosState.value
+            if (budgetKosResult is Result.Success && budgetKosResult.data.isNotEmpty()) {
+
+                val kosListForNewActivity = budgetKosResult.data.map { kos ->
+                    kos.copy(layoutType = KosLayoutType.REGULAR)
+                }
+
+                val title = getString(R.string.kos_sesuai_budget)
+                val description = when (viewModel.selectedPriceRange.value) {
+                    PriceRangeFilter.BELOW_500K -> getString(R.string.list_kos_under_500)
+                    PriceRangeFilter.BETWEEN_500K_700K -> getString(R.string.list_kos_500_to_700)
+                    PriceRangeFilter.ABOVE_700K -> getString(R.string.list_kos_above_700)
+                    else -> getString(R.string.all_kos_according_budget)
+                }
+
+                val intent = Intent(requireContext(), AllKosListActivity::class.java).apply {
+                    putExtra(AllKosListActivity.EXTRA_TITLE, title)
+                    putExtra(AllKosListActivity.EXTRA_DESC_TITLE, description)
+                    putParcelableArrayListExtra(
+                        AllKosListActivity.EXTRA_KOS_LIST,
+                        ArrayList(kosListForNewActivity)
+                    )
+                }
+                startActivity(intent)
+            } else {
+                Toast.makeText(requireContext(),
+                    getString(R.string.data_kos_budget_not_available), Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun setupNearbyKosRecyclerView() {
@@ -112,7 +189,6 @@ class HomeFragment : Fragment() {
             }
             startActivity(intent)
         }
-        // PERBAIKAN DI SINI:
         binding.rvBudgetKos.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = budgetKosAdapter
@@ -126,11 +202,9 @@ class HomeFragment : Fragment() {
                     R.id.btnFilterBelow500k_toggle -> PriceRangeFilter.BELOW_500K
                     R.id.btnFilter500k700k_toggle -> PriceRangeFilter.BETWEEN_500K_700K
                     R.id.btnFilterAbove700k_toggle -> PriceRangeFilter.ABOVE_700K
-                    else -> null // Seharusnya tidak terjadi jika selectionRequired=true
+                    else -> null
                 }
                 newFilter?.let {
-                    // Hanya panggil jika filter berubah dari state ViewModel saat ini,
-                    // untuk menghindari pemanggilan ganda jika check di-set secara programatik.
                     if (viewModel.selectedPriceRange.value != it) {
                         viewModel.filterKosByBudget(it)
                     }
@@ -158,7 +232,7 @@ class HomeFragment : Fragment() {
                     } else {
                         binding.tvNearbyKosStatus.visibility = View.GONE
                         binding.rvNearbyKos.visibility = View.VISIBLE
-                        nearbyKosAdapter.submitList(result.data)
+                        nearbyKosAdapter.submitList(result.data.take(5))
                     }
                 }
                 is Result.Error -> {
@@ -234,8 +308,6 @@ class HomeFragment : Fragment() {
         }
 
         viewModel.selectedPriceRange.observe(viewLifecycleOwner) { filter ->
-            // Update UI toggle group jika state filter di ViewModel berubah
-            // Ini akan memastikan tombol yang benar terpilih secara visual.
             if (filter != null) {
                 val newCheckedId = when (filter) {
                     PriceRangeFilter.BELOW_500K -> R.id.btnFilterBelow500k_toggle
@@ -249,12 +321,10 @@ class HomeFragment : Fragment() {
         }
 
         viewModel.userLocation.observe(viewLifecycleOwner) { location ->
-            // Jika lokasi null DAN shimmer nearby kos tidak terlihat (artinya proses loading selesai/gagal)
-            // DAN RecyclerView nearby kos juga tidak terlihat (tidak ada data sukses)
             if (location == null &&
-                viewModel.nearbyKosState.value !is Result.Success && // Data kos belum sukses
-                shimmerNearbyKosLayout.visibility == View.GONE &&    // Shimmer sudah hilang
-                binding.rvNearbyKos.visibility == View.GONE) {       // RecyclerView juga hilang
+                viewModel.nearbyKosState.value !is Result.Success &&
+                shimmerNearbyKosLayout.visibility == View.GONE &&
+                binding.rvNearbyKos.visibility == View.GONE) {
 
                 binding.tvNearbyKosStatus.text = getString(R.string.txt_unable_to_get_your_location_to_find_the_nearby_kos)
                 binding.tvNearbyKosStatus.visibility = View.VISIBLE
@@ -288,39 +358,35 @@ class HomeFragment : Fragment() {
 
     private fun fetchLocationAndNotifyViewModel() {
         viewLifecycleOwner.lifecycleScope.launch {
-            binding.progressIndicator.visibility = View.VISIBLE // Tampilkan global progress
-            // Sembunyikan tampilan terkait kos terdekat saat lokasi belum didapat
-            shimmerNearbyKosLayout.stopShimmer() // Pastikan shimmer berhenti jika sebelumnya aktif
+            binding.progressIndicator.visibility = View.VISIBLE
+            shimmerNearbyKosLayout.stopShimmer()
             shimmerNearbyKosLayout.visibility = View.GONE
             binding.rvNearbyKos.visibility = View.GONE
             binding.tvNearbyKosStatus.visibility = View.GONE
 
             when (val helperResult = locationHelper.getCurrentLocation()) {
                 is LocationResult.Success -> {
-                    binding.progressIndicator.visibility = View.GONE // Sembunyikan global progress
-                    viewModel.updateUserLocation(helperResult.location) // Ini akan memicu nearbyKosState
+                    binding.progressIndicator.visibility = View.GONE
+                    viewModel.updateUserLocation(helperResult.location)
                 }
                 is LocationResult.Error -> {
                     binding.progressIndicator.visibility = View.GONE
-                    // Shimmer dan RV sudah disembunyikan di atas
                     binding.tvNearbyKosStatus.text = helperResult.message
                     binding.tvNearbyKosStatus.visibility = View.VISIBLE
                     viewModel.updateUserLocation(null)
                 }
                 is LocationResult.PermissionDenied -> {
                     binding.progressIndicator.visibility = View.GONE
-                    // Shimmer dan RV sudah disembunyikan di atas
                     handlePermissionDeniedUI(showSettingsOption = !shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION))
                 }
                 is LocationResult.LocationDisabled -> {
                     binding.progressIndicator.visibility = View.GONE
-                    // Shimmer dan RV sudah disembunyikan di atas
                     binding.tvNearbyKosStatus.text = getString(R.string.txt_location_services_gps_are_disabled_please_enable_them)
                     binding.tvNearbyKosStatus.visibility = View.VISIBLE
                     viewModel.updateUserLocation(null)
                 }
                 is LocationResult.Loading -> {
-                    // binding.progressIndicator sudah visible
+
                 }
             }
         }
@@ -333,33 +399,30 @@ class HomeFragment : Fragment() {
         if (fineLocationGranted || coarseLocationGranted) {
             fetchLocationAndNotifyViewModel()
         } else {
-            // Izin tidak diberikan
-            binding.progressIndicator.visibility = View.GONE // Sembunyikan global progress
-            // Pastikan shimmer dan RV kos terdekat disembunyikan
+            binding.progressIndicator.visibility = View.GONE
             shimmerNearbyKosLayout.stopShimmer()
             shimmerNearbyKosLayout.visibility = View.GONE
             binding.rvNearbyKos.visibility = View.GONE
 
             if (!shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
-                handlePermissionDeniedUI(showSettingsOption = true) // Pengguna memilih "don't ask again"
+                handlePermissionDeniedUI(showSettingsOption = true)
             } else {
-                handlePermissionDeniedUI(showSettingsOption = false) // Pengguna menolak biasa
+                handlePermissionDeniedUI(showSettingsOption = false)
             }
         }
     }
 
     private fun showPermissionRationaleDialog() {
         AlertDialog.Builder(requireContext())
-            .setTitle("Location Permission Needed!")
-            .setMessage("This app requires location permission to display kos nearby you.")
-            .setPositiveButton("Grant Permission") { _, _ ->
+            .setTitle(getString(R.string.location_permission_needed))
+            .setMessage(getString(R.string.this_app_requires_location_permission_to_display_kos_nearby_you))
+            .setPositiveButton(getString(R.string.grant_permission)) { _, _ ->
                 locationHelper.requestLocationPermissions { permissions ->
                     handlePermissionResult(permissions)
                 }
             }
-            .setNegativeButton("Cancel") { dialog, _ ->
+            .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()
-                // Izin dibatalkan dari dialog rationale
                 binding.progressIndicator.visibility = View.GONE
                 shimmerNearbyKosLayout.stopShimmer()
                 shimmerNearbyKosLayout.visibility = View.GONE
@@ -371,7 +434,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun handlePermissionDeniedUI(showSettingsOption: Boolean) {
-        // Pastikan shimmer dan RV kos terdekat disembunyikan karena izin ditolak
         shimmerNearbyKosLayout.stopShimmer()
         shimmerNearbyKosLayout.visibility = View.GONE
         binding.rvNearbyKos.visibility = View.GONE
@@ -379,7 +441,8 @@ class HomeFragment : Fragment() {
         binding.tvNearbyKosStatus.text = getString(R.string.txt_location_permission_denied_nearby_features_cannot_be_used)
         binding.tvNearbyKosStatus.visibility = View.VISIBLE
         binding.progressIndicator.visibility = View.GONE
-        Toast.makeText(requireContext(), "Location permission denied.", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(),
+            getString(R.string.location_permission_denied), Toast.LENGTH_SHORT).show()
 
         if (showSettingsOption) {
             showSettingsDialog()
@@ -388,17 +451,16 @@ class HomeFragment : Fragment() {
 
     private fun showSettingsDialog() {
         AlertDialog.Builder(requireContext())
-            .setTitle("Permission Needed!")
-            .setMessage("This app requires location permission. Enable it in App Settings.")
-            .setPositiveButton("Settings") { _, _ ->
+            .setTitle(getString(R.string.permission_needed))
+            .setMessage(getString(R.string.this_app_requires_location_permission_enable))
+            .setPositiveButton(getString(R.string.settings)) { _, _ ->
                 val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
                 val uri = Uri.fromParts("package", requireActivity().packageName, null)
                 intent.data = uri
                 startActivity(intent)
             }
-            .setNegativeButton("Cancel") { dialog, _ ->
+            .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()
-                // Pengguna membatalkan dari dialog pengaturan, pastikan UI konsisten
                 if (viewModel.nearbyKosState.value !is Result.Success && !locationHelper.hasLocationPermission()) {
                     shimmerNearbyKosLayout.stopShimmer()
                     shimmerNearbyKosLayout.visibility = View.GONE
@@ -413,19 +475,15 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        // Cek izin saat fragment kembali aktif
         if (locationHelper.hasLocationPermission()) {
-            // Jika lokasi belum ada ATAU data kos terdekat masih error (bukan loading/sukses)
             if (viewModel.userLocation.value == null ||
                 (viewModel.nearbyKosState.value is Result.Error && shimmerNearbyKosLayout.visibility == View.GONE)) {
                 fetchLocationAndNotifyViewModel()
             }
-            // Jika daftar kampus belum sukses dan shimmer kampus tidak aktif, fetch lagi
             if (viewModel.campusListState.value !is Result.Success && shimmerCampusLayout.visibility == View.GONE) {
                 viewModel.fetchCampusList()
             }
         } else {
-            // Izin tidak ada, pastikan UI untuk kos terdekat mencerminkan ini
             binding.progressIndicator.visibility = View.GONE
             shimmerNearbyKosLayout.stopShimmer()
             shimmerNearbyKosLayout.visibility = View.GONE
@@ -433,9 +491,9 @@ class HomeFragment : Fragment() {
             binding.tvNearbyKosStatus.text = getString(R.string.txt_allow_location_access_to_see_kos_nearby_you)
             binding.tvNearbyKosStatus.visibility = View.VISIBLE
 
-            if (viewModel.selectedPriceRange.value == null) { // Jika belum ada filter, set default
+            if (viewModel.selectedPriceRange.value == null) {
                 viewModel.filterKosByBudget(PriceRangeFilter.BELOW_500K)
-            } else { // Panggil ulang filter yg ada
+            } else {
                 viewModel.filterKosByBudget(viewModel.selectedPriceRange.value!!)
             }
         }
@@ -443,7 +501,6 @@ class HomeFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        // Hentikan shimmer secara manual untuk menghindari memory leak jika fragment dihancurkan saat shimmer aktif
         if (::shimmerNearbyKosLayout.isInitialized) {
             shimmerNearbyKosLayout.stopShimmer()
         }

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.fragment.maps.MapsFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -11,397 +13,60 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:elevation="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:src="@drawable/gokos_blue"
-            android:text="@string/txt_toolbar_maps"
-            android:textSize="20sp"
-            android:fontFamily="@font/figtree_semibold"
-            android:textColor="@android:color/black"
-            android:gravity="center"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/app_name" />
-
+            android:fontFamily="@font/figtree_semibold"
+            android:gravity="center"
+            android:text="@string/txt_toolbar_maps"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
     </androidx.appcompat.widget.Toolbar>
 
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#F0F0F0"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/scrollView"
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="15dp">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_unsera"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="2dp">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:id="@+id/map_image_unsera"
-                        android:layout_width="match_parent"
-                        android:layout_height="150dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/maps_unsera"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/logo_unsera"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_margin="16dp"
-                        android:src="@drawable/logo_unsera"
-                        app:layout_constraintStart_toStartOf="@id/map_image_unsera"
-                        app:layout_constraintTop_toTopOf="@id/map_image_unsera" />
-
-                    <TextView
-                        android:id="@+id/title_unsera"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginStart="16dp"
-                        android:text="@string/txt_unsera"
-                        android:textColor="@color/primary"
-                        android:textSize="20sp"
-                        android:fontFamily="@font/figtree_semibold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/map_image_unsera" />
-
-                    <ImageView
-                        android:id="@+id/location_icon_unsera"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:layout_marginTop="6dp"
-                        android:src="@drawable/charm_map"
-                        app:layout_constraintStart_toStartOf="@id/title_unsera"
-                        app:layout_constraintTop_toBottomOf="@id/title_unsera" />
-
-                    <TextView
-                        android:id="@+id/address_unsera"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:text="@string/txt_address_unsera"
-                        android:textColor="@color/gray"
-                        android:textSize="12sp"
-                        android:fontFamily="@font/figtree_medium"
-                        app:layout_constraintBottom_toBottomOf="@id/location_icon_unsera"
-                        app:layout_constraintStart_toEndOf="@id/location_icon_unsera"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/location_icon_unsera" />
-
-                    <TextView
-                        android:id="@+id/info_unsera"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="16dp"
-                        android:text="@string/txt_description_unsera"
-                        android:textSize="12sp"
-                        android:fontFamily="@font/figtree_light"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@id/title_unsera"
-                        app:layout_constraintTop_toBottomOf="@id/address_unsera" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_uniba"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="2dp">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:id="@+id/map_image_uniba"
-                        android:layout_width="match_parent"
-                        android:layout_height="150dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/maps_uniba"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/logo_uniba"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_margin="16dp"
-                        android:src="@drawable/logo_universitas_bina_bangsa"
-                        app:layout_constraintStart_toStartOf="@id/map_image_uniba"
-                        app:layout_constraintTop_toTopOf="@id/map_image_uniba" />
-
-                    <TextView
-                        android:id="@+id/title_uniba"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginStart="16dp"
-                        android:text="@string/txt_uniba"
-                        android:textColor="@color/primary"
-                        android:textSize="20sp"
-                        android:fontFamily="@font/figtree_semibold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/map_image_uniba" />
-
-                    <ImageView
-                        android:id="@+id/location_icon_uniba"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:layout_marginTop="6dp"
-                        android:src="@drawable/charm_map"
-                        app:layout_constraintStart_toStartOf="@id/title_uniba"
-                        app:layout_constraintTop_toBottomOf="@id/title_uniba" />
-
-                    <TextView
-                        android:id="@+id/address_uniba"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:text="@string/txt_address_uniba"
-                        android:textColor="@color/gray"
-                        android:textSize="12sp"
-                        android:fontFamily="@font/figtree_medium"
-                        app:layout_constraintBottom_toBottomOf="@id/location_icon_uniba"
-                        app:layout_constraintStart_toEndOf="@id/location_icon_uniba"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/location_icon_uniba" />
-
-                    <TextView
-                        android:id="@+id/info_uniba"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="16dp"
-                        android:text="@string/txt_description_uniba"
-                        android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@id/title_uniba"
-                        app:layout_constraintTop_toBottomOf="@id/address_uniba" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_uinsmhbanten"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="2dp">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:id="@+id/map_image_uinsmhbanten"
-                        android:layout_width="match_parent"
-                        android:layout_height="150dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/maps_unsera"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/logo_uinsmhbanten"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_margin="16dp"
-                        android:src="@drawable/logo_uin_smh_banten"
-                        app:layout_constraintStart_toStartOf="@id/map_image_uinsmhbanten"
-                        app:layout_constraintTop_toTopOf="@id/map_image_uinsmhbanten" />
-
-                    <TextView
-                        android:id="@+id/title_uinsmhbanten"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginStart="16dp"
-                        android:text="@string/txt_uinsmhbanten"
-                        android:textColor="@color/primary"
-                        android:textSize="20sp"
-                        android:fontFamily="@font/figtree_semibold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/map_image_uinsmhbanten" />
-
-                    <ImageView
-                        android:id="@+id/location_icon_uinsmhbanten"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:layout_marginTop="6dp"
-                        android:src="@drawable/charm_map"
-                        app:layout_constraintStart_toStartOf="@id/title_uinsmhbanten"
-                        app:layout_constraintTop_toBottomOf="@id/title_uinsmhbanten" />
-
-                    <TextView
-                        android:id="@+id/address_uinsmhbanten"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:text="@string/txt_address_uinsmhbanten"
-                        android:textColor="@color/gray"
-                        android:textSize="12sp"
-                        android:fontFamily="@font/figtree_medium"
-                        app:layout_constraintBottom_toBottomOf="@id/location_icon_uinsmhbanten"
-                        app:layout_constraintStart_toEndOf="@id/location_icon_uinsmhbanten"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/location_icon_uinsmhbanten" />
-
-                    <TextView
-                        android:id="@+id/info_uinsmhbanten"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="16dp"
-                        android:text="@string/txt_description_uinsmhbanten"
-                        android:textSize="12sp"
-                        android:fontFamily="@font/figtree_light"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@id/title_uinsmhbanten"
-                        app:layout_constraintTop_toBottomOf="@id/address_uinsmhbanten" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_fkip"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="2dp">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:id="@+id/map_image_fkip"
-                        android:layout_width="match_parent"
-                        android:layout_height="150dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/maps_fkipuntirta"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/logo_fkip"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_margin="16dp"
-                        android:src="@drawable/logo_fkip"
-                        app:layout_constraintStart_toStartOf="@id/map_image_fkip"
-                        app:layout_constraintTop_toTopOf="@id/map_image_fkip" />
-
-                    <TextView
-                        android:id="@+id/title_fkip"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginStart="16dp"
-                        android:text="@string/txt_fkip_untirta"
-                        android:textColor="@color/primary"
-                        android:textSize="20sp"
-                        android:fontFamily="@font/figtree_semibold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/map_image_fkip" />
-
-                    <ImageView
-                        android:id="@+id/location_icon_fkip"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:layout_marginTop="6dp"
-                        android:src="@drawable/charm_map"
-                        app:layout_constraintStart_toStartOf="@id/title_fkip"
-                        app:layout_constraintTop_toBottomOf="@id/title_fkip" />
-
-                    <TextView
-                        android:id="@+id/address_fkip"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:text="@string/txt_address_fkip"
-                        android:textColor="@color/gray"
-                        android:textSize="12sp"
-                        android:fontFamily="@font/figtree_regular"
-                        app:layout_constraintBottom_toBottomOf="@id/location_icon_fkip"
-                        app:layout_constraintStart_toEndOf="@id/location_icon_fkip"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/location_icon_fkip" />
-
-                    <TextView
-                        android:id="@+id/info_fkip"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="16dp"
-                        android:text="@string/txt_description_fkip"
-                        android:textSize="12sp"
-                        android:fontFamily="@font/figtree_light"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@id/title_fkip"
-                        app:layout_constraintTop_toBottomOf="@id/address_fkip" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
-
+            android:orientation="vertical">
+            <include layout="@layout/shimmer_items_map_campus" />
+            <include layout="@layout/shimmer_items_map_campus" />
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_campus_maps"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:listitem="@layout/items_map_campus"/>
+
+    <TextView
+        android:id="@+id/tv_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/failed_load_data"
+        android:visibility="gone"
+        tools:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

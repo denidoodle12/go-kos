@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="16dp"
     android:layout_marginVertical="8dp"
-    app:cardCornerRadius="16dp"
+    app:cardCornerRadius="10dp"
     app:cardElevation="0dp"
     app:cardBackgroundColor="@android:color/transparent"
     app:strokeWidth="0dp">
@@ -24,20 +24,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/backgrounds/scenic" />
-
-        <ImageView
-            android:id="@+id/ivFavorite"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"
-            android:background="@drawable/bg_circle_white"
-            android:padding="8dp"
-            android:src="@drawable/ic_favorite_nofilled"
-            app:layout_constraintEnd_toEndOf="@id/imageKos"
-            app:layout_constraintTop_toTopOf="@id/imageKos"
-            app:tint="@color/red"
-            android:contentDescription="Favorite Button"/>
 
         <TextView
             android:id="@+id/tvDistance"
@@ -120,7 +106,7 @@
             android:layout_marginTop="4dp"
             android:drawablePadding="6dp"
             android:ellipsize="end"
-            android:fontFamily="@font/figtree_medium"
+            android:fontFamily="@font/figtree_regular"
             android:gravity="center_vertical"
             android:maxLines="2"
             android:textColor="@color/gray"
@@ -142,7 +128,7 @@
             android:gravity="center_vertical"
             android:maxLines="1"
             android:textColor="@color/black"
-            android:textSize="14sp"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@id/tvAddress"
             app:layout_constraintStart_toStartOf="@id/tvAddress"
             app:layout_constraintTop_toBottomOf="@id/tvAddress"
@@ -157,7 +143,7 @@
             android:layout_marginEnd="5dp"
             android:fontFamily="@font/figtree_bold"
             android:textColor="@color/red"
-            android:textSize="18sp"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@id/tagsContainer"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvFacilities"

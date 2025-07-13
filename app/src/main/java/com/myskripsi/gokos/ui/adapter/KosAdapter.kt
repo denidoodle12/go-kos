@@ -15,7 +15,7 @@ import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.Locale
 
-class KosAdapter : ListAdapter<Kos, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
+class KosAdapter(private var campusName: String = "") : ListAdapter<Kos, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
 
     var onItemClick: ((Kos) -> Unit)? = null
 
@@ -46,6 +46,17 @@ class KosAdapter : ListAdapter<Kos, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
                     return oldItem == newItem
                 }
             }
+    }
+
+    fun setCampusName(name: String) {
+        // Logika untuk menyingkat nama kampus
+        this.campusName = when {
+            name.contains("Serang Raya", ignoreCase = true) -> "Unsera"
+            name.contains("Bina Bangsa", ignoreCase = true) -> "Uniba"
+            else -> name
+        }
+        // Beritahu adapter untuk me-render ulang semua item yang terlihat
+        notifyItemRangeChanged(0, itemCount)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -88,10 +99,20 @@ class KosAdapter : ListAdapter<Kos, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
                 binding.tvCategory.text = kos.kategori
                 binding.tvAddress.text = kos.alamat
 
-                binding.tvDistance.text = formatDistance(kos.lokasi.jarak)
+                val formattedDistance = formatDistance(kos.lokasi.jarak)
+                if (campusName.isNotBlank()) {
+                    binding.tvDistance.text = "$formattedDistance dari $campusName"
+                } else {
+                    binding.tvDistance.text = formattedDistance
+                }
 
-                val facilitiesText = kos.fasilitas_kamar.joinToString("•")
-                binding.tvFacilities.text = facilitiesText
+                val allFacilities = kos.fasilitas_kamar + kos.fasilitas_kamar_mandi
+
+                if (allFacilities.isNotEmpty()) {
+                    binding.tvFacilities.visibility = View.VISIBLE
+                    val facilitiesText = allFacilities.joinToString("•")
+                    binding.tvFacilities.text = facilitiesText
+                }
 
                 binding.tvPrice.text = CURRENCY_FORMATTER.format(kos.harga.toDouble())
 
@@ -130,6 +151,14 @@ class KosAdapter : ListAdapter<Kos, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
 
                 binding.textView.text = formatDistance(kos.lokasi.jarak)
                 binding.startFrom.text = itemView.context.getString(R.string.txt_startFrom)
+
+                val allFacilities = kos.fasilitas_kamar + kos.fasilitas_kamar_mandi
+
+                if (allFacilities.isNotEmpty()) {
+                    binding.facilitiesKos.visibility = View.VISIBLE
+                    val facilitiesText = allFacilities.joinToString("•")
+                    binding.facilitiesKos.text = facilitiesText
+                }
 
                 binding.priceKos.text = CURRENCY_FORMATTER.format(kos.harga.toDouble())
 

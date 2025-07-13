@@ -1,5 +1,4 @@
-package com.myskripsi.gokos.ui.fragment.customalertdialog // Atau di package yang sama dengan dialog sebelumnya
-
+package com.myskripsi.gokos.ui.fragment.customalertdialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -24,8 +23,8 @@ class ConfirmationDialogFragment : DialogFragment() {
     override fun onStart() {
         super.onStart()
         dialog?.window?.setLayout(
-            (resources.displayMetrics.widthPixels * 0.90).toInt(), // Lebar 90% dari layar
-            ViewGroup.LayoutParams.WRAP_CONTENT // Tinggi mengikuti konten
+            (resources.displayMetrics.widthPixels * 0.90).toInt(),
+            ViewGroup.LayoutParams.WRAP_CONTENT
         )
     }
 
@@ -43,7 +42,6 @@ class ConfirmationDialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Ambil data dari arguments
         val arguments = requireArguments()
         binding.tvDialogTitle.text = arguments.getString(ARG_TITLE)
         binding.tvDialogMessage.text = arguments.getString(ARG_MESSAGE)
@@ -68,13 +66,11 @@ class ConfirmationDialogFragment : DialogFragment() {
     }
 
     companion object {
-        // Tambahkan argumen baru
         private const val ARG_TITLE = "arg_title"
         private const val ARG_MESSAGE = "arg_message"
         private const val ARG_POSITIVE_BUTTON_TEXT = "arg_positive_button_text"
         private const val ARG_NEGATIVE_BUTTON_TEXT = "arg_negative_button_text"
 
-        // Perbarui factory method untuk menerima teks custom
         fun newInstance(
             title: String,
             message: String,

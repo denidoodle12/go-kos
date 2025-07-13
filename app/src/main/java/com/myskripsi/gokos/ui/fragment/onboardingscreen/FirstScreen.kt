@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.myskripsi.gokos.R
 import com.myskripsi.gokos.databinding.FragmentFirstScreenBinding
 import com.myskripsi.gokos.ui.activity.onboarding.OnboardingActivity
 

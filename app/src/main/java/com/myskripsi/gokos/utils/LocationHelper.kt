@@ -8,6 +8,7 @@ import android.location.LocationManager
 import android.os.Looper
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.location.LocationManagerCompat
 import androidx.fragment.app.Fragment
@@ -17,35 +18,16 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
 class LocationHelper(
-    private val fragment: Fragment
+    private val activity: AppCompatActivity,
+    private val permissionLauncher: ActivityResultLauncher<Array<String>>
 ) {
     private val fusedLocationClient: FusedLocationProviderClient =
-        LocationServices.getFusedLocationProviderClient(fragment.requireActivity()) // DIUBAH: Menggunakan fragment.requireActivity()
+        LocationServices.getFusedLocationProviderClient(activity) // Menggunakan activity
 
-    private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     private var onPermissionResultCallback: ((Map<String, Boolean>) -> Unit)? = null
 
-    init {
-        // Inisialisasi launcher menggunakan Fragment, yang akan dipanggil di onCreate Fragment
-        permissionLauncher = fragment.registerForActivityResult(
-            ActivityResultContracts.RequestMultiplePermissions()
-        ) { permissions ->
-            onPermissionResultCallback?.invoke(permissions)
-        }
-    }
-
-    fun hasLocationPermission(): Boolean {
-        return ContextCompat.checkSelfPermission(
-            fragment.requireContext(), // DIUBAH: Menggunakan fragment.requireContext()
-            Manifest.permission.ACCESS_FINE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(
-            fragment.requireContext(), // DIUBAH
-            Manifest.permission.ACCESS_COARSE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED
-    }
-
     fun requestLocationPermissions(callback: (Map<String, Boolean>) -> Unit) {
-        onPermissionResultCallback = callback
+        this.onPermissionResultCallback = callback
         permissionLauncher.launch(
             arrayOf(
                 Manifest.permission.ACCESS_FINE_LOCATION,
@@ -54,18 +36,37 @@ class LocationHelper(
         )
     }
 
+    fun handlePermissionResult(permissions: Map<String, Boolean>) {
+        onPermissionResultCallback?.invoke(permissions)
+    }
+
+
+
+
+    fun hasLocationPermission(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            activity, // Menggunakan activity sebagai Context
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(
+            activity,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
     @SuppressLint("MissingPermission")
     suspend fun getCurrentLocation(): LocationResult {
         if (!hasLocationPermission()) {
             return LocationResult.PermissionDenied
         }
 
-        val locationManager = fragment.requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager // DIUBAH
+        val locationManager = activity.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (!LocationManagerCompat.isLocationEnabled(locationManager)) {
             return LocationResult.LocationDisabled
         }
 
         return try {
+            // ... sisa fungsi ini tidak perlu diubah karena sudah menggunakan `activity`
+            // sebagai context atau fusedLocationClient yang sudah diinisialisasi dengan activity.
             val lastLocation = fusedLocationClient.lastLocation.await()
             if (lastLocation != null) {
                 LocationResult.Success(lastLocation)
@@ -79,6 +80,7 @@ class LocationHelper(
         }
     }
 
+
     @SuppressLint("MissingPermission")
     private suspend fun requestSingleLocationUpdate(): LocationResult = suspendCancellableCoroutine { continuation ->
         if (!hasLocationPermission()) {
@@ -86,7 +88,7 @@ class LocationHelper(
             return@suspendCancellableCoroutine
         }
 
-        val locationManager = fragment.requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager // DIUBAH
+        val locationManager = activity.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (!LocationManagerCompat.isLocationEnabled(locationManager)) {
             if (continuation.isActive) continuation.resume(LocationResult.LocationDisabled)
             return@suspendCancellableCoroutine

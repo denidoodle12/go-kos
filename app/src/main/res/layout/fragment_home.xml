@@ -70,7 +70,8 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="15dp"
                     android:fontFamily="@font/figtree_semibold"
-                    android:text="@string/hiUsername"
+                    android:textColor="@color/black"
+                    tools:text="@string/hiUsername"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -134,7 +135,9 @@
                                 android:layout_height="wrap_content"
                                 android:theme="@style/CustomSearchView"
                                 app:iconifiedByDefault="false"
-                                app:queryHint="@string/searchItem" />
+                                app:queryHint="@string/searchItem"
+                                android:focusable="false"
+                                android:clickable="true"/>
                         </com.google.android.material.card.MaterialCardView>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -149,6 +152,7 @@
                     android:fontFamily="@font/figtree_semibold"
                     android:text="@string/txt_headingOne"
                     android:textSize="16sp"
+                    android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cardViewBanner" />
 
@@ -249,6 +253,7 @@
                     android:fontFamily="@font/figtree_semibold"
                     android:text="@string/txt_headingTwo"
                     android:textSize="16sp"
+                    android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/divider1" />
 
@@ -328,7 +333,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:visibility="gone"
-                        tools:text="Gagal memuat daftar kampus"/>
+                        tools:text="@string/failed_load_list_campus"/>
 
                 </FrameLayout>
 
@@ -351,6 +356,7 @@
                     android:fontFamily="@font/figtree_semibold"
                     android:text="@string/txt_cari_kos_sesuai_budgetmu"
                     android:textSize="16sp"
+                    android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/divider2" />
 
@@ -397,6 +403,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/filter_below_500k"
+                            android:fontFamily="@font/figtree_regular"
                             android:textAllCaps="false"
                             android:textColor="@color/selector_filter_button_text_color"
                             app:backgroundTint="@color/selector_filter_button_background_color"
@@ -409,6 +416,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/filter_500k_700k"
+                            android:fontFamily="@font/figtree_regular"
                             android:textAllCaps="false"
                             android:textColor="@color/selector_filter_button_text_color"
                             app:backgroundTint="@color/selector_filter_button_background_color"
@@ -421,6 +429,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/filter_above_700k"
+                            android:fontFamily="@font/figtree_regular"
                             android:textAllCaps="false"
                             android:textColor="@color/selector_filter_button_text_color"
                             app:backgroundTint="@color/selector_filter_button_background_color"
@@ -495,7 +504,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/budgetKosContainer"
-                    tools:text="Tidak ada kos ditemukan untuk budget tersebut." />
+                    tools:text="@string/no_kos_found_for_that_budget" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

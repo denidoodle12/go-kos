@@ -1,3 +1,4 @@
+// File: ui/activity/detailKos/DetailKosActivity.kt
 package com.myskripsi.gokos.ui.activity.detailKos
 
 import android.content.Intent
@@ -16,10 +17,12 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.MarkerOptions
 import com.myskripsi.gokos.R
+import com.myskripsi.gokos.data.model.Favorite
 import com.myskripsi.gokos.data.model.Kos
 import com.myskripsi.gokos.databinding.ActivityDetailKosBinding
 import com.myskripsi.gokos.databinding.ItemsFacilityBinding
 import com.myskripsi.gokos.ui.adapter.KosAdapter
+import com.myskripsi.gokos.ui.fragment.favorite.FavoriteActionBottomSheet
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.Locale
@@ -27,11 +30,13 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.myskripsi.gokos.utils.Result
 
 @Suppress("DEPRECATION")
-class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback {
+class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback, FavoriteActionBottomSheet.FavoriteActionListener {
 
     private lateinit var binding: ActivityDetailKosBinding
     private var googleMap: GoogleMap? = null
     private var currentKos: Kos? = null
+    private var currentFavoriteStatus: Favorite? = null
+    private var campusNameRef: String? = null
 
     private val viewModel: DetailKosViewModel by viewModel()
     private lateinit var otherKosAdapter: KosAdapter
@@ -43,24 +48,22 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
-
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowTitleEnabled(false)
         }
 
         shimmerOtherKosNearby = binding.shimmerOtherKosNearby
-
         setupOtherKosRecyclerView()
-        observeViewModel()
 
         var mapViewBundle: Bundle? = null
-        if (savedInstanceState !=null) {
+        if (savedInstanceState != null) {
             mapViewBundle = savedInstanceState.getBundle(MAPVIEW_BUNDLE_KEY)
         }
         binding.mapViewKosLocation.onCreate(mapViewBundle)
 
         val dataKos = intent.getParcelableExtra<Kos>(EXTRA_DETAIL_KOS)
+        campusNameRef = intent.getStringExtra(EXTRA_CAMPUS_NAME_REF)
 
         if (dataKos != null) {
             this.currentKos = dataKos
@@ -68,6 +71,34 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback {
             binding.mapViewKosLocation.getMapAsync(this)
 
             viewModel.fetchOtherNearbyKos(dataKos)
+            viewModel.checkFavoriteStatus(dataKos.id)
+            setupFavoriteButtonListener()
+        } else {
+            Toast.makeText(this, getString(R.string.failed_load_data_kos), Toast.LENGTH_SHORT).show()
+            finish()
+        }
+
+        observeViewModel()
+    }
+
+    private fun setupFavoriteButtonListener() {
+        binding.ivFavorite.setOnClickListener {
+            currentKos?.let { kos ->
+                val mode = if (currentFavoriteStatus == null) FavoriteActionBottomSheet.Mode.ADD else FavoriteActionBottomSheet.Mode.DELETE
+                val bottomSheet = FavoriteActionBottomSheet.newInstance(kos, mode, currentFavoriteStatus?.note)
+                bottomSheet.setFavoriteActionListener(this)
+                bottomSheet.show(supportFragmentManager, FavoriteActionBottomSheet.TAG)
+            }
+        }
+    }
+
+    override fun onSaveClicked(kos: Kos, note: String) {
+        viewModel.addFavorite(kos, note)
+    }
+
+    override fun onDeleteClicked(kos: Kos) {
+        currentFavoriteStatus?.let {
+            viewModel.removeFavorite(it.id, kos.id)
         }
     }
 
@@ -83,6 +114,7 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback {
                 putExtra(EXTRA_DETAIL_KOS, selectedKos)
             }
             startActivity(intent)
+            finish()
         }
     }
 
@@ -97,9 +129,7 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback {
                 is Result.Success -> {
                     shimmerOtherKosNearby.stopShimmer()
                     shimmerOtherKosNearby.visibility = View.GONE
-
                     if (result.data.isEmpty()) {
-                        // Jika tidak ada data, sembunyikan section ini
                         binding.tvOtherKosNearbyTitle.visibility = View.GONE
                         binding.rvOtherKosNearby.visibility = View.GONE
                     } else {
@@ -111,12 +141,39 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback {
                 is Result.Error -> {
                     shimmerOtherKosNearby.stopShimmer()
                     shimmerOtherKosNearby.visibility = View.GONE
-
-                    // Sembunyikan section jika terjadi error, atau tampilkan pesan
                     binding.tvOtherKosNearbyTitle.visibility = View.GONE
                     binding.rvOtherKosNearby.visibility = View.GONE
                     Toast.makeText(this, result.message, Toast.LENGTH_SHORT).show()
                 }
+            }
+        }
+
+        viewModel.favoriteStatus.observe(this) { result ->
+            when (result) {
+                is Result.Loading -> {
+                    binding.ivFavorite.isEnabled = false
+                }
+                is Result.Success -> {
+                    binding.ivFavorite.isEnabled = true
+                    currentFavoriteStatus = result.data
+                    if (result.data != null) {
+                        binding.ivFavorite.setImageResource(R.drawable.ic_favorite_filled)
+                    } else {
+                        binding.ivFavorite.setImageResource(R.drawable.ic_favorite_outline)
+                    }
+                }
+                is Result.Error -> {
+                    binding.ivFavorite.isEnabled = false
+                    Toast.makeText(this, result.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        viewModel.actionResult.observe(this) { result ->
+            if (result is Result.Success) {
+                Toast.makeText(this, result.data, Toast.LENGTH_SHORT).show()
+            } else if (result is Result.Error) {
+                Toast.makeText(this, result.message, Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -184,7 +241,18 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback {
             binding.ivKosMainImage.setImageResource(R.drawable.placeholder_image)
         }
 
-        binding.tvDistance.text = formatDistance(dataKos.lokasi.jarak)
+        if (!campusNameRef.isNullOrBlank()) {
+            val campusShortName = when {
+                campusNameRef!!.contains("Serang Raya", ignoreCase = true) -> "Unsera"
+                campusNameRef!!.contains("Bina Bangsa", ignoreCase = true) -> "Uniba"
+                else -> campusNameRef
+            }
+            val formattedDistance = formatDistance(dataKos.lokasi.jarak)
+            binding.tvDistance.text = "$formattedDistance dari $campusShortName"
+        } else {
+            binding.tvDistance.text = formatDistance(dataKos.lokasi.jarak)
+        }
+
         binding.tvKosType.text = dataKos.kategori
         binding.tvKosName.text = dataKos.nama_kost
         binding.tvKosAddress.text = dataKos.alamat
@@ -283,6 +351,9 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onResume() {
         super.onResume()
         binding.mapViewKosLocation.onResume()
+        currentKos?.let {
+            viewModel.checkFavoriteStatus(it.id)
+        }
     }
 
     override fun onStart() {
@@ -314,6 +385,7 @@ class DetailKosActivity : AppCompatActivity(), OnMapReadyCallback {
     companion object {
         const val EXTRA_DETAIL_KOS = "extra_detail_kos"
         const val MAPVIEW_BUNDLE_KEY = "MapViewBundleKey"
+        const val EXTRA_CAMPUS_NAME_REF = "extra_campus_name_ref"
         val CURRENCY_FORMATTER: NumberFormat = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
     }
 }

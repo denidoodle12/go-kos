@@ -3,12 +3,10 @@ package com.myskripsi.gokos.ui.fragment.customalertdialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.myskripsi.gokos.R
 import com.myskripsi.gokos.databinding.DialogCustomAlertBinding
 
 class CustomAlertDialogFragment : DialogFragment() {
@@ -21,8 +19,8 @@ class CustomAlertDialogFragment : DialogFragment() {
     override fun onStart() {
         super.onStart()
         dialog?.window?.setLayout(
-            (resources.displayMetrics.widthPixels * 0.90).toInt(), // Lebar 90% dari layar
-            ViewGroup.LayoutParams.WRAP_CONTENT // Tinggi mengikuti konten
+            (resources.displayMetrics.widthPixels * 0.90).toInt(),
+            ViewGroup.LayoutParams.WRAP_CONTENT
         )
     }
 
